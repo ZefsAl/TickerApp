@@ -11,79 +11,179 @@ import MarqueeLabel
 final class TickerView: UIView {
 
     
-//    var lengthyLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: 200, height: 200), duration: 8.0, fadeLength: 10.0)
+    private static var currentFontSize: CGFloat = 80.0
     
-//    var someLable: UILabel = {
-//        let l = UILabel()
-//        l.translatesAutoresizingMaskIntoConstraints = false
-//        l.text = "Test text "
-//        return l
-//    }()
     
-    private var someLable: MarqueeLabel = {
+    // MARK: - ticker Lable
+    private var tickerLable: MarqueeLabel = {
 //        let l = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0), duration: 8.0, fadeLength: 10.0)
         let l = MarqueeLabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         
-        l.text = "Test Test Test Test Test Test"
-        l.textColor = .white
-        l.backgroundColor = .red
+        
+//        l.clipsToBounds = false
+        l.adjustsFontSizeToFitWidth = true
+        
+        l.text = "English"
+//        l.text = "Русский"
+//        l.textColor = .white
+        l.textColor = AppColors.primary
+//        l.backgroundColor = .red
         l.forceScrolling = true
-        l.font = UIFont.systemFont(ofSize: 22)
-//        l.scrollDuration = 1000
-        l.fadeLength = 10.0
+        
+        
+        l.font = SFProRounded.set(fontSize: currentFontSize, weight: .heavy)
+        // work
+        
+//        l.font = UIFont.init(name: "PermanentMarker-Regular", size: 150)
+//        l.font = UIFont.init(name: "Bangers-Regular", size: 75)
+//        l.font = UIFont.init(name: "PressStart2P-Regular", size: 150)
+//        l.font = UIFont.init(name: "LibreBarcode39-Regular", size: 150)
+        
+        
+
         l.speed = .rate(100.0)
-//        l.speed = .duration(10.0)
         l.type = .continuous
         l.animationDelay = 0.0
-//        l.contentMode = .
-//        sublabel.layer.speed
-//        l.scrollDuration
         
-//        l.speed = .
-        
-        
+        l.animationCurve = .linear // text
+        l.fadeLength = 0
+        l.leadingBuffer = 400
+        l.trailingBuffer = 200
         
         return l
     }()
     
+    // Convert Speed
+    private func textSpeed(speedStr: String?) -> CGFloat {
+        guard
+            let speedStr = speedStr,
+            let double = Double(speedStr)
+        else { return CGFloat(100.0)}
+        
+        switch double {
+        case 0:
+            isLabelize(bool: true)
+            return 0.0;
+        case 0.5:
+            isLabelize(bool: false)
+            return 50.0;
+        case 1:
+            isLabelize(bool: false)
+            return 100.0;
+        case 1.5:
+            isLabelize(bool: false)
+            return 150.0;
+        case 2:
+            isLabelize(bool: false)
+            return 200.0;
+        default:
+            isLabelize(bool: false)
+            return 100.0;
+        }
+    }
     
-//    init(someLable: MarqueeLabel) {
-//        self.someLable = someLable
-//    }
+    // Buffer нужно указывать в зависимости view width
+    private func isLabelize(bool: Bool) {
+        if bool {
+            tickerLable.leadingBuffer = 0
+            tickerLable.trailingBuffer = 0
+            tickerLable.labelize = true
+            tickerLable.textAlignment = .center
+        } else {
+            tickerLable.leadingBuffer = 400
+            tickerLable.trailingBuffer = 200
+            tickerLable.labelize = false
+            tickerLable.textAlignment = .left
+        }
+    }
+    
+    
+    private func stringToCGFloat(stringSize: String?) -> CGFloat {
+        guard
+            let stringSize = stringSize,
+            let double = Double(stringSize)
+        else { return TickerView.currentFontSize}
+        
+        switch double {
+        case 50:
+            return 50.0;
+        case 80:
+            return 80.0;
+        case 100:
+            return 100.0;
+        case 150:
+            return 150.0;
+        default:
+            return 80.0;
+        }
+    }
+    
+    
+    
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         viewStyle()
-//        self.backgroundColor = .orange
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - view Style
     private func viewStyle() {
         // Border
         self.layer.cornerRadius = 26
         self.layer.borderWidth = 3
         self.layer.borderColor = AppColors.gray6.cgColor
+        self.clipsToBounds = true
     }
     
+    // MARK: - Config Ticker
+    func setInputText(text: String) {
+        tickerLable.text = text
+        tickerLable.restartLabel()
+    }
+    func setText(textColor: UIColor?) {
+        tickerLable.textColor = textColor
+        tickerLable.restartLabel()
+    }
+    func setEffect(speedStr: String?) {
+        tickerLable.speed = .rate(textSpeed(speedStr: speedStr))
+    }
+    func setBackground(background: UIColor?) {
+        self.backgroundColor = background
+    }
+    func configTickerLayout(width: CGFloat) {
+        tickerLable.leadingBuffer = width
+        tickerLable.trailingBuffer = width/2
+    }
+    func setFontSize(stringSize: String?) {
+        tickerLable.font = tickerLable.font.withSize(stringToCGFloat(stringSize: stringSize))
+        TickerView.currentFontSize = stringToCGFloat(stringSize: stringSize)
+    }
+    func setFont(fontName: String) {
+        tickerLable.font = UIFont(name: fontName, size: TickerView.currentFontSize)
+    }
+    
+    
+    
+    
+    
     private func setupUI() {
-        
         // Adding
-//        self.view.addSubview(someLable)
+        self.addSubview(tickerLable)
         
-//        someLable.tapToScroll = true
-//        someLable.type = .continuous
-//        someLable.triggerScrollStart()
         // Constraints
         NSLayoutConstraint.activate([
-//            someLable.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            someLable.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-//            someLable.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-//            someLable.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-//            someLable.widthAnchor.constraint(equalTo: someLable.widthAnchor),
+            tickerLable.topAnchor.constraint(equalTo: self.topAnchor),
+            tickerLable.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            tickerLable.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            tickerLable.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
     }
 

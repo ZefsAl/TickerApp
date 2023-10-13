@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0185390E8703FA89E944EAFA /* Pods_TickerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 553C0F372B4CCBC64349E067 /* Pods_TickerApp.framework */; };
 		84279FDA2ACC0932003B13CC /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FD92ACC0932003B13CC /* HomeVC.swift */; };
 		84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FDB2ACC12AD003B13CC /* CustomNav.swift */; };
-		84279FDF2ACC16FB003B13CC /* SFProRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FDE2ACC16FB003B13CC /* SFProRounded.swift */; };
+		84279FDF2ACC16FB003B13CC /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FDE2ACC16FB003B13CC /* Fonts.swift */; };
 		84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */; };
 		84279FE42ACC4B4D003B13CC /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE32ACC4B4D003B13CC /* HomeCollectionView.swift */; };
 		84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */; };
@@ -24,10 +24,16 @@
 		845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845F71962AC8577E00B9F32E /* Assets.xcassets */; };
 		845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845F71982AC8577E00B9F32E /* LaunchScreen.storyboard */; };
 		845F71A32AC86D2700B9F32E /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 845F71A22AC86D2700B9F32E /* MarqueeLabel */; };
+		84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */; };
+		84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */; };
+		84A2624F2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */; };
+		84A262522AD7DE0A00BC0C9C /* LibreBarcode39-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A262512AD7DE0900BC0C9C /* LibreBarcode39-Regular.ttf */; };
 		84D342722AD01B3A00E9DD6E /* EditSettingsCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */; };
 		84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */; };
 		84D342782AD1345A00E9DD6E /* EditSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342772AD1345A00E9DD6E /* EditSettingsVM.swift */; };
 		84D3427A2AD141F300E9DD6E /* EditSettingCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */; };
+		84D695D32AD6CF01001E797B /* TickerPlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D695D22AD6CF01001E797B /* TickerPlayVC.swift */; };
+		84D695DA2AD714A6001E797B /* Cinzel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */; };
 		84F9002E2ACE678700611B54 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9002D2ACE678700611B54 /* SectionHeaderView.swift */; };
 		84F900302ACE84CD00611B54 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9002F2ACE84CD00611B54 /* AppColors.swift */; };
 		84F900342ACE8FD000611B54 /* TickerCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F900332ACE8FD000611B54 /* TickerCVCell.swift */; };
@@ -44,7 +50,7 @@
 		6C1A6ED26E9664F3884240C9 /* Pods-TickerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerApp.release.xcconfig"; path = "Target Support Files/Pods-TickerApp/Pods-TickerApp.release.xcconfig"; sourceTree = "<group>"; };
 		84279FD92ACC0932003B13CC /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		84279FDB2ACC12AD003B13CC /* CustomNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNav.swift; sourceTree = "<group>"; };
-		84279FDE2ACC16FB003B13CC /* SFProRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFProRounded.swift; sourceTree = "<group>"; };
+		84279FDE2ACC16FB003B13CC /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController_Ext.swift; sourceTree = "<group>"; };
 		84279FE32ACC4B4D003B13CC /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
 		84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBannerCVCell.swift; sourceTree = "<group>"; };
@@ -57,10 +63,16 @@
 		845F71962AC8577E00B9F32E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845F71992AC8577E00B9F32E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		845F719B2AC8577E00B9F32E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
+		84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangers-Regular.ttf"; sourceTree = "<group>"; };
+		84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PressStart2P-Regular.ttf"; sourceTree = "<group>"; };
+		84A262512AD7DE0900BC0C9C /* LibreBarcode39-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBarcode39-Regular.ttf"; sourceTree = "<group>"; };
 		84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsCV.swift; sourceTree = "<group>"; };
 		84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsModel.swift; sourceTree = "<group>"; };
 		84D342772AD1345A00E9DD6E /* EditSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsVM.swift; sourceTree = "<group>"; };
 		84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingCVCell.swift; sourceTree = "<group>"; };
+		84D695D22AD6CF01001E797B /* TickerPlayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerPlayVC.swift; sourceTree = "<group>"; };
+		84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cinzel-Regular.ttf"; sourceTree = "<group>"; };
 		84F9002D2ACE678700611B54 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		84F9002F2ACE84CD00611B54 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		84F900332ACE8FD000611B54 /* TickerCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerCVCell.swift; sourceTree = "<group>"; };
@@ -106,7 +118,7 @@
 		84279FDD2ACC162E003B13CC /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				84279FDE2ACC16FB003B13CC /* SFProRounded.swift */,
+				84279FDE2ACC16FB003B13CC /* Fonts.swift */,
 				84F9002F2ACE84CD00611B54 /* AppColors.swift */,
 			);
 			path = DesignSystem;
@@ -127,6 +139,7 @@
 				84279FD92ACC0932003B13CC /* HomeVC.swift */,
 				84F900352ACE9AE000611B54 /* EditBannerVC.swift */,
 				8456F3442AD2D16300170B29 /* OnboardingVC.swift */,
+				84D695D22AD6CF01001E797B /* TickerPlayVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,6 +186,7 @@
 				84D342732AD1331700E9DD6E /* Model */,
 				84279FE02ACC1702003B13CC /* Extensions */,
 				84279FDD2ACC162E003B13CC /* DesignSystem */,
+				84D695D42AD702F3001E797B /* Fonts */,
 			);
 			path = TickerApp;
 			sourceTree = "<group>";
@@ -203,6 +217,18 @@
 				84D342772AD1345A00E9DD6E /* EditSettingsVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84D695D42AD702F3001E797B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */,
+				84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */,
+				84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */,
+				84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */,
+				84A262512AD7DE0900BC0C9C /* LibreBarcode39-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		84F9002C2ACD562D00611B54 /* Support */ = {
@@ -277,7 +303,7 @@
 				};
 			};
 			buildConfigurationList = 845F71852AC8576B00B9F32E /* Build configuration list for PBXProject "TickerApp" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -303,8 +329,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A2624F2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf in Resources */,
 				845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */,
 				845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */,
+				84A262522AD7DE0A00BC0C9C /* LibreBarcode39-Regular.ttf in Resources */,
+				84D695DA2AD714A6001E797B /* Cinzel-Regular.ttf in Resources */,
+				84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */,
+				84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +394,7 @@
 				84F900302ACE84CD00611B54 /* AppColors.swift in Sources */,
 				84279FDA2ACC0932003B13CC /* HomeVC.swift in Sources */,
 				84F900342ACE8FD000611B54 /* TickerCVCell.swift in Sources */,
+				84D695D32AD6CF01001E797B /* TickerPlayVC.swift in Sources */,
 				84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */,
 				84F900362ACE9AE000611B54 /* EditBannerVC.swift in Sources */,
 				84279FE42ACC4B4D003B13CC /* HomeCollectionView.swift in Sources */,
@@ -371,7 +403,7 @@
 				84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */,
 				845F71922AC8576B00B9F32E /* TickerView.swift in Sources */,
 				84D342782AD1345A00E9DD6E /* EditSettingsVM.swift in Sources */,
-				84279FDF2ACC16FB003B13CC /* SFProRounded.swift in Sources */,
+				84279FDF2ACC16FB003B13CC /* Fonts.swift in Sources */,
 				84F900382ACEB65D00611B54 /* MediumButton.swift in Sources */,
 				84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */,
 				8456F3452AD2D16300170B29 /* OnboardingVC.swift in Sources */,

@@ -8,8 +8,22 @@
 import Foundation
 import UIKit
 
-// Data Model
+
+enum EditSettingsModelType {
+    case effect
+    case text
+    case background
+}
+
+
 struct EditSettingsModel {
+    let editSettingsModelType: EditSettingsModelType
+    let sections: [EditSettingsSection]
+    
+}
+
+// Data Model
+struct EditSettingsSection {
     let sectionTitle: String?
     let sectionCells: [CellSectionType]
 }
@@ -19,8 +33,9 @@ enum CellSectionType {
 }
 
 struct RegularCell {
-    let title: String?
+    let title: String? 
     let iconSystemName: String?
-    let iconColor: UIColor?
+    let bgColor: UIColor?
+    let fontName: String?
     let handler: (() -> Void)
 }

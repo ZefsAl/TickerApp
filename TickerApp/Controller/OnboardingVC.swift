@@ -83,12 +83,12 @@ final class OnboardingVC: UIViewController {
         
 //        guard let url = URL(string: "https://numerology-terms.web.app/") else { return }
         
-        DispatchQueue.main.async { [weak self] in
+//        DispatchQueue.main.async { [weak self] in
 //            guard let self = self else { return }
 //            let safariVC = SFSafariViewController(url: url)
 //            safariVC.modalPresentationStyle = .pageSheet
 //            self.present(safariVC, animated: true)
-        }
+//        }
     }
     
     // MARK: - Privacy Button
@@ -105,12 +105,12 @@ final class OnboardingVC: UIViewController {
     @objc private func privacyPolicyAct() {
 //        guard let url = URL(string: "https://numerology-privacy.web.app/") else { return }
         
-        DispatchQueue.main.async { [weak self] in
+//        DispatchQueue.main.async { [weak self] in
 //            guard let self = self else { return }
 //            let safariVC = SFSafariViewController(url: url)
 //            safariVC.modalPresentationStyle = .pageSheet
 //            self.present(safariVC, animated: true)
-        }
+//        }
     }
     
     // MARK: - Restore Button
@@ -232,9 +232,9 @@ extension OnboardingVC {
         // Margin
         let viewMargin = self.view.layoutMarginsGuide
         // Stack values
-        let left: CGFloat = 16
-        let right: CGFloat = -16
-        let width: CGFloat = right - left
+//        let left: CGFloat = 16
+//        let right: CGFloat = -16
+//        let width: CGFloat = right - left
         
         
         NSLayoutConstraint.activate([

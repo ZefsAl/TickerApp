@@ -24,6 +24,10 @@ final class MediumButton: UIButton {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.isUserInteractionEnabled = false
+        
+        iv.contentMode = .scaleAspectFit
+        iv.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 24).isActive = true
         return iv
     }()
     

@@ -44,7 +44,7 @@ final class EditBannerVC: UIViewController {
         return b
     }()
     // MARK: - TickerView
-    private let tickerView = TickerView()
+    private let tickerView: TickerView =  EditSettingsVM.tickerView  // viewDidAppear
     
     // MARK: - play
     private let play: MediumButton = {
@@ -71,7 +71,7 @@ final class EditBannerVC: UIViewController {
        let sv = UIScrollView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.showsHorizontalScrollIndicator = false
-//        sv.isScrollEnabled = false
+        sv.isScrollEnabled = false
 //        sv.showsVerticalScrollIndicator = false
 //        sv.alwaysBounceVertical = true
         sv.backgroundColor = AppColors.gray5
@@ -80,12 +80,14 @@ final class EditBannerVC: UIViewController {
     
     
     
+    
     // MARK: - Collection View
-    private let effectSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsVM: EditSettingsVM())
+//    private let effectSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().effectSettings)
+    private let effectSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().effectSettingsModel)
     
-    private let textSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsVM: EditSettingsVM())
+    private let textSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().textSettingsModel)
     
-    private let backgroundSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsVM: EditSettingsVM())
+    private let backgroundSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().backgroundSettingsModel)
 
     
     
@@ -127,12 +129,8 @@ final class EditBannerVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         
-        
         // delegate
-        tabBarView.tabBarDelegate = self
-        settingsScrollView.delegate = self
-        
-        
+        setDelegates()
         // UI
         setupUI()
         
@@ -144,14 +142,42 @@ final class EditBannerVC: UIViewController {
         print("viewDidAppear - SV = \(settingsScrollView.frame)") // 👎
         settingsScrollViewUI()
     }
+    
+    // MARK: - Delegate
+    func setDelegates() {
+        // delegate
+        tabBarView.tabBarDelegate = self
+        settingsScrollView.delegate = self
+        regularTextField.delegate = self
+    }
 
 }
 
+// MARK: - Delegate text field
+extension EditBannerVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else { return }
+        tickerView.setInputText(text: text)
+    }
+}
 
+/// MARK: - config Ticker
+//extension EditBannerVC {
+//    func configTicker() {
+////        по value changed - внутри viewDidAppear - configTicker
+//        
+//    }
+//}
+
+
+// MARK: - Delegate Tab Bar View
 extension EditBannerVC: MDCTabBarViewDelegate {
     
     func tabBarView(_ tabBarView: MDCTabBarView, didSelect item: UITabBarItem) {
         print("TAG --- \(String(describing: tabBarView.selectedItem?.tag))")
+        
+//        tabBarView.selected
 
         // Set Content Offset
         if let tag = tabBarView.selectedItem?.tag {
@@ -160,36 +186,62 @@ extension EditBannerVC: MDCTabBarViewDelegate {
     }
 }
 
+
+// MARK: - Delegate UIScrollView
 extension EditBannerVC: UIScrollViewDelegate {
+    // scrollViewDidScroll + setSelectedItem работает нормально но!
+    var page: Int {
+        let page = Int(floorf(Float(settingsScrollView.contentOffset.x) / Float(settingsScrollView.frame.size.width)))
+        if page < 0 {
+            return 0
+        } else if page > 2 {
+            return 2
+        } else {
+            return page
+        }
+        
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        
-//        let some = CGPoint(x: CGFloat(tag) / settingsScrollView.frame.size.width, y: 0)
-//        let page = Int(floorf(Float(settingsScrollView.contentOffset.x) / Float(settingsScrollView.frame.size.width)))
-        
 //        print(page)
-//        print("DidScroll")
-//
 //        tabBarView.setSelectedItem(tabBarView.items[page], animated: true)
-
+       
+// MARK: - переключать tabBarView по свайпу Нуждается в доработке!
     }
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print("ScrollingAnimation")
+//        print("ScrollingAnimation")
+//        print("Page offset --- \(page)")
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         print("EndDragging")
         
-        let page = Int(floorf(Float(settingsScrollView.contentOffset.x) / Float(settingsScrollView.frame.size.width)))
+        // переключать tabBarView по свайпу
+
+//        print("Page offset --- \(page)")
+//        print("TAG --- \(String(describing: tabBarView.selectedItem?.tag))")
         
-        print("page offset --- \(page)")
-        print("TAG --- \(String(describing: tabBarView.selectedItem?.tag))")
+//        if page >= 0 && page <= 2 {
+//            tabBarView.setSelectedItem(tabBarView.items[page], animated: true)
+//        }
         
-        if page >= 0 && page <= 2 {
-            
-//            print(tabBarView.items.count)
-            tabBarView.setSelectedItem(tabBarView.items[page], animated: true)
-        }
+//        guard let tag = tabBarView.selectedItem?.tag else { return }
+//
+//        if page == tag {
+//            tabBarView.setSelectedItem(tabBarView.items[page], animated: true)
+//        }
+        
+        
+//        tabBarView.setSelectedItem(tabBarView.items[page], animated: true)
+//        if page == 0 {
+//            tabBarView.setSelectedItem(tabBarView.items[0], animated: true)
+//        } else if page == 1 {
+//            tabBarView.setSelectedItem(tabBarView.items[1], animated: true)
+//        } else if page == 2 {
+//            tabBarView.setSelectedItem(tabBarView.items[2], animated: true)
+//        }
         
         
         
@@ -202,12 +254,6 @@ extension EditBannerVC: UIScrollViewDelegate {
 // MARK: - Setup UI
 extension EditBannerVC {
     
-    
-//    // MARK: - Style
-//    private func setupVCStyle() {
-//        self.view.backgroundColor = .black
-//    }
-//
     private func setupUI() {
         
         
@@ -245,30 +291,6 @@ extension EditBannerVC {
 
 
         
-
-        
-        
-
-        
-//        settingsScrollView.addSubview(textSettingsCV)
-//        settingsScrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: settingsScrollView.frame.size.height)
-//        settingsScrollView.contentSize = CGSize(width: settingsScrollView.frame.size.width*3, height: settingsScrollView.frame.size.height)
-//        settingsScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        
-        
-//        effectSettingsCV.frame = CGRect(x: 0, y: 0, width: settingsScrollView.frame.size.width, height: settingsScrollView.frame.size.height)
-        
-        
-        
-        
-//        let someView: UIView = {
-//           let v = UIView()
-//            v.backgroundColor = .white
-//            v.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-//            return v
-//        }()
-//        settingsScrollView.addSubview(someView)
-        
         // bottomStack
         let bottomStack = UIStackView(arrangedSubviews: [tabBarView,settingsScrollView])
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
@@ -287,6 +309,8 @@ extension EditBannerVC {
         
         let viewMargin = self.view.layoutMarginsGuide
         NSLayoutConstraint.activate([
+            
+//            regularTextField.widthAnchor.less
             
             tickerView.heightAnchor.constraint(equalToConstant: 160),
 
@@ -333,7 +357,7 @@ extension EditBannerVC {
         ])
     }
     
-    
+    // MARK: - settingsScrollViewUI
     func settingsScrollViewUI() {
 //        effectSettingsCV.frame = CGRect(x: 0, y: 0, width: settingsScrollView.frame.size.width, height: settingsScrollView.frame.size.height)
 //
@@ -381,7 +405,7 @@ extension EditBannerVC {
                     width: settingsScrollView.frame.size.width,
                     height: settingsScrollView.frame.size.height
                 )
-                
+
                 settingsScrollView.addSubview(backgroundSettingsCV)
             }
             

@@ -21,8 +21,11 @@ final class EditSettingCVCell: UICollectionViewCell {
                 self.title.textColor = .white
                 self.backgroundColor = .black
                 self.layer.borderColor = AppColors.primary.cgColor
+//                v.backgroundColor = .clear
             } else {
+                
                 disableState()
+                
             }
         }
     }
@@ -47,15 +50,23 @@ final class EditSettingCVCell: UICollectionViewCell {
         return iv
     }()
     
+    let onlyBGColor: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+//        v.backgroundColor = .clear
+        return v
+    }()
+    
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Default state
         self.backgroundColor = AppColors.gray6
         disableState()
-        // Border
+        // Style
         self.layer.borderWidth = 3
         self.layer.cornerRadius = 14
+        self.clipsToBounds = true
         // Setup
         setupStack()
     }
@@ -72,10 +83,15 @@ final class EditSettingCVCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(title: String?, iconSystemName: String?, onlyBGColor: UIColor?) {
+    func configure(title: String?, iconSystemName: String?, onlyBGColor: UIColor?, fontName: String?) {
         // title
         if title != nil {
             self.title.text = title
+        }
+        // MARK: - fontName
+        if fontName != nil {
+            self.title.font = UIFont(name: fontName ?? "", size: 25)
+            
         }
         // image
         if iconSystemName != nil {
@@ -84,7 +100,8 @@ final class EditSettingCVCell: UICollectionViewCell {
         }
         // BG
         if onlyBGColor != nil {
-            self.backgroundColor = onlyBGColor
+            
+            self.onlyBGColor.backgroundColor = onlyBGColor
         }
         
         
@@ -102,9 +119,18 @@ final class EditSettingCVCell: UICollectionViewCell {
         
         self.addSubview(contentStack)
         
+        self.addSubview(onlyBGColor)
+        
         NSLayoutConstraint.activate([
             contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            
+            onlyBGColor.topAnchor.constraint(equalTo: self.topAnchor),
+            onlyBGColor.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            onlyBGColor.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            onlyBGColor.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
         ])
     }
 }

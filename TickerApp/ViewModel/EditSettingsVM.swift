@@ -10,103 +10,194 @@ import UIKit
 
 struct EditSettingsVM {
     
-    var effectSettingsItems: [CellSectionType] = []
+    static var tickerView = TickerView() 
     
-    mutating private func effectItemsConfig() {
-        effectSettingsItems.append(
-            CellSectionType.regularCell(model: RegularCell(
-                title: "",
-                iconSystemName: "square.and.arrow.down.fill",
-                iconColor: .systemOrange,
-                handler: {}
-            )))
-    }
-    
-    
-    
-    var effectSettings: [EditSettingsModel] = []
+    var effectSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .effect, sections: [])
+    var textSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: [])
+    var backgroundSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .background, sections: [])
     
     init() {
-        effectItemsConfig()
-        configEffect()
+        configEffectData()
+        configTextData()
+        configBackgroundData()
     }
     
     
 }
 
 extension EditSettingsVM {
-    mutating private func configEffect() {
+    // MARK: - Effect
+    mutating private func configEffectData() {
         
-        effectSettings.append(
-            EditSettingsModel(
-                sectionTitle: "TESTTESTTEST",
-                sectionCells: effectSettingsItems)
-        )//Append
+        effectSettingsModel = EditSettingsModel(
+            editSettingsModelType: .effect,
+            sections: [
+                EditSettingsSection(
+                    sectionTitle: "Scroll Speed",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "0.5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "1.0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "1.5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "2",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                    ])
+            ])
+    }
+    
+    // MARK: - Text
+    mutating func configTextData() {
         
-        effectSettings.append(
-            EditSettingsModel(
-                sectionTitle: "First",
+        textSettingsModel = EditSettingsModel(
+            editSettingsModelType: .text,
+            sections: [
+                EditSettingsSection(
+                    sectionTitle: "Size",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "50",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "150",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                    ]),
+                EditSettingsSection(
+                sectionTitle: "Fonts",
                 sectionCells: [
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: AppColors.primary, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .red, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .blue, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: AppColors.primary, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .red, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .blue, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: AppColors.primary, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .red, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .blue, handler: {
-                            
-                        })),
-                ])
-        )//Append
-        
-        effectSettings.append(
-            EditSettingsModel(
-                sectionTitle: "Two",
-                sectionCells: [
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: AppColors.primary, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .red, handler: {
-                            
-                        })),
-                    CellSectionType.regularCell(model: RegularCell(
-                        title: nil, iconSystemName: "sparkles", iconColor: .blue, handler: {
-                            
-                        })),
-                ])
-        )//Append
-        
-        
-        
-        
+//                    CellSectionType.fontCell(
+//                        model: FontCellModel(
+//                            title: "Aa",
+//                            bgColor: nil,
+//                            fontName: "PermanentMarker-Regular"
+//                        )),
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "PermanentMarker-Regular",
+                            handler: {}
+                        )),
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "Bangers-Regular",
+                            handler: {}
+                        )),
+                ]),
+                EditSettingsSection(
+                    sectionTitle: "Color",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: AppColors.primary,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .black,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .white,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        
+                    ]),
+                
+            ])
+            
+    }
+    
+    // MARK: - Background
+    mutating func configBackgroundData() {
+        backgroundSettingsModel = EditSettingsModel(
+            editSettingsModelType: .background,
+            sections: [
+                EditSettingsSection(
+                    sectionTitle: "Color",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .black,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .white,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .red,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                    ])
+            ])
     }
 }

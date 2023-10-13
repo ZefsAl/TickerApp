@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = EditBannerVC()
 //        window?.rootViewController = OnboardingVC()
+//        window?.rootViewController = TickerPlayVC()
         
         window?.makeKeyAndVisible()
         
