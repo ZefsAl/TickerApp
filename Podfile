@@ -7,4 +7,6 @@ target 'TickerApp' do
 
   # Pods for TickerApp
 	pod 'MaterialComponents/Tabs+TabBarView'
+	pod 'RealmSwift', '~>10'
+	pod 'ApphudSDK'
 end

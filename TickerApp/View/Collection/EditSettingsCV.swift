@@ -6,33 +6,51 @@
 //
 
 import UIKit
+import Combine
 
-// invalidateIntrinsicContentSize
-//
+//protocol EditSettingsCV_Delegate: AnyObject {
+//    var tickerView: TickerView { get set }
+////    func getTickerView(handler: @escaping (TickerView) -> Void )
+//}
+
+
+
 final class EditSettingsCV: UICollectionView {
+    
+    
+//    private var tickerView: TickerView = EditBannerVC.tickerView
     
     let editSettingsModel: EditSettingsModel
     
-    var selectedEffectSettings: [IndexPath] = [] {
+//    let tickerView: TickerView = TickerView() // ⬅️
+    
+    
+    
+    
+
+    
+    
+    
+    var selectedEffectIndexPath: [IndexPath] = [] {
         didSet {
-            print("Effect Settings == \(selectedEffectSettings)")
+            print("Effect Settings == \(selectedEffectIndexPath)")
         }
     }
     
-    var selectedTextSettings: [IndexPath] = [] {
+    var selectedTextIndexPath: [IndexPath] = [] {
         didSet {
-            print("Text Settings == \(selectedTextSettings)")
+            print("Text Settings == \(selectedTextIndexPath)")
             
         }
     }
-    var selectedBackgrounSettings: [IndexPath] = [] {
+    var selectedBackgroundIndexPath: [IndexPath] = [] {
         didSet {
-            print("Backgroun Settings == \(selectedBackgrounSettings)")
+            print("Backgroun Settings == \(selectedBackgroundIndexPath)")
         }
     }
     
     
-    // Можем ссылаться на TickerVIew в VM
+    
     
     
     
@@ -44,16 +62,24 @@ final class EditSettingsCV: UICollectionView {
         
         self.editSettingsModel = editSettingsModel
         super.init(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        //        self.translatesAutoresizingMaskIntoConstraints = false
         setupCell()
         
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
         
-        
         setupLayoutCV()
         
+        
+        
+        
+        
+
+        
+        
+        
     }
+    
+    
     
     required init?(coder: NSCoder) {
         //        super.init(coder: coder)
@@ -210,10 +236,13 @@ extension EditSettingsCV: UICollectionViewDelegate {
         // MARK: - Effect Settings
         if editSettingsModel.editSettingsModelType == .effect {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
-            selectedEffectSettings = selectedIndexPaths
+            selectedEffectIndexPath = selectedIndexPaths
             
-            getSelectedSettings(selectedSettings: selectedEffectSettings) { model in
-                EditSettingsVM.tickerView.setEffect(speedStr: model.title)
+            // MARK: - Speed
+            getSelectedSettings(selectedSettings: selectedEffectIndexPath) { model in
+                EditBannerVC.tickerView.setEffect(speedStr: model.title)
+                
+                
             }
         }
         
@@ -222,24 +251,24 @@ extension EditSettingsCV: UICollectionViewDelegate {
         // Добавляем выбранные indexPathsForSelectedItems в отдельный массив
         if editSettingsModel.editSettingsModelType == .text {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
-            selectedTextSettings = selectedIndexPaths
+            selectedTextIndexPath = selectedIndexPaths
             // Применяем Text select
             
             // MARK: - Size
-            getSelectedSettings_v2(selectedSettings: selectedTextSettings, compareWith: "Size") { model in
-                EditSettingsVM.tickerView.setFontSize(stringSize: model.title)
+            getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Size") { model in
+                                EditBannerVC.tickerView.setFontSize(stringSize: model.title)
             }
-
+            
             // MARK: - Font
-            getSelectedSettings_v2(selectedSettings: selectedTextSettings, compareWith: "Fonts") { model in
+            getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Fonts") { model in
                 if let fontName = model.fontName {
-                    EditSettingsVM.tickerView.setFont(fontName: fontName)
+                    EditBannerVC.tickerView.setFont(fontName: fontName)
                 }
             }
             
             // MARK: - Color
-            getSelectedSettings_v2(selectedSettings: selectedTextSettings, compareWith: "Color") { model in
-                EditSettingsVM.tickerView.setText(textColor: model.bgColor)
+            getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Color") { model in
+                EditBannerVC.tickerView.setText(textColor: model.bgColor)
             }
             
             
@@ -248,10 +277,10 @@ extension EditSettingsCV: UICollectionViewDelegate {
         // MARK: - Effect Settings
         if editSettingsModel.editSettingsModelType == .background {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
-            selectedBackgrounSettings = selectedIndexPaths
+            selectedBackgroundIndexPath = selectedIndexPaths
             
-            getSelectedSettings(selectedSettings: selectedBackgrounSettings) { model in
-                EditSettingsVM.tickerView.setBackground(background: model.bgColor)
+            getSelectedSettings(selectedSettings: selectedBackgroundIndexPath) { model in
+                EditBannerVC.tickerView.setBGColor(bgColor: model.bgColor)
             }
         }
         

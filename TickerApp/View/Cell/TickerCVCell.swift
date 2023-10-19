@@ -13,27 +13,15 @@ final class TickerCVCell: UICollectionViewCell {
         String(describing: self)
     }
     
-    // MARK: - title
-    private let title: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.font = SFProRounded.set(fontSize: 17, weight: .heavy)
-        l.textAlignment = .left
-        l.textColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
-        
-        return l
-    }()
+    // MARK: - tickerView
+    let tickerView = TickerView()
     
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Border
-        self.layer.cornerRadius = 26
-        self.layer.borderWidth = 3
-        self.layer.borderColor = AppColors.gray6.cgColor
-        // Setup
-        setupStack()
+        self.backgroundColor = .clear
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -43,29 +31,22 @@ final class TickerCVCell: UICollectionViewCell {
     
     
     // MARK: - Configure
-    func configure(title: String) {
-        // Cell Style
-        self.backgroundColor = .clear
-        
-        self.title.text = title
+    func configure(tickerDataModel: TickerDataModel) {        
+        tickerView.configureTicker(tickerDataModel: tickerDataModel, frameWidth: self.frame.size.width)
+//        print(self.frame)
     }
     
     
     // MARK: - Set up Stack
-    private func setupStack() {
+    private func setupUI() {
         
-        let contentStack = UIStackView(arrangedSubviews: [title])
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.axis = .horizontal
-        contentStack.alignment = .center
-        contentStack.spacing = 6
-        
-        self.addSubview(contentStack)
+        self.addSubview(tickerView)
         
         NSLayoutConstraint.activate([
-            contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            contentStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            contentStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            tickerView.topAnchor.constraint(equalTo: self.topAnchor),
+            tickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            tickerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            tickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 }

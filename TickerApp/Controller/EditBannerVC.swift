@@ -7,9 +7,26 @@
 
 import UIKit
 import MaterialComponents.MaterialTabs_TabBarView
+import RealmSwift
+import Combine
+
 
 final class EditBannerVC: UIViewController {
-
+    
+    // MARK: - Realm
+    let realm = try! Realm()
+    
+    
+    // MARK: - TickerView
+    // Для хранения примененных параметров из Collection
+    static var tickerView: TickerView = TickerView() // 👎
+    
+    
+    // MARK: - tickerDataModel
+    var tickerDataModel: TickerDataModel?
+    
+    
+    
     // MARK: - save
     private let save: MediumButton = {
         let b = MediumButton(
@@ -21,8 +38,101 @@ final class EditBannerVC: UIViewController {
             iconColor: AppColors.primary,
             hideTitle: false
         )
+        b.addTarget(Any?.self, action: #selector(saveAct), for: .touchUpInside)
         return b
     }()
+    // MARK: - Save Act
+    @objc private func saveAct(_ sender: MediumButton) {
+        print("saveAct")
+        
+        
+        
+        
+        // get selected indexPath from CV
+        let effectData = encodeIndexPath(indexPathArr: effectSettingsCV.selectedEffectIndexPath)
+        let textData = encodeIndexPath(indexPathArr: textSettingsCV.selectedTextIndexPath)
+        let backgroundData = encodeIndexPath(indexPathArr: backgroundSettingsCV.selectedBackgroundIndexPath)
+        
+        
+//        print("effectData - ",effectData,"textData - ",textData,"backgroundData - ", backgroundData)
+        
+        // Add item
+        EditBannerVC.tickerView.getTickerConfig { model in
+            
+            // Add New
+            if self.tickerDataModel == nil {
+                try! self.realm.write {
+                    self.realm.add(model)
+                    model.selectedEffectIndexData = effectData
+                    model.selectedTextIndexData = textData
+                    model.selectedBackgroundIndexData = backgroundData
+                    self.realm.refresh()
+                }
+            }
+
+            
+            // Update тоже setSelectCV сохранить измененные selected settings
+            // Не должны сохранять пустой [] eckb [] то вернуть предыдущее сохранение
+            //                    (effectData == []) ? effectData : model.selectedEffectIndexData
+            
+            // Update
+            guard let oldModel = self.tickerDataModel else { return }
+            
+            var newEffectData: Data {
+                if self.effectSettingsCV.selectedEffectIndexPath != [] {
+                    return encodeIndexPath(indexPathArr: self.effectSettingsCV.selectedEffectIndexPath)
+                } else {
+                    return oldModel.selectedEffectIndexData
+                }
+            }
+            
+            var newTextData: Data {
+                if self.textSettingsCV.selectedTextIndexPath != [] {
+                    return encodeIndexPath(indexPathArr: self.textSettingsCV.selectedTextIndexPath)
+                } else {
+                    return oldModel.selectedTextIndexData
+                }
+            }
+            
+            var newBackgroundData: Data {
+                if self.backgroundSettingsCV.selectedBackgroundIndexPath != [] {
+                    return encodeIndexPath(indexPathArr: self.backgroundSettingsCV.selectedBackgroundIndexPath)
+                } else {
+                    return oldModel.selectedBackgroundIndexData
+                }
+                    
+            }
+            
+            
+            // find
+            let object = self.realm.objects(TickerDataModel.self).where {
+                $0._id == oldModel._id
+            }.first!
+            print(model)
+            // Set new
+            try! self.realm.write {
+
+                object.inputText = model.inputText
+                object.textColor = model.textColor
+                object.textSpeed = model.textSpeed
+                object.bgColor = model.bgColor
+                object.fontName = model.fontName
+                object.fontSize = model.fontSize
+         
+                
+                
+                object.selectedEffectIndexData = newEffectData
+                object.selectedTextIndexData = newTextData
+                object.selectedBackgroundIndexData = newBackgroundData
+                
+            }
+        }
+        
+        
+        
+        
+    }
+    
     // MARK: - close
     private let close: CircleButton = {
         let b = CircleButton(
@@ -31,20 +141,49 @@ final class EditBannerVC: UIViewController {
             iconSystemName: "xmark",
             iconColor: AppColors.gray2
         )
+        b.addTarget(Any?.self, action: #selector(closeAct), for: .touchUpInside)
         return b
     }()
-    // MARK: - edit
-    private let edit: CircleButton = {
+    @objc private func closeAct(_ sender: MediumButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // MARK: - delete
+    private let delete: CircleButton = {
         let b = CircleButton(
             frame: .zero,
             bgColor: AppColors.gray5,
-            iconSystemName: "ellipsis.circle.fill",
+            iconSystemName: "trash.fill",
             iconColor: AppColors.gray2
         )
+        b.addTarget(Any?.self, action: #selector(deleteAct), for: .touchUpInside)
         return b
     }()
-    // MARK: - TickerView
-    private let tickerView: TickerView =  EditSettingsVM.tickerView  // viewDidAppear
+    
+    // MARK: - delete Actions
+    @objc private func deleteAct(_ sender: MediumButton) {
+        
+        let alert = UIAlertController(title: "Delete?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { act in
+//            find
+            guard let model = self.tickerDataModel else { print("Empty"); return }
+            // compare id
+            let object = self.realm.objects(TickerDataModel.self).where {
+                $0._id == model._id
+            }.first!
+            // delete by id
+            try! self.realm.write {
+                self.realm.delete(object)
+            }
+            self.navigationController?.popToRootViewController(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { act in
+            alert.dismiss(animated: true)
+        }))
+        self.present(alert, animated: true)
+        
+    }
+    
     
     // MARK: - play
     private let play: MediumButton = {
@@ -57,8 +196,13 @@ final class EditBannerVC: UIViewController {
             iconColor: AppColors.secondary,
             hideTitle: true
         )
+        b.addTarget(Any?.self, action: #selector(playAct), for: .touchUpInside)
         return b
     }()
+    @objc private func playAct(_ sender: MediumButton) {
+        self.navigationController?.pushViewController(TickerPlayVC(tickerDataModel: tickerDataModel), animated: true)
+        
+    }
     
     // MARK: - Text Field
     private let regularTextField = RegularTextField(
@@ -79,10 +223,7 @@ final class EditBannerVC: UIViewController {
     }()
     
     
-    
-    
     // MARK: - Collection View
-//    private let effectSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().effectSettings)
     private let effectSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().effectSettingsModel)
     
     private let textSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().textSettingsModel)
@@ -107,19 +248,13 @@ final class EditBannerVC: UIViewController {
         // Normal
         tb.setTitleColor(AppColors.gray2, for: .normal)
         tb.setTitleFont(tabFont, for: .normal)
-        
-        
-        
         // Items
         tb.items = [
             UITabBarItem(title: "Efect", image: nil, tag: 0),
             UITabBarItem(title: "Text", image: nil, tag: 1),
             UITabBarItem(title: "Background", image: nil, tag: 2),
         ]
-        
         tb.setSelectedItem(tb.items[0], animated: true)
-        
-        
         return tb
     }()
     
@@ -131,20 +266,96 @@ final class EditBannerVC: UIViewController {
         
         // delegate
         setDelegates()
+        
         // UI
         setupUI()
+        settingsScrollViewUI()
         
     }
     
-// MARK: - viewDidAppear
+    // MARK: - viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewDidAppear - SV = \(settingsScrollView.frame)") // 👎
-        settingsScrollViewUI()
+        //        print("viewDidAppear - SV = \(settingsScrollView.frame)") // 👎
+        
     }
     
-    // MARK: - Delegate
-    func setDelegates() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    
+    
+    // MARK: - init
+    init(tickerDataModel: TickerDataModel?) {
+        super.init(nibName: nil, bundle: nil)
+        
+        print("MODEL - tickerDataModel -", tickerDataModel as Any)
+        
+        // Select
+        // Effect
+        if let data = tickerDataModel?.selectedEffectIndexData {
+            print(decodeIndexPath(indexPathData: data) as Any)
+            setSelectCV(indexData: data, collection: effectSettingsCV)
+        }
+        // Text
+        if let data = tickerDataModel?.selectedTextIndexData {
+            print(decodeIndexPath(indexPathData: data) as Any)
+            setSelectCV(indexData: data, collection: textSettingsCV)
+        }
+        // Background
+        if let data = tickerDataModel?.selectedBackgroundIndexData {
+            print(decodeIndexPath(indexPathData: data) as Any)
+            setSelectCV(indexData: data, collection: backgroundSettingsCV)
+        }
+        
+        
+        
+        
+        // New Banner
+        if tickerDataModel == nil {
+            self.tickerDataModel = nil
+            EditBannerVC.tickerView = TickerView()
+            EditBannerVC.tickerView.configTickerLayout(width: self.view.frame.size.width)
+        }
+        
+        
+        // Update Banner
+        if let model = tickerDataModel {
+            self.tickerDataModel = tickerDataModel
+            EditBannerVC.tickerView.configureTicker(tickerDataModel: model, frameWidth: self.view.frame.size.width)
+            self.regularTextField.text = model.inputText
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: - set Select CV
+    private func setSelectCV(indexData: Data?, collection: EditSettingsCV) {
+        
+        guard
+            let data = indexData,
+            let indexArr = decodeIndexPath(indexPathData: data)
+        else { return }
+        
+        for index in indexArr {
+            DispatchQueue.main.async {
+                collection.selectItem(
+                    at: index,
+                    animated: true,
+                    scrollPosition: .left
+                )
+            }
+        }
+
+    }
+    
+    // MARK: - set Delegate
+    private func setDelegates() {
         // delegate
         tabBarView.tabBarDelegate = self
         settingsScrollView.delegate = self
@@ -158,26 +369,18 @@ extension EditBannerVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         guard let text = textField.text else { return }
-        tickerView.setInputText(text: text)
+        EditBannerVC.tickerView.setInputText(text: text)
+        
     }
 }
 
-/// MARK: - config Ticker
-//extension EditBannerVC {
-//    func configTicker() {
-////        по value changed - внутри viewDidAppear - configTicker
-//        
-//    }
-//}
 
 
 // MARK: - Delegate Tab Bar View
 extension EditBannerVC: MDCTabBarViewDelegate {
     
     func tabBarView(_ tabBarView: MDCTabBarView, didSelect item: UITabBarItem) {
-        print("TAG --- \(String(describing: tabBarView.selectedItem?.tag))")
-        
-//        tabBarView.selected
+//        print("TAG --- \(String(describing: tabBarView.selectedItem?.tag))")
 
         // Set Content Offset
         if let tag = tabBarView.selectedItem?.tag {
@@ -258,7 +461,7 @@ extension EditBannerVC {
         
         
         // header
-        let headerStack = UIStackView(arrangedSubviews: [close,edit,UIView(),save])
+        let headerStack = UIStackView(arrangedSubviews: [close,delete,UIView(),save])
         headerStack.translatesAutoresizingMaskIntoConstraints = false
         headerStack.axis = .horizontal
         headerStack.alignment = .fill
@@ -272,7 +475,7 @@ extension EditBannerVC {
         inputStack.spacing = 8
         
         // tickerStack
-        let tickerStack = UIStackView(arrangedSubviews: [tickerView,inputStack])
+        let tickerStack = UIStackView(arrangedSubviews: [EditBannerVC.tickerView,inputStack])
         tickerStack.translatesAutoresizingMaskIntoConstraints = false
         tickerStack.axis = .vertical
         tickerStack.alignment = .fill
@@ -281,7 +484,7 @@ extension EditBannerVC {
         tickerStack.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
         tickerStack.isLayoutMarginsRelativeArrangement = true
         
-        // MARK: Content Stack
+        // Content Stack
         let contentStack = UIStackView(arrangedSubviews: [headerStack,tickerStack])
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.axis = .vertical
@@ -312,7 +515,7 @@ extension EditBannerVC {
             
 //            regularTextField.widthAnchor.less
             
-            tickerView.heightAnchor.constraint(equalToConstant: 160),
+            EditBannerVC.tickerView.heightAnchor.constraint(equalToConstant: 160),
 
             contentStack.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: top),
             contentStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: left),
@@ -324,86 +527,48 @@ extension EditBannerVC {
             bottomStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             bottomStack.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            
-//            settingsScrollView.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 0),
-//            settingsScrollView.leadingAnchor.constraint(equalTo: bottomStack.leadingAnchor),
-//            settingsScrollView.trailingAnchor.constraint(equalTo: bottomStack.trailingAnchor),
-//            settingsScrollView.bottomAnchor.constraint(equalTo: bottomStack.bottomAnchor),
-            
-            
-//            effectSettingsCV.topAnchor.constraint(equalTo: settingsScrollView.topAnchor),
-//            effectSettingsCV.leadingAnchor.constraint(equalTo: settingsScrollView.leadingAnchor),
-//            effectSettingsCV.trailingAnchor.constraint(equalTo: settingsScrollView.trailingAnchor),
-//            effectSettingsCV.bottomAnchor.constraint(equalTo: settingsScrollView.bottomAnchor),
-            
-            
-//            effectSettingsCV.heightAnchor.constraint(equalToConstant: 500),
-//            effectSettingsCV.widthAnchor.constraint(equalToConstant: 350),
-            
-            
-            
-//            settingsScrollView.widthAnchor.constraint(equalTo: bottomStack.widthAnchor),
-            
-//            effectSettingsCV.widthAnchor.constraint(equalTo: bottomStack.widthAnchor),
-//            textSettingsCV.widthAnchor.constraint(equalTo: bottomStack.widthAnchor),
-            
-//            editSettingsCV.leadingAnchor.constraint(equalTo: bottomStack.leadingAnchor),
-//            editSettingsCV.trailingAnchor.constraint(equalTo: bottomStack.trailingAnchor),
-//            editSettingsCV.widthAnchor.constraint(equalTo: bottomStack.widthAnchor),
-            
-//            editSettingsCV.topAnchor.constraint(equalTo: bottomStack.topAnchor),
-//            editSettingsCV.bottomAnchor.constraint(equalTo: bottomStack.bottomAnchor),
-            
         ])
     }
     
-    // MARK: - settingsScrollViewUI
+    // MARK: - SettingsScrollViewUI
     func settingsScrollViewUI() {
-//        effectSettingsCV.frame = CGRect(x: 0, y: 0, width: settingsScrollView.frame.size.width, height: settingsScrollView.frame.size.height)
-//
-//        textSettingsCV.frame = CGRect(x: 0, y: 0, width: settingsScrollView.frame.size.width, height: settingsScrollView.frame.size.height)
-                
-//        effectSettingsCV.frame = CGRect(x: 0, y: 0, width: 350, height: 350)
-//        settingsScrollView.addSubview(effectSettingsCV)
-        
-        
-        
+
         settingsScrollView.contentSize = CGSize(width: view.frame.size.width*3, height: settingsScrollView.frame.size.height)
-        
         settingsScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         settingsScrollView.isPagingEnabled = true
         
         
+//        let viewSizeWidth = self.view.frame.size.width
         
         for slide in 0..<3 {
             
             if slide == 0 {
                 
                 effectSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * settingsScrollView.frame.size.width,
+                    x: CGFloat(slide) * self.view.frame.size.width,
                     y: 0,
-                    width: settingsScrollView.frame.size.width,
-                    height: settingsScrollView.frame.size.height
+                    width: self.view.frame.size.width,
+                    height: self.view.frame.size.height
                 )
                 
                 settingsScrollView.addSubview(effectSettingsCV)
             }
             if slide == 1 {
                 textSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * settingsScrollView.frame.size.width,
+                    x: CGFloat(slide) * self.view.frame.size.width,
                     y: 0,
-                    width: settingsScrollView.frame.size.width,
-                    height: settingsScrollView.frame.size.height
+                    width: self.view.frame.size.width,
+                    height: self.view.frame.size.height
                 )
                 
                 settingsScrollView.addSubview(textSettingsCV)
             }
             if slide == 2 {
                 backgroundSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * settingsScrollView.frame.size.width,
+                    x: CGFloat(slide) * self.view.frame.size.width,
                     y: 0,
-                    width: settingsScrollView.frame.size.width,
-                    height: settingsScrollView.frame.size.height
+                    width: self.view.frame.size.width,
+                    height: self.view.frame.size.height
                 )
 
                 settingsScrollView.addSubview(backgroundSettingsCV)

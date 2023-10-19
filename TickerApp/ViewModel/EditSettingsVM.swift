@@ -10,8 +10,6 @@ import UIKit
 
 struct EditSettingsVM {
     
-    static var tickerView = TickerView() 
-    
     var effectSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .effect, sections: [])
     var textSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: [])
     var backgroundSettingsModel: EditSettingsModel = EditSettingsModel(editSettingsModelType: .background, sections: [])
@@ -99,6 +97,14 @@ extension EditSettingsVM {
                         CellSectionType.regularCell(
                             model: RegularCell(
                                 title: "150",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "250",
                                 iconSystemName: nil,
                                 bgColor: nil,
                                 fontName: nil,

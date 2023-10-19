@@ -15,17 +15,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
+
 //        let navVC = CustomNav(rootViewController: HomeVC())
 //        window?.rootViewController = navVC
         
+        let navVC = CustomNav(rootViewController: OnboardingVC())
+        window?.rootViewController = navVC
         
-        window?.rootViewController = EditBannerVC()
-//        window?.rootViewController = OnboardingVC()
+        
+        
+        
+//        window?.rootViewController = SettingsVC()
 //        window?.rootViewController = TickerPlayVC()
         
         window?.makeKeyAndVisible()
         
         return true
     }
-    
+
+    var defaultOrientation: UIInterfaceOrientationMask = .portrait
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        defaultOrientation
+    }
 }
+

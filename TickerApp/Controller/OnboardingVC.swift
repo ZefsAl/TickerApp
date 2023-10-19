@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ApphudSDK
 
 final class OnboardingVC: UIViewController {
     
@@ -157,8 +158,11 @@ final class OnboardingVC: UIViewController {
 //        setSettingNavButtonItem(selectorStr: #selector(self.settingsAct))
         setupVCStyle()
         setupUI()
-        
-        
+    }
+    
+    private func setNavStyle() {
+//        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.backgroundColor = .clear
     }
     
     // MARK: - Actions

@@ -18,8 +18,13 @@ class TickerPlayVC: UIViewController {
             iconSystemName: "xmark",
             iconColor: AppColors.gray2
         )
+        b.addTarget(Any?.self, action: #selector(closeAct), for: .touchUpInside)
         return b
     }()
+    @objc private func closeAct(_ sender: MediumButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     // MARK: - playPause
     private let playPause: MediumButton = {
         let b = MediumButton(
@@ -48,30 +53,71 @@ class TickerPlayVC: UIViewController {
     }()
     
     // MARK: - TickerView
-    private let tickerView: TickerView = EditSettingsVM.tickerView  // viewDidAppear
+    private var tickerView: TickerView = TickerView()
     
 
 //     MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.view.backgroundColor = .black
         setupUI()
+        
+        
     }
+    
+    // MARK: - Init
+    init(tickerDataModel: TickerDataModel?) {
+        super.init(nibName: nil, bundle: nil)
+        
+        if let model = tickerDataModel {
+            self.tickerView.isLandscape = true
+            self.tickerView.configureTicker(tickerDataModel: model, frameWidth: self.view.frame.size.width)
+            
+            print(self.tickerView.isLandscape)
+        }
+        
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - view Did Appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tickerView.configTickerLayout(width: self.view.frame.size.width)
-//        tickerView.setFont(font: nil)
+        tickerView.configTickerLayout(width: self.view.frame.size.height) // 🔄
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.rotateToLandsScapeDevice()
+    }
+    
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.rotateToPotraitScapeDevice()
     }
     
     // MARK: - Orientation
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeLeft
+    func rotateToLandsScapeDevice(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+
+        appDelegate.defaultOrientation = .landscapeLeft
+        UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+        UIView.setAnimationsEnabled(true)
     }
-    override var shouldAutorotate: Bool {
-        return true
+
+    func rotateToPotraitScapeDevice(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        appDelegate.defaultOrientation = .portrait
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        UIView.setAnimationsEnabled(true)
     }
+    
+
     
     
     
@@ -94,8 +140,9 @@ extension TickerPlayVC {
         headerStack.alignment = .fill
         headerStack.spacing = 24
         
-        self.view.addSubview(headerStack)
-        self.view.addSubview(tickerView)
+        self.view.addSubview(tickerView)  // 1
+        self.view.addSubview(headerStack) // 2
+        
         
         
         // Stack

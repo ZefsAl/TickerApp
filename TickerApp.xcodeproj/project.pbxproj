@@ -12,18 +12,23 @@
 		84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FDB2ACC12AD003B13CC /* CustomNav.swift */; };
 		84279FDF2ACC16FB003B13CC /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FDE2ACC16FB003B13CC /* Fonts.swift */; };
 		84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */; };
-		84279FE42ACC4B4D003B13CC /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE32ACC4B4D003B13CC /* HomeCollectionView.swift */; };
+		84279FE42ACC4B4D003B13CC /* RegularCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE32ACC4B4D003B13CC /* RegularCollectionView.swift */; };
 		84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */; };
 		8456F3452AD2D16300170B29 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8456F3442AD2D16300170B29 /* OnboardingVC.swift */; };
 		8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8456F3462AD2D9E900170B29 /* DocumentButton.swift */; };
-		845CDD652ACA85B000B58B39 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 845CDD642ACA85B000B58B39 /* Realm */; };
-		845CDD672ACA85B000B58B39 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 845CDD662ACA85B000B58B39 /* RealmSwift */; };
 		845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F718D2AC8576B00B9F32E /* AppDelegate.swift */; };
 		845F71902AC8576B00B9F32E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F718F2AC8576B00B9F32E /* SceneDelegate.swift */; };
 		845F71922AC8576B00B9F32E /* TickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F71912AC8576B00B9F32E /* TickerView.swift */; };
 		845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845F71962AC8577E00B9F32E /* Assets.xcassets */; };
 		845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845F71982AC8577E00B9F32E /* LaunchScreen.storyboard */; };
 		845F71A32AC86D2700B9F32E /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 845F71A22AC86D2700B9F32E /* MarqueeLabel */; };
+		846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD842ADEF98A00E960DB /* SettingsVC.swift */; };
+		846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */; };
+		846CBD8A2ADFCC3200E960DB /* Convert IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD892ADFCC3200E960DB /* Convert IndexPath.swift */; };
+		84979B9F2AD9685E003DC1F5 /* TickerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */; };
+		84979BA12AD9A560003DC1F5 /* UIColor_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */; };
+		849C17212ADA9991007AEDE1 /* Convert UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C17202ADA9991007AEDE1 /* Convert UIColor.swift */; };
+		849C17252ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 849C17242ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf */; };
 		84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */; };
 		84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */; };
 		84A2624F2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */; };
@@ -52,17 +57,24 @@
 		84279FDB2ACC12AD003B13CC /* CustomNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNav.swift; sourceTree = "<group>"; };
 		84279FDE2ACC16FB003B13CC /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController_Ext.swift; sourceTree = "<group>"; };
-		84279FE32ACC4B4D003B13CC /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
+		84279FE32ACC4B4D003B13CC /* RegularCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularCollectionView.swift; sourceTree = "<group>"; };
 		84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBannerCVCell.swift; sourceTree = "<group>"; };
 		8456F3442AD2D16300170B29 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		8456F3462AD2D9E900170B29 /* DocumentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentButton.swift; sourceTree = "<group>"; };
 		845F718A2AC8576B00B9F32E /* TickerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TickerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845F718D2AC8576B00B9F32E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		845F718F2AC8576B00B9F32E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		845F71912AC8576B00B9F32E /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
+		845F71912AC8576B00B9F32E /* TickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		845F71962AC8577E00B9F32E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845F71992AC8577E00B9F32E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		845F719B2AC8577E00B9F32E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		846CBD842ADEF98A00E960DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsCVCell.swift; sourceTree = "<group>"; };
+		846CBD892ADFCC3200E960DB /* Convert IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Convert IndexPath.swift"; sourceTree = "<group>"; };
+		84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDataModel.swift; sourceTree = "<group>"; };
+		84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_Ext.swift; sourceTree = "<group>"; };
+		849C17202ADA9991007AEDE1 /* Convert UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Convert UIColor.swift"; sourceTree = "<group>"; };
+		849C17242ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.ttf"; sourceTree = "<group>"; };
 		84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
 		84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangers-Regular.ttf"; sourceTree = "<group>"; };
 		84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PressStart2P-Regular.ttf"; sourceTree = "<group>"; };
@@ -88,8 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845CDD672ACA85B000B58B39 /* RealmSwift in Frameworks */,
-				845CDD652ACA85B000B58B39 /* Realm in Frameworks */,
 				845F71A32AC86D2700B9F32E /* MarqueeLabel in Frameworks */,
 				0185390E8703FA89E944EAFA /* Pods_TickerApp.framework in Frameworks */,
 			);
@@ -128,6 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */,
+				84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */,
+				849C17202ADA9991007AEDE1 /* Convert UIColor.swift */,
+				846CBD892ADFCC3200E960DB /* Convert IndexPath.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -140,6 +153,7 @@
 				84F900352ACE9AE000611B54 /* EditBannerVC.swift */,
 				8456F3442AD2D16300170B29 /* OnboardingVC.swift */,
 				84D695D22AD6CF01001E797B /* TickerPlayVC.swift */,
+				846CBD842ADEF98A00E960DB /* SettingsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,11 +198,20 @@
 				84279FE52ACC4B53003B13CC /* Controller */,
 				84D342742AD1333A00E9DD6E /* ViewModel */,
 				84D342732AD1331700E9DD6E /* Model */,
+				84979B9D2AD967B0003DC1F5 /* DataStorage */,
 				84279FE02ACC1702003B13CC /* Extensions */,
 				84279FDD2ACC162E003B13CC /* DesignSystem */,
 				84D695D42AD702F3001E797B /* Fonts */,
 			);
 			path = TickerApp;
+			sourceTree = "<group>";
+		};
+		84979B9D2AD967B0003DC1F5 /* DataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */,
+			);
+			path = DataStorage;
 			sourceTree = "<group>";
 		};
 		84D342702AD019F800E9DD6E /* Button */ = {
@@ -227,6 +250,7 @@
 				84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */,
 				84A2624E2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf */,
 				84A262512AD7DE0900BC0C9C /* LibreBarcode39-Regular.ttf */,
+				849C17242ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -246,6 +270,7 @@
 				84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */,
 				84F900332ACE8FD000611B54 /* TickerCVCell.swift */,
 				84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */,
+				846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -253,7 +278,7 @@
 		84F900322ACE8C2900611B54 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				84279FE32ACC4B4D003B13CC /* HomeCollectionView.swift */,
+				84279FE32ACC4B4D003B13CC /* RegularCollectionView.swift */,
 				84F9002D2ACE678700611B54 /* SectionHeaderView.swift */,
 				84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */,
 			);
@@ -280,8 +305,6 @@
 			name = TickerApp;
 			packageProductDependencies = (
 				845F71A22AC86D2700B9F32E /* MarqueeLabel */,
-				845CDD642ACA85B000B58B39 /* Realm */,
-				845CDD662ACA85B000B58B39 /* RealmSwift */,
 			);
 			productName = TickerApp;
 			productReference = 845F718A2AC8576B00B9F32E /* TickerApp.app */;
@@ -313,7 +336,6 @@
 			mainGroup = 845F71812AC8576B00B9F32E;
 			packageReferences = (
 				845F71A12AC86D2700B9F32E /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
-				845CDD632ACA85B000B58B39 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 845F718B2AC8576B00B9F32E /* Products */;
 			projectDirPath = "";
@@ -331,6 +353,7 @@
 			files = (
 				84A2624F2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf in Resources */,
 				845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */,
+				849C17252ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf in Resources */,
 				845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */,
 				84A262522AD7DE0A00BC0C9C /* LibreBarcode39-Regular.ttf in Resources */,
 				84D695DA2AD714A6001E797B /* Cinzel-Regular.ttf in Resources */,
@@ -393,13 +416,18 @@
 				84F9002E2ACE678700611B54 /* SectionHeaderView.swift in Sources */,
 				84F900302ACE84CD00611B54 /* AppColors.swift in Sources */,
 				84279FDA2ACC0932003B13CC /* HomeVC.swift in Sources */,
+				84979B9F2AD9685E003DC1F5 /* TickerDataModel.swift in Sources */,
 				84F900342ACE8FD000611B54 /* TickerCVCell.swift in Sources */,
 				84D695D32AD6CF01001E797B /* TickerPlayVC.swift in Sources */,
 				84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */,
+				84979BA12AD9A560003DC1F5 /* UIColor_Ext.swift in Sources */,
 				84F900362ACE9AE000611B54 /* EditBannerVC.swift in Sources */,
-				84279FE42ACC4B4D003B13CC /* HomeCollectionView.swift in Sources */,
+				84279FE42ACC4B4D003B13CC /* RegularCollectionView.swift in Sources */,
+				849C17212ADA9991007AEDE1 /* Convert UIColor.swift in Sources */,
+				846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */,
 				84F9003C2ACF302B00611B54 /* BigButton.swift in Sources */,
 				84F9003E2ACF37B300611B54 /* RegularTextField.swift in Sources */,
+				846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */,
 				84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */,
 				845F71922AC8576B00B9F32E /* TickerView.swift in Sources */,
 				84D342782AD1345A00E9DD6E /* EditSettingsVM.swift in Sources */,
@@ -409,6 +437,7 @@
 				8456F3452AD2D16300170B29 /* OnboardingVC.swift in Sources */,
 				8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */,
 				845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */,
+				846CBD8A2ADFCC3200E960DB /* Convert IndexPath.swift in Sources */,
 				84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */,
 				845F71902AC8576B00B9F32E /* SceneDelegate.swift in Sources */,
 				84D3427A2AD141F300E9DD6E /* EditSettingCVCell.swift in Sources */,
@@ -549,6 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NV7ZN3QX32;
@@ -556,8 +586,8 @@
 				INFOPLIST_FILE = TickerApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -567,9 +597,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZefsAl.TickerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -579,6 +613,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NV7ZN3QX32;
@@ -586,8 +621,8 @@
 				INFOPLIST_FILE = TickerApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -597,9 +632,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZefsAl.TickerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -627,14 +666,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		845CDD632ACA85B000B58B39 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		845F71A12AC86D2700B9F32E /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ZefsAl/MarqueeLabel.git";
@@ -646,16 +677,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		845CDD642ACA85B000B58B39 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 845CDD632ACA85B000B58B39 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		845CDD662ACA85B000B58B39 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 845CDD632ACA85B000B58B39 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		845F71A22AC86D2700B9F32E /* MarqueeLabel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 845F71A12AC86D2700B9F32E /* XCRemoteSwiftPackageReference "MarqueeLabel" */;

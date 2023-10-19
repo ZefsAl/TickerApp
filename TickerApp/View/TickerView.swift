@@ -11,55 +11,66 @@ import MarqueeLabel
 final class TickerView: UIView {
 
     
-    private static var currentFontSize: CGFloat = 80.0
+    private var currentFontSize: CGFloat = 80.0
+    private var currentTextSpeed: CGFloat = 100.0
+    private var currentFontName: String = "SF-Pro-Rounded-Regular"
     
     
     // MARK: - ticker Lable
     private var tickerLable: MarqueeLabel = {
-//        let l = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0), duration: 8.0, fadeLength: 10.0)
+        
         let l = MarqueeLabel()
         l.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-//        l.clipsToBounds = false
         l.adjustsFontSizeToFitWidth = true
         
-        l.text = "English"
+
+        l.type = .continuous
+        l.animationDelay = 0.0
+        l.animationCurve = .linear // text
+        l.fadeLength = 0
+        
+        l.restartLabel()
+        return l
+    }()
+    
+    
+    private func defaultConfig() {
+        // Test config, need default func config
+        tickerLable.font = UIFont(name: self.currentFontName, size: self.currentFontSize)
+        
+        tickerLable.speed = .rate(currentTextSpeed)
+        
+//        tickerLable.leadingBuffer = 400
+//        tickerLable.trailingBuffer = 200
+        
+        tickerLable.leadingBuffer = 0
+        tickerLable.trailingBuffer = 0
+        
+        
+        tickerLable.text = "Input text here!"
 //        l.text = "Русский"
 //        l.textColor = .white
-        l.textColor = AppColors.primary
-//        l.backgroundColor = .red
-        l.forceScrolling = true
+        tickerLable.textColor = AppColors.primary
+        tickerLable.forceScrolling = true
         
         
-        l.font = SFProRounded.set(fontSize: currentFontSize, weight: .heavy)
+//        l.font = SFProRounded.set(fontSize: currentFontSize, weight: .heavy)
         // work
-        
 //        l.font = UIFont.init(name: "PermanentMarker-Regular", size: 150)
 //        l.font = UIFont.init(name: "Bangers-Regular", size: 75)
 //        l.font = UIFont.init(name: "PressStart2P-Regular", size: 150)
 //        l.font = UIFont.init(name: "LibreBarcode39-Regular", size: 150)
         
-        
-
-        l.speed = .rate(100.0)
-        l.type = .continuous
-        l.animationDelay = 0.0
-        
-        l.animationCurve = .linear // text
-        l.fadeLength = 0
-        l.leadingBuffer = 400
-        l.trailingBuffer = 200
-        
-        return l
-    }()
+    }
     
-    // Convert Speed
-    private func textSpeed(speedStr: String?) -> CGFloat {
+    var isLandscape: Bool = false
+    
+    // MARK: - Convert Speed
+    private func convertTextSpeed(speedStr: String?) -> CGFloat {
         guard
             let speedStr = speedStr,
             let double = Double(speedStr)
-        else { return CGFloat(100.0)}
+        else { return currentTextSpeed }
         
         switch double {
         case 0:
@@ -83,8 +94,9 @@ final class TickerView: UIView {
         }
     }
     
+    // MARK: - isLabelize
     // Buffer нужно указывать в зависимости view width
-    private func isLabelize(bool: Bool) {
+    func isLabelize(bool: Bool) {
         if bool {
             tickerLable.leadingBuffer = 0
             tickerLable.trailingBuffer = 0
@@ -98,25 +110,14 @@ final class TickerView: UIView {
         }
     }
     
-    
-    private func stringToCGFloat(stringSize: String?) -> CGFloat {
+    // MARK: - convertFontSize
+    private func convertFontSize(stringFontSize: String?) -> CGFloat {
         guard
-            let stringSize = stringSize,
+            let stringSize = stringFontSize,
             let double = Double(stringSize)
-        else { return TickerView.currentFontSize}
+        else { return currentFontSize}
         
-        switch double {
-        case 50:
-            return 50.0;
-        case 80:
-            return 80.0;
-        case 100:
-            return 100.0;
-        case 150:
-            return 150.0;
-        default:
-            return 80.0;
-        }
+        return CGFloat(double)
     }
     
     
@@ -127,6 +128,9 @@ final class TickerView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         viewStyle()
         setupUI()
+        defaultConfig()
+
+        
     }
     
     required init?(coder: NSCoder) {
@@ -142,7 +146,58 @@ final class TickerView: UIView {
         self.clipsToBounds = true
     }
     
-    // MARK: - Config Ticker
+    // MARK: - Get TickerConfig
+    func getTickerConfig(handler: @escaping (TickerDataModel) -> Void ) {
+        let model = TickerDataModel(
+            inputText: tickerLable.text ?? "text",
+            textColor: encodeUIColor(color: tickerLable.textColor),
+            textSpeed: currentTextSpeed,
+            bgColor: encodeUIColor(color: self.backgroundColor ?? .black),
+            fontName: currentFontName,
+            fontSize: Double(currentFontSize)
+        )
+        handler(model)
+    }
+    
+    // MARK: - Configure Ticker
+    func configureTicker(tickerDataModel: TickerDataModel, frameWidth: CGFloat) {
+        
+        configTickerLayout(width: frameWidth)
+        
+        if tickerDataModel.textSpeed == 0 {
+            isLabelize(bool: true)
+            
+            tickerLable.text = tickerDataModel.inputText
+            tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
+            tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
+            tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize))
+            self.backgroundColor = decodeUIColor(colorString: tickerDataModel.bgColor)
+            reloadTicker()
+        } else {
+            tickerLable.labelize = false
+            tickerLable.text = tickerDataModel.inputText
+            tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
+            tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
+            
+            if isLandscape{
+                tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize) * 2)
+            } else {
+                tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize))
+            }
+            
+            self.backgroundColor = decodeUIColor(colorString: tickerDataModel.bgColor)
+            reloadTicker()
+            
+        }
+    }
+    
+    // MARK: - config Ticker Layout
+    func configTickerLayout(width: CGFloat) {
+        tickerLable.leadingBuffer = width
+        tickerLable.trailingBuffer = width/2
+    }
+    
+    // MARK: - Set Ticker
     func setInputText(text: String) {
         tickerLable.text = text
         tickerLable.restartLabel()
@@ -152,27 +207,39 @@ final class TickerView: UIView {
         tickerLable.restartLabel()
     }
     func setEffect(speedStr: String?) {
-        tickerLable.speed = .rate(textSpeed(speedStr: speedStr))
+        currentTextSpeed = convertTextSpeed(speedStr: speedStr)
+        tickerLable.speed = .rate(currentTextSpeed)
     }
-    func setBackground(background: UIColor?) {
-        self.backgroundColor = background
-    }
-    func configTickerLayout(width: CGFloat) {
-        tickerLable.leadingBuffer = width
-        tickerLable.trailingBuffer = width/2
+    func setBGColor(bgColor: UIColor?) {
+        self.backgroundColor = bgColor
     }
     func setFontSize(stringSize: String?) {
-        tickerLable.font = tickerLable.font.withSize(stringToCGFloat(stringSize: stringSize))
-        TickerView.currentFontSize = stringToCGFloat(stringSize: stringSize)
+        tickerLable.font = tickerLable.font.withSize(convertFontSize(stringFontSize: stringSize))
+        currentFontSize = convertFontSize(stringFontSize: stringSize)
     }
     func setFont(fontName: String) {
-        tickerLable.font = UIFont(name: fontName, size: TickerView.currentFontSize)
+        currentFontName = fontName
+        tickerLable.font = UIFont(name: fontName, size: currentFontSize)
+    }
+    
+//    func setIncreaseFontSize(stringSize: String?) {
+//        tickerLable.font = tickerLable.font.withSize(convertFontSize(stringFontSize: stringSize))
+//        currentFontSize = convertFontSize(stringFontSize: stringSize)
+//    }
+    
+    
+    // MARK: - Support
+    // reload
+    func reloadTicker() {
+        tickerLable.restartLabel()
+        tickerLable.layoutIfNeeded()
+        tickerLable.forceScrolling = true
     }
     
     
     
     
-    
+    // MARK: - Setup UI
     private func setupUI() {
         // Adding
         self.addSubview(tickerLable)
@@ -180,10 +247,9 @@ final class TickerView: UIView {
         // Constraints
         NSLayoutConstraint.activate([
             tickerLable.topAnchor.constraint(equalTo: self.topAnchor),
-            tickerLable.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
             tickerLable.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             tickerLable.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            tickerLable.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 
