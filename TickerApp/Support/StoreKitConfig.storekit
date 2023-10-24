@@ -1,0 +1,59 @@
+{
+  "identifier" : "982963A6",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6469796507",
+    "_developerTeamID" : "NV7ZN3QX32",
+    "_lastSynchronizedDate" : 719492364.46229994
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21401931",
+      "localizations" : [
+
+      ],
+      "name" : "Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6470000400",
+          "introductoryOffer" : {
+            "internalID" : "E10F0265",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Pro Weekly Premium",
+              "displayName" : "Weekly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "Pro.Weekly",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "Pro.Weekly",
+          "subscriptionGroupID" : "21401931",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

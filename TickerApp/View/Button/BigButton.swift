@@ -27,6 +27,16 @@ final class BigButton: UIButton {
         return iv
     }()
     
+    // MARK: - AIV
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        aiv.translatesAutoresizingMaskIntoConstraints = false
+        aiv.contentMode = .scaleAspectFit
+        aiv.color = AppColors.secondary
+        aiv.hidesWhenStopped = true
+        return aiv
+    }()
+    
     
     // MARK: - Init
     init(frame: CGRect, bgColor: UIColor, title: String?, titleColor: UIColor?, iconSystemName: String?, iconColor: UIColor?) {
@@ -53,7 +63,7 @@ final class BigButton: UIButton {
     // MARK: - UI
     private func setupUI() {
         
-        let contentStack = UIStackView(arrangedSubviews: [icon,title])
+        let contentStack = UIStackView(arrangedSubviews: [icon,title,activityIndicatorView])
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.axis = .horizontal
         contentStack.alignment = .center

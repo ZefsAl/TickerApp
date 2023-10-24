@@ -42,29 +42,28 @@ extension UIViewController {
     }
     
     // MARK: Close BTN
-    func setCloseButton(selectorStr: Selector) {
+    func setCloseButton(color: UIColor, selector: Selector) {
         let buttonView: UIView = {
             
             let v = UIView() // customView: type
             v.translatesAutoresizingMaskIntoConstraints = false
             
-            let configImage = UIImage(systemName: "gearshape.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 27, weight: .bold)) // 27~32x32frame
-            
+            let configImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)) // 25~30x30-frame
             
             let iv = UIImageView(image: configImage)
             iv.translatesAutoresizingMaskIntoConstraints = false
-            iv.tintColor = .black
+            iv.tintColor = color
             iv.isUserInteractionEnabled = false
-//            iv.contentMode = .scaleAspectFit // не врлияет
+//            iv.contentMode = .scaleAspectFit //
             
             v.addSubview(iv)
-            v.heightAnchor.constraint(equalToConstant: 24).isActive = true
-            v.widthAnchor.constraint(equalToConstant: 24).isActive = true
+            v.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            v.widthAnchor.constraint(equalToConstant: 30).isActive = true
             
             return v
         }()
         
-        let gesture = UITapGestureRecognizer(target: self, action: selectorStr)
+        let gesture = UITapGestureRecognizer(target: self, action: selector)
         buttonView.addGestureRecognizer(gesture)
         
         // Add Nav Item

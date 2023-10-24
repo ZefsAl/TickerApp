@@ -15,16 +15,36 @@ class TickerDataModel: Object {
     
     @Persisted(primaryKey: true) var _id: ObjectId
 
-    @Persisted var inputText: String?
-    @Persisted var textColor: String?
-    @Persisted var textSpeed: Double?
-    @Persisted var bgColor: String? 
-    @Persisted var fontName: String?
-    @Persisted var fontSize: Double?
     
-    @Persisted var selectedEffectIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 2]]) )
-    @Persisted var selectedTextIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 1], [2, 2], [1, 1]]) )
-    @Persisted var selectedBackgroundIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 0]]) )
+    @Persisted var inputText: String?
+    // MARK: - Effect
+//    General
+//    LED
+//    Sparkle
+    @Persisted var textSpeed: Double?
+    
+    // MARK: - Text
+    @Persisted var fontSize: Double?
+    @Persisted var fontName: String?
+    @Persisted var textColor: String?
+//    Stroke
+//    Shadow
+    
+    // MARK: - Background
+    @Persisted var bgColor: String?
+    @Persisted var bgImage: String?
+    // Animation scheme
+    // frame
+    
+    
+    
+    
+    
+    
+    
+    @Persisted var selectedEffectIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 2]]))
+    @Persisted var selectedTextIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 1], [2, 2], [1, 1]]))
+    @Persisted var selectedBackgroundIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 0]]))
     
     convenience init(
         selectedEffectIndexData: Data,

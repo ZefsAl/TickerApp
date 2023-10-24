@@ -19,7 +19,7 @@ final class AppSettingsCVCell: UICollectionViewCell {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.font = SFProRounded.set(fontSize: 17, weight: .heavy)
         l.textAlignment = .left
-        l.textColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
+        l.textColor = .white
         
         return l
     }()
@@ -28,7 +28,7 @@ final class AppSettingsCVCell: UICollectionViewCell {
     private let leftIcon: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.tintColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
+        iv.tintColor = .white
         iv.isUserInteractionEnabled = false
         return iv
     }()
@@ -36,7 +36,7 @@ final class AppSettingsCVCell: UICollectionViewCell {
     private let rightIcon: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.tintColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
+        iv.tintColor = AppColors.gray3
         iv.isUserInteractionEnabled = false
         
         let icon = UIImage(systemName: "chevron.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))

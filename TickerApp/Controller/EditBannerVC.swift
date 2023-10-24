@@ -293,7 +293,7 @@ final class EditBannerVC: UIViewController {
         
         print("MODEL - tickerDataModel -", tickerDataModel as Any)
         
-        // Select
+        // Select cells by data
         // Effect
         if let data = tickerDataModel?.selectedEffectIndexData {
             print(decodeIndexPath(indexPathData: data) as Any)
@@ -336,7 +336,6 @@ final class EditBannerVC: UIViewController {
     
     // MARK: - set Select CV
     private func setSelectCV(indexData: Data?, collection: EditSettingsCV) {
-        
         guard
             let data = indexData,
             let indexArr = decodeIndexPath(indexPathData: data)

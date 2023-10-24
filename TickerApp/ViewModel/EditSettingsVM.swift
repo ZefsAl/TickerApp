@@ -30,6 +30,48 @@ extension EditSettingsVM {
         effectSettingsModel = EditSettingsModel(
             editSettingsModelType: .effect,
             sections: [
+                
+                // General (multi-select)
+//                EditSettingsSection(
+//                    sectionTitle: "General (multi-select)",
+//                    sectionCells: [
+                        // Template code
+//                        CellSectionType.regularCell(
+//                            model: RegularCell(
+//                                title: <#T##String?#>,
+//                                iconSystemName: <#T##String?#>,
+//                                bgColor: <#T##UIColor?#>,
+//                                fontName: <#T##String?#>,
+//                                handler: <#T##(() -> Void)##(() -> Void)##() -> Void#>
+//                            )),
+//                        CellSectionType.regularCell(
+//                            model: RegularCell(
+//                                title: nil,
+//                                iconSystemName: "bold",
+//                                bgColor: nil,
+//                                fontName: nil,
+//                                handler: {}
+//                            )),
+//                        CellSectionType.regularCell(
+//                            model: RegularCell(
+//                                title: nil,
+//                                iconSystemName: "arrow.up.arrow.down",
+//                                bgColor: nil,
+//                                fontName: nil,
+//                                handler: {}
+//                            )),
+//                        CellSectionType.regularCell(
+//                            model: RegularCell(
+//                                title: nil,
+//                                iconSystemName: "sun.max.fill",
+//                                bgColor: nil,
+//                                fontName: nil,
+//                                handler: {}
+//                            )),
+                        
+//                    ]),
+                
+                // Scroll Speed
                 EditSettingsSection(
                     sectionTitle: "Scroll Speed",
                     sectionCells: [
@@ -83,6 +125,7 @@ extension EditSettingsVM {
         textSettingsModel = EditSettingsModel(
             editSettingsModelType: .text,
             sections: [
+                // Size
                 EditSettingsSection(
                     sectionTitle: "Size",
                     sectionCells: [
@@ -96,7 +139,7 @@ extension EditSettingsVM {
                             )),
                         CellSectionType.regularCell(
                             model: RegularCell(
-                                title: "150",
+                                title: "75",
                                 iconSystemName: nil,
                                 bgColor: nil,
                                 fontName: nil,
@@ -104,22 +147,25 @@ extension EditSettingsVM {
                             )),
                         CellSectionType.regularCell(
                             model: RegularCell(
-                                title: "250",
+                                title: "100",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "150",
                                 iconSystemName: nil,
                                 bgColor: nil,
                                 fontName: nil,
                                 handler: {}
                             )),
                     ]),
+                // Fonts
                 EditSettingsSection(
                 sectionTitle: "Fonts",
                 sectionCells: [
-//                    CellSectionType.fontCell(
-//                        model: FontCellModel(
-//                            title: "Aa",
-//                            bgColor: nil,
-//                            fontName: "PermanentMarker-Regular"
-//                        )),
                     CellSectionType.regularCell(
                         model: RegularCell(
                             title: "Aa",
@@ -137,6 +183,7 @@ extension EditSettingsVM {
                             handler: {}
                         )),
                 ]),
+                // Color
                 EditSettingsSection(
                     sectionTitle: "Color",
                     sectionCells: [
@@ -164,6 +211,30 @@ extension EditSettingsVM {
                                 fontName: nil,
                                 handler: {}
                             )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemRed,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemOrange,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemBlue,
+                                fontName: nil,
+                                handler: {}
+                            )),
                         
                     ]),
                 
@@ -177,6 +248,7 @@ extension EditSettingsVM {
             editSettingsModelType: .background,
             sections: [
                 EditSettingsSection(
+                    // Color
                     sectionTitle: "Color",
                     sectionCells: [
                         CellSectionType.regularCell(
@@ -199,10 +271,27 @@ extension EditSettingsVM {
                             model: RegularCell(
                                 title: nil,
                                 iconSystemName: nil,
-                                bgColor: .red,
+                                bgColor: .systemRed,
                                 fontName: nil,
                                 handler: {}
                             )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemOrange,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemBlue,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        
                     ])
             ])
     }

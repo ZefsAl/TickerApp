@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ApphudSDK
 
 final class HomeVC: UIViewController {
     
@@ -29,8 +30,15 @@ final class HomeVC: UIViewController {
             iconSystemName: "sparkles",
             iconColor: AppColors.secondary
         )
+        b.addTarget(Any?.self, action: #selector(ctaAct), for: .touchUpInside)
         return b
     }()
+    @objc private func ctaAct() {
+        let navVC = UINavigationController(rootViewController: PaywallVC())
+        navVC.modalPresentationStyle = .overFullScreen
+        self.present(navVC, animated: true)
+    }
+    
     
     // MARK: - Scroll View
     private let contentScrollView: UIScrollView = {
@@ -45,6 +53,7 @@ final class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "LED Ultra"
         // Setup
         setSettingNavButtonItem(selectorStr: #selector(self.settingsAct))
         self.view.backgroundColor = .black
@@ -54,17 +63,29 @@ final class HomeVC: UIViewController {
         
         setTickerObserver()
         
+        // test
+        let object = UserDefaults.standard.object(forKey: "OnboardingIsCompleted") as? Bool
+        if let object = object {
+            print("OnboardingIsCompleted ----- ",object)
+        }
     }
+    
+    
+//    override func viewDidLayoutSubviews() {
+//         super.viewDidLayoutSubviews()
+//    }
     
     // MARK: - view Will Appear
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    // MARK: - Action
+    
+    // MARK: - settingsAct
     @objc func settingsAct() {
-        print("ettingsAct")
-        self.homeCollectionView.reloadData()
+//        print("ettingsAct")
+        self.navigationController?.pushViewController(SettingsVC(), animated: true)
     }
     
     
@@ -93,23 +114,6 @@ final class HomeVC: UIViewController {
             
         }
     }
-    
-// ??????????????????????????????????????????????????????????????????????????????????????????
-//    private func reloadTicker() {
-//
-//
-//        let indices = self.homeCollectionView.indexPathsForVisibleItems
-//
-//
-//        guard indices != [] else { return }
-//        print("indexPathsForVisibleItems",indices.count)
-//
-//        for index in indices {
-//            guard index.section == 1 else { return }
-//            let cell = homeCollectionView.dequeueReusableCell(withReuseIdentifier: TickerCVCell.reuseID, for: index) as? TickerCVCell
-//
-//        }
-//    }
     
     
     // MARK: - Register
@@ -247,7 +251,6 @@ extension HomeVC: UICollectionViewDelegate {
         let object = realm.objects(TickerDataModel.self)
         let model = object[indexPath.row]
         self.navigationController?.pushViewController(EditBannerVC(tickerDataModel: model), animated: true)
-//        print(model)
         
     }
 }

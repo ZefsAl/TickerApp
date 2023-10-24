@@ -179,7 +179,7 @@ final class TickerView: UIView {
             tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
             tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
             
-            if isLandscape{
+            if isLandscape {
                 tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize) * 2)
             } else {
                 tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize))

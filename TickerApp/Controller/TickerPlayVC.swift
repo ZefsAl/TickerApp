@@ -71,11 +71,8 @@ class TickerPlayVC: UIViewController {
         
         if let model = tickerDataModel {
             self.tickerView.isLandscape = true
-            self.tickerView.configureTicker(tickerDataModel: model, frameWidth: self.view.frame.size.width)
-            
-            print(self.tickerView.isLandscape)
+            self.tickerView.configureTicker(tickerDataModel: model, frameWidth: self.view.frame.size.height) // 🔄 на оборот
         }
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -84,7 +81,6 @@ class TickerPlayVC: UIViewController {
     // MARK: - view Did Appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tickerView.configTickerLayout(width: self.view.frame.size.height) // 🔄
     }
     
     override func viewDidLayoutSubviews() {

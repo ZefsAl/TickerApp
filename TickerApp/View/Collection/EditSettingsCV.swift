@@ -67,15 +67,7 @@ final class EditSettingsCV: UICollectionView {
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
         
-        setupLayoutCV()
-        
-        
-        
-        
-        
-
-        
-        
+        setCompositionalLayoutCV()
         
     }
     
@@ -88,13 +80,11 @@ final class EditSettingsCV: UICollectionView {
     
     
     // MARK: - Layout
-    private func setupLayoutCV() {
+    private func setCompositionalLayoutCV() {
         // Compositional Layout
         let collectionViewLayout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
             
-            //            let section = self.editSettingsVM.effectSettings[sectionIndex]
-            //            let section = self.editSettingsSection[sectionIndex]
             let section = self.editSettingsModel.sections[sectionIndex]
             
             // Должны вернуть NSCollectionLayoutSection для конкретной секции
@@ -132,7 +122,7 @@ final class EditSettingsCV: UICollectionView {
         
         return section
     }
-    // headerItem + Delegate
+    // headerItem + used Delegate
     private var headerItem: NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -241,8 +231,6 @@ extension EditSettingsCV: UICollectionViewDelegate {
             // MARK: - Speed
             getSelectedSettings(selectedSettings: selectedEffectIndexPath) { model in
                 EditBannerVC.tickerView.setEffect(speedStr: model.title)
-                
-                
             }
         }
         
@@ -256,7 +244,7 @@ extension EditSettingsCV: UICollectionViewDelegate {
             
             // MARK: - Size
             getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Size") { model in
-                                EditBannerVC.tickerView.setFontSize(stringSize: model.title)
+                EditBannerVC.tickerView.setFontSize(stringSize: model.title)
             }
             
             // MARK: - Font

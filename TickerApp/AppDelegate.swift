@@ -6,36 +6,64 @@
 //
 
 import UIKit
+import ApphudSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
+    
+    static var window: UIWindow?
+    var observer: NSKeyValueObservation?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-
-//        let navVC = CustomNav(rootViewController: HomeVC())
-//        window?.rootViewController = navVC
         
-        let navVC = CustomNav(rootViewController: OnboardingVC())
-        window?.rootViewController = navVC
+        // MARK: - Test
+//        AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
+//        let homeNavVC = UINavigationController(rootViewController: SettingsVC())
+//        AppDelegate.window?.rootViewController = homeNavVC
+//        AppDelegate.window?.makeKeyAndVisible()
         
+        // MARK: - Test
+        UserDefaults.standard.setValue(false, forKey: "OnboardingCompletedKey")
+        UserDefaults.standard.synchronize()
         
-        
-        
-//        window?.rootViewController = SettingsVC()
-//        window?.rootViewController = TickerPlayVC()
-        
-        window?.makeKeyAndVisible()
-        
+        updateRootVC()
+        setupApphud()
         return true
     }
-
+    
+    // Orientation
     var defaultOrientation: UIInterfaceOrientationMask = .portrait
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         defaultOrientation
+    }
+}
+
+extension AppDelegate {
+    private func setupApphud() {
+        Apphud.start(apiKey: "app_we22ua3xsnzRycprMTnT3uK6gMEa19")
+    }
+}
+
+
+extension AppDelegate {
+     
+    func updateRootVC() {
+        observer = UserDefaults.standard.observe(\.onboardingIsCompleted, options: [.initial, .new], changeHandler: { (defaults, change) in
+
+            print("Observe - onboardingIsCompleted: \(defaults.onboardingIsCompleted)")
+            if defaults.onboardingIsCompleted == true {
+                
+                AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
+                let homeNavVC = CustomNav(rootViewController: HomeVC())
+                AppDelegate.window?.rootViewController = homeNavVC
+                AppDelegate.window?.makeKeyAndVisible()
+            } else {
+                AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
+//                let homeNavVC = CustomNav(rootViewController: PaywallVC())
+                AppDelegate.window?.rootViewController = PaywallVC()
+                AppDelegate.window?.makeKeyAndVisible()
+            }
+        })
     }
 }
 

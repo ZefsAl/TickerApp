@@ -14,7 +14,7 @@
 		84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */; };
 		84279FE42ACC4B4D003B13CC /* RegularCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE32ACC4B4D003B13CC /* RegularCollectionView.swift */; };
 		84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */; };
-		8456F3452AD2D16300170B29 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8456F3442AD2D16300170B29 /* OnboardingVC.swift */; };
+		8456F3452AD2D16300170B29 /* PaywallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8456F3442AD2D16300170B29 /* PaywallVC.swift */; };
 		8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8456F3462AD2D9E900170B29 /* DocumentButton.swift */; };
 		845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F718D2AC8576B00B9F32E /* AppDelegate.swift */; };
 		845F71902AC8576B00B9F32E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F718F2AC8576B00B9F32E /* SceneDelegate.swift */; };
@@ -39,6 +39,15 @@
 		84D3427A2AD141F300E9DD6E /* EditSettingCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */; };
 		84D695D32AD6CF01001E797B /* TickerPlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D695D22AD6CF01001E797B /* TickerPlayVC.swift */; };
 		84D695DA2AD714A6001E797B /* Cinzel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */; };
+		84DBB9972AE17FB100A0784F /* NAVCloseButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9962AE17FB100A0784F /* NAVCloseButtonView.swift */; };
+		84DBB9992AE193D100A0784F /* PaywallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9982AE193D100A0784F /* PaywallVM.swift */; };
+		84DBB99B2AE284FF00A0784F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DBB99A2AE284FF00A0784F /* StoreKit.framework */; };
+		84DBB99E2AE2857B00A0784F /* StoreKitConfig.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 84DBB99D2AE2857B00A0784F /* StoreKitConfig.storekit */; };
+		84DBB9A02AE2ADED00A0784F /* UIView_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB99F2AE2ADEC00A0784F /* UIView_Ext.swift */; };
+		84DBB9A62AE38AB000A0784F /* UserDefaults_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9A52AE38AB000A0784F /* UserDefaults_Ext.swift */; };
+		84DBB9AE2AE5306F00A0784F /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9AD2AE5306E00A0784F /* AppSettingsVM.swift */; };
+		84DBB9B02AE530B800A0784F /* AppSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */; };
+		84DBB9B22AE53F9300A0784F /* PromoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9B12AE53F9300A0784F /* PromoCVCell.swift */; };
 		84F9002E2ACE678700611B54 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9002D2ACE678700611B54 /* SectionHeaderView.swift */; };
 		84F900302ACE84CD00611B54 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9002F2ACE84CD00611B54 /* AppColors.swift */; };
 		84F900342ACE8FD000611B54 /* TickerCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F900332ACE8FD000611B54 /* TickerCVCell.swift */; };
@@ -59,7 +68,7 @@
 		84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController_Ext.swift; sourceTree = "<group>"; };
 		84279FE32ACC4B4D003B13CC /* RegularCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularCollectionView.swift; sourceTree = "<group>"; };
 		84279FE72ACC50EB003B13CC /* NewBannerCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBannerCVCell.swift; sourceTree = "<group>"; };
-		8456F3442AD2D16300170B29 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
+		8456F3442AD2D16300170B29 /* PaywallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallVC.swift; sourceTree = "<group>"; };
 		8456F3462AD2D9E900170B29 /* DocumentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentButton.swift; sourceTree = "<group>"; };
 		845F718A2AC8576B00B9F32E /* TickerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TickerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845F718D2AC8576B00B9F32E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +94,16 @@
 		84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingCVCell.swift; sourceTree = "<group>"; };
 		84D695D22AD6CF01001E797B /* TickerPlayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerPlayVC.swift; sourceTree = "<group>"; };
 		84D695D92AD714A6001E797B /* Cinzel-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cinzel-Regular.ttf"; sourceTree = "<group>"; };
+		84DBB9962AE17FB100A0784F /* NAVCloseButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAVCloseButtonView.swift; sourceTree = "<group>"; };
+		84DBB9982AE193D100A0784F /* PaywallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallVM.swift; sourceTree = "<group>"; };
+		84DBB99A2AE284FF00A0784F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		84DBB99C2AE2850D00A0784F /* TickerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TickerApp.entitlements; sourceTree = "<group>"; };
+		84DBB99D2AE2857B00A0784F /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
+		84DBB99F2AE2ADEC00A0784F /* UIView_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView_Ext.swift; sourceTree = "<group>"; };
+		84DBB9A52AE38AB000A0784F /* UserDefaults_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults_Ext.swift; sourceTree = "<group>"; };
+		84DBB9AD2AE5306E00A0784F /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
+		84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsModel.swift; sourceTree = "<group>"; };
+		84DBB9B12AE53F9300A0784F /* PromoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCVCell.swift; sourceTree = "<group>"; };
 		84F9002D2ACE678700611B54 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		84F9002F2ACE84CD00611B54 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		84F900332ACE8FD000611B54 /* TickerCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerCVCell.swift; sourceTree = "<group>"; };
@@ -100,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DBB99B2AE284FF00A0784F /* StoreKit.framework in Frameworks */,
 				845F71A32AC86D2700B9F32E /* MarqueeLabel in Frameworks */,
 				0185390E8703FA89E944EAFA /* Pods_TickerApp.framework in Frameworks */,
 			);
@@ -111,6 +131,7 @@
 		3648EF74F574C89FBFA6CFDF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84DBB99A2AE284FF00A0784F /* StoreKit.framework */,
 				553C0F372B4CCBC64349E067 /* Pods_TickerApp.framework */,
 			);
 			name = Frameworks;
@@ -141,6 +162,8 @@
 				84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */,
 				849C17202ADA9991007AEDE1 /* Convert UIColor.swift */,
 				846CBD892ADFCC3200E960DB /* Convert IndexPath.swift */,
+				84DBB99F2AE2ADEC00A0784F /* UIView_Ext.swift */,
+				84DBB9A52AE38AB000A0784F /* UserDefaults_Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -151,7 +174,7 @@
 				84279FDB2ACC12AD003B13CC /* CustomNav.swift */,
 				84279FD92ACC0932003B13CC /* HomeVC.swift */,
 				84F900352ACE9AE000611B54 /* EditBannerVC.swift */,
-				8456F3442AD2D16300170B29 /* OnboardingVC.swift */,
+				8456F3442AD2D16300170B29 /* PaywallVC.swift */,
 				84D695D22AD6CF01001E797B /* TickerPlayVC.swift */,
 				846CBD842ADEF98A00E960DB /* SettingsVC.swift */,
 			);
@@ -192,6 +215,7 @@
 			children = (
 				845F718D2AC8576B00B9F32E /* AppDelegate.swift */,
 				845F718F2AC8576B00B9F32E /* SceneDelegate.swift */,
+				84DBB99C2AE2850D00A0784F /* TickerApp.entitlements */,
 				84F9002C2ACD562D00611B54 /* Support */,
 				845F719B2AC8577E00B9F32E /* Info.plist */,
 				84279FE62ACC4B79003B13CC /* View */,
@@ -222,6 +246,7 @@
 				84F9003B2ACF302B00611B54 /* BigButton.swift */,
 				84F9003D2ACF37B300611B54 /* RegularTextField.swift */,
 				8456F3462AD2D9E900170B29 /* DocumentButton.swift */,
+				84DBB9962AE17FB100A0784F /* NAVCloseButtonView.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -230,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */,
+				84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,6 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				84D342772AD1345A00E9DD6E /* EditSettingsVM.swift */,
+				84DBB9982AE193D100A0784F /* PaywallVM.swift */,
+				84DBB9AD2AE5306E00A0784F /* AppSettingsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -260,6 +288,7 @@
 			children = (
 				845F71982AC8577E00B9F32E /* LaunchScreen.storyboard */,
 				845F71962AC8577E00B9F32E /* Assets.xcassets */,
+				84DBB99D2AE2857B00A0784F /* StoreKitConfig.storekit */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -271,6 +300,7 @@
 				84F900332ACE8FD000611B54 /* TickerCVCell.swift */,
 				84D342792AD141F200E9DD6E /* EditSettingCVCell.swift */,
 				846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */,
+				84DBB9B12AE53F9300A0784F /* PromoCVCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -351,6 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DBB99E2AE2857B00A0784F /* StoreKitConfig.storekit in Resources */,
 				84A2624F2AD7DD0200BC0C9C /* PressStart2P-Regular.ttf in Resources */,
 				845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */,
 				849C17252ADC168F007AEDE1 /* SF-Pro-Rounded-Regular.ttf in Resources */,
@@ -411,13 +442,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DBB9B22AE53F9300A0784F /* PromoCVCell.swift in Sources */,
+				84DBB9A62AE38AB000A0784F /* UserDefaults_Ext.swift in Sources */,
 				84F9003A2ACEC70600611B54 /* CircleButton.swift in Sources */,
 				84D342722AD01B3A00E9DD6E /* EditSettingsCV.swift in Sources */,
 				84F9002E2ACE678700611B54 /* SectionHeaderView.swift in Sources */,
+				84DBB9AE2AE5306F00A0784F /* AppSettingsVM.swift in Sources */,
 				84F900302ACE84CD00611B54 /* AppColors.swift in Sources */,
 				84279FDA2ACC0932003B13CC /* HomeVC.swift in Sources */,
 				84979B9F2AD9685E003DC1F5 /* TickerDataModel.swift in Sources */,
 				84F900342ACE8FD000611B54 /* TickerCVCell.swift in Sources */,
+				84DBB9992AE193D100A0784F /* PaywallVM.swift in Sources */,
 				84D695D32AD6CF01001E797B /* TickerPlayVC.swift in Sources */,
 				84279FE22ACC2F03003B13CC /* ViewController_Ext.swift in Sources */,
 				84979BA12AD9A560003DC1F5 /* UIColor_Ext.swift in Sources */,
@@ -426,7 +461,10 @@
 				849C17212ADA9991007AEDE1 /* Convert UIColor.swift in Sources */,
 				846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */,
 				84F9003C2ACF302B00611B54 /* BigButton.swift in Sources */,
+				84DBB9972AE17FB100A0784F /* NAVCloseButtonView.swift in Sources */,
 				84F9003E2ACF37B300611B54 /* RegularTextField.swift in Sources */,
+				84DBB9B02AE530B800A0784F /* AppSettingsModel.swift in Sources */,
+				84DBB9A02AE2ADED00A0784F /* UIView_Ext.swift in Sources */,
 				846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */,
 				84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */,
 				845F71922AC8576B00B9F32E /* TickerView.swift in Sources */,
@@ -434,7 +472,7 @@
 				84279FDF2ACC16FB003B13CC /* Fonts.swift in Sources */,
 				84F900382ACEB65D00611B54 /* MediumButton.swift in Sources */,
 				84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */,
-				8456F3452AD2D16300170B29 /* OnboardingVC.swift in Sources */,
+				8456F3452AD2D16300170B29 /* PaywallVC.swift in Sources */,
 				8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */,
 				845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */,
 				846CBD8A2ADFCC3200E960DB /* Convert IndexPath.swift in Sources */,
@@ -578,6 +616,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -613,6 +652,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
