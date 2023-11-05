@@ -18,13 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MARK: - Test
 //        AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
-//        let homeNavVC = UINavigationController(rootViewController: SettingsVC())
+//        let homeNavVC = UINavigationController(rootViewController: EditBannerVC(tickerDataModel: nil))
 //        AppDelegate.window?.rootViewController = homeNavVC
 //        AppDelegate.window?.makeKeyAndVisible()
-        
         // MARK: - Test
-        UserDefaults.standard.setValue(false, forKey: "OnboardingCompletedKey")
-        UserDefaults.standard.synchronize()
+//        UserDefaults.standard.setValue(false, forKey: "OnboardingCompletedKey")
+//        UserDefaults.standard.synchronize()
         
         updateRootVC()
         setupApphud()
@@ -38,13 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: - setup Apphud
 extension AppDelegate {
     private func setupApphud() {
-        Apphud.start(apiKey: "app_we22ua3xsnzRycprMTnT3uK6gMEa19")
+        Apphud.start(apiKey: "app_44b9qHFjkvuYQQc43pzwPLGwbaRBEX")
     }
 }
 
-
+// MARK: - Distribute Screen
 extension AppDelegate {
      
     func updateRootVC() {
@@ -59,7 +59,6 @@ extension AppDelegate {
                 AppDelegate.window?.makeKeyAndVisible()
             } else {
                 AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
-//                let homeNavVC = CustomNav(rootViewController: PaywallVC())
                 AppDelegate.window?.rootViewController = PaywallVC()
                 AppDelegate.window?.makeKeyAndVisible()
             }

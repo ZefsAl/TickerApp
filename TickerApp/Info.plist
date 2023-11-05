@@ -8,9 +8,10 @@
 	<array>
 		<string>PermanentMarker-Regular.ttf</string>
 		<string>Bangers-Regular.ttf</string>
-		<string>PressStart2P-Regular.ttf</string>
-		<string>LibreBarcode39-Regular.ttf</string>
-		<string>SF-Pro-Rounded-Regular.ttf</string>
+		<string>RampartOne-Regular.ttf</string>
+		<string>RubikWetPaint-Regular.ttf</string>
+		<string>TrainOne-Regular.ttf</string>
+		<string>Oswald-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

@@ -13,7 +13,6 @@ protocol PromoCVCellDelegate {
 
 final class PromoCVCell: UICollectionViewCell {
     
-    
     lazy var promoCVCellDelegate: PromoCVCellDelegate? = nil
     
     static var reuseID: String {
@@ -34,12 +33,8 @@ final class PromoCVCell: UICollectionViewCell {
         return b
     }()
     @objc private func ctaAct() {
-        
         promoCVCellDelegate?.showPaywall()
-        
-        print("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅")
     }
-    
     
     // MARK: - title
     private let title: UILabel = {

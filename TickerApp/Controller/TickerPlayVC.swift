@@ -10,6 +10,15 @@ import UIKit
 
 class TickerPlayVC: UIViewController {
     
+//    private var isHiddenUI: Bool = true
+    
+    let headerStack: UIStackView = {
+        let s = UIStackView()
+        s.isHidden = false
+        s.layer.opacity = 1
+        return s
+    }()
+    
     // MARK: - close
     private let close: CircleButton = {
         let b = CircleButton(
@@ -53,7 +62,12 @@ class TickerPlayVC: UIViewController {
     }()
     
     // MARK: - TickerView
-    private var tickerView: TickerView = TickerView()
+    private var tickerView: TickerView = {
+        let t = TickerView()
+        t.layer.borderColor = UIColor.clear.cgColor
+        return t
+    }()
+    
     
 
 //     MARK: - View Did Load
@@ -61,7 +75,7 @@ class TickerPlayVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         setupUI()
-        
+        showHideUI()
         
     }
     
@@ -82,24 +96,20 @@ class TickerPlayVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
+    // MARK: - view Did Layout Subviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.rotateToLandsScapeDevice()
     }
-    
-    
-    
+    // MARK: - view Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.rotateToPotraitScapeDevice()
     }
     
-    // MARK: - Orientation
+    // MARK: - Orientation - BUG
     func rotateToLandsScapeDevice(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-
         appDelegate.defaultOrientation = .landscapeLeft
         UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
         UIView.setAnimationsEnabled(true)
@@ -107,19 +117,10 @@ class TickerPlayVC: UIViewController {
 
     func rotateToPotraitScapeDevice(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         appDelegate.defaultOrientation = .portrait
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         UIView.setAnimationsEnabled(true)
     }
-    
-
-    
-    
-    
-
-
-    
 
 }
 
@@ -128,9 +129,12 @@ extension TickerPlayVC {
     
     private func setupUI() {
         
-        
         // header
-        let headerStack = UIStackView(arrangedSubviews: [close,edit,UIView(),playPause,edit])
+//        let headerStack = UIStackView(arrangedSubviews: [close,UIView(),playPause,edit])
+        headerStack.addArrangedSubview(close)
+        headerStack.addArrangedSubview(UIView())
+        headerStack.addArrangedSubview(playPause)
+        headerStack.addArrangedSubview(edit)
         headerStack.translatesAutoresizingMaskIntoConstraints = false
         headerStack.axis = .horizontal
         headerStack.alignment = .fill
@@ -138,8 +142,6 @@ extension TickerPlayVC {
         
         self.view.addSubview(tickerView)  // 1
         self.view.addSubview(headerStack) // 2
-        
-        
         
         // Stack
         let top: CGFloat = 16
@@ -149,8 +151,6 @@ extension TickerPlayVC {
         
         let viewMargin = self.view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            
-            
 
             headerStack.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: top),
             headerStack.leadingAnchor.constraint(equalTo: viewMargin.leadingAnchor, constant: 0),
@@ -163,5 +163,32 @@ extension TickerPlayVC {
         ])
     }
     
-    
+    // MARK: - show Hide UI
+    private func showHideUI() {
+        
+        // Delay hide
+        UIView.animate(withDuration: 0.2, delay: 2, options: .curveEaseInOut) {
+            self.headerStack.layer.opacity = 0
+        } completion: { _ in
+            self.headerStack.isHidden = true
+        }
+        
+        let showHideGesture = UITapGestureRecognizer(target: self, action: #selector(showHideGesture))
+        self.view.addGestureRecognizer(showHideGesture)
+    }
+    // MARK: - show Gesture
+    @objc private func showHideGesture() {
+        if self.headerStack.isHidden {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                self.headerStack.isHidden = false
+                self.headerStack.layer.opacity = 1
+            } completion: { _ in }
+        } else {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                self.headerStack.layer.opacity = 0
+            } completion: { _ in
+                self.headerStack.isHidden = true
+            }
+        }
+    }
 }

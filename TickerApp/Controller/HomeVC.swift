@@ -20,7 +20,7 @@ final class HomeVC: UIViewController {
     private let homeCollectionView = RegularCollectionView()
     
     
-    // MARK: - ctaButton
+    // MARK: - CTA Button 💠
     private let ctaButton: BigButton = {
         let b = BigButton(
             frame: .zero,
@@ -33,6 +33,7 @@ final class HomeVC: UIViewController {
         b.addTarget(Any?.self, action: #selector(ctaAct), for: .touchUpInside)
         return b
     }()
+    // MARK: - CTA Action 💠
     @objc private func ctaAct() {
         let navVC = UINavigationController(rootViewController: PaywallVC())
         navVC.modalPresentationStyle = .overFullScreen
@@ -59,7 +60,7 @@ final class HomeVC: UIViewController {
         self.view.backgroundColor = .black
         setupUI()
         // Delegate
-        setupCollectionView()
+        setupRegister()
         
         setTickerObserver()
         
@@ -89,9 +90,7 @@ final class HomeVC: UIViewController {
     }
     
     
-    
-    
-    // MARK: - Observer
+    // MARK: - Observer CRUD
     private func setTickerObserver() {
 
         let objects = realm.objects(TickerDataModel.self)
@@ -115,9 +114,8 @@ final class HomeVC: UIViewController {
         }
     }
     
-    
     // MARK: - Register
-    private func setupCollectionView() {
+    private func setupRegister() {
         homeCollectionView.delegate = self
         homeCollectionView.dataSource = self
         // Header
@@ -126,11 +124,6 @@ final class HomeVC: UIViewController {
         homeCollectionView.register(NewBannerCVCell.self, forCellWithReuseIdentifier: NewBannerCVCell.reuseID)
         homeCollectionView.register(TickerCVCell.self, forCellWithReuseIdentifier: TickerCVCell.reuseID)
     }
-    
-    
-    
-    
-    
     
 }
 
@@ -170,7 +163,7 @@ extension HomeVC {
             contentStack.topAnchor.constraint(equalTo: scrollViewMargin.topAnchor, constant: 32),
             contentStack.leadingAnchor.constraint(equalTo: scrollViewMargin.leadingAnchor, constant: left),
             contentStack.trailingAnchor.constraint(equalTo: scrollViewMargin.trailingAnchor, constant: right),
-            contentStack.bottomAnchor.constraint(equalTo: scrollViewMargin.bottomAnchor, constant: -0),
+            contentStack.bottomAnchor.constraint(equalTo: scrollViewMargin.bottomAnchor, constant: -76),
             contentStack.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: width),
             
             contentScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -240,8 +233,24 @@ extension HomeVC: UICollectionViewDataSource {
 
 // MARK: -  Delegate
 extension HomeVC: UICollectionViewDelegate {
+    /*
+     Если только Long Press Gesture и select для удаления
+     */
+    
+//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.isUserInteractionEnabled = true
+//        cell?.tapAnimateBegan()
+//    }
+//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.isUserInteractionEnabled = true
+//        cell?.tapAnimateEnded()
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.hapticImpact(style: .soft)
         // 0
         if indexPath.section == 0 && indexPath.row == 0 {
             self.navigationController?.pushViewController(EditBannerVC(tickerDataModel: nil), animated: true)

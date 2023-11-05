@@ -8,6 +8,17 @@
 import UIKit
 
 final class BigButton: UIButton {
+    
+    // Animate 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.tapAnimateBegan()
+        self.hapticImpact(style: .soft)
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        self.tapAnimateEnded()
+    }
 
     // MARK: - title
     private let title: UILabel = {
@@ -41,6 +52,8 @@ final class BigButton: UIButton {
     // MARK: - Init
     init(frame: CGRect, bgColor: UIColor, title: String?, titleColor: UIColor?, iconSystemName: String?, iconColor: UIColor?) {
         super.init(frame: frame)
+        
+        self.isUserInteractionEnabled = true
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 30

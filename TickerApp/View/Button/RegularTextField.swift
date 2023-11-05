@@ -44,16 +44,6 @@ final class RegularTextField: UITextField {
         
     }
     
-    private func setupUI() {
-        
-    }
-    
-    
-    
-    
-    
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -61,58 +51,7 @@ final class RegularTextField: UITextField {
 
 // MARK: - Delegate, Animate
 extension RegularTextField: UITextFieldDelegate {
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        performAction()
-//        return false
-//    }
-//
-//    func performAction() {
-//        self.endEditing(true)
-//        print("asdq")
-//}
 }
-    
-    
-    
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//
-//        self.rightCancelButton.isHidden = false
-//
-//        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-//            self.rightCancelButton.alpha = 1
-//        }, completion: nil)
-//
-//    }
-////
-////
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//
-//        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut) {
-//            self.rightCancelButton.alpha = 0
-//        } completion: { _ in
-//            self.rightCancelButton.isHidden = true
-//        }
-
-//    }
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//
-//        guard let newTextField = textField.text else { return false }
-//        let text = newTextField + string
-//
-//        // Replacing space + restrict
-//        if text.contains(" ")  {
-//            textField.text = text.replacingOccurrences(of: " ", with: "")
-//
-//            if text.contains(" ") {
-//                return false
-//            }
-//        }
-//        return true
-//    }
-//}
 
 // MARK: Extension Accessory View
 extension RegularTextField {

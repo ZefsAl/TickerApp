@@ -13,7 +13,7 @@ import SafariServices
 import RealmSwift
 
 protocol SettingsVCDelegate {
-    var viewController: SettingsVC? { get set }
+    var settingsVC: SettingsVC? { get set }
 }
 
 class AppSettingsVM {

@@ -10,6 +10,8 @@ import UIKit
 
 final class NAVCloseButtonView: UIView {
     
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -46,32 +48,3 @@ final class NAVCloseButtonView: UIView {
 }
     
     
-
-//let buttonView: UIView = {
-//
-//    let v = UIView() // customView: type
-//    v.translatesAutoresizingMaskIntoConstraints = false
-//
-//    let configImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)) // 25~30x30-frame
-//
-//
-//    let iv = UIImageView(image: configImage)
-//    iv.translatesAutoresizingMaskIntoConstraints = false
-//    iv.tintColor = .black
-//    iv.isUserInteractionEnabled = false
-////            iv.contentMode = .scaleAspectFit //
-//
-//    v.addSubview(iv)
-//    v.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//    v.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//
-//    return v
-//}()
-//
-//let gesture = UITapGestureRecognizer(target: self, action: selectorStr)
-//buttonView.addGestureRecognizer(gesture)
-//
-//// Add Nav Item
-//let dismissButtonItem = UIBarButtonItem(customView: buttonView)
-//self.navigationItem.rightBarButtonItem = dismissButtonItem
-//}

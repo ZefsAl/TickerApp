@@ -7,17 +7,11 @@
 
 import UIKit
 
-//protocol SettingsVCDelegate {
-//    var viewController: SettingsVC { get set }
-//}
-
-
 final class SettingsVC: UIViewController, SettingsVCDelegate {
     
-    var viewController: SettingsVC?
+    var settingsVC: SettingsVC?
     let viewModel = AppSettingsVM()
     
-
     // MARK: - Settings CV
     let settingsCV: RegularCollectionView = {
         let cv = RegularCollectionView()
@@ -29,17 +23,16 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
         return cv
     }()
     
+    // MARK: - view Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // For remote open
         viewModel.delegateVC = self
-        self.viewController = self
+        self.settingsVC = self
         // setup
         configureNAV()
         setSettingsCV()
         setupUI()
-        
     }
     
     // MARK: - configure NAV
@@ -53,8 +46,6 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
     @objc private func closeAct(_ sender: MediumButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
-    
-    
     // MARK: - setSettingsCV
     private func setSettingsCV() {
         settingsCV.delegate = self
@@ -63,9 +54,6 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
         settingsCV.register(AppSettingsCVCell.self, forCellWithReuseIdentifier: AppSettingsCVCell.reuseID)
         settingsCV.register(PromoCVCell.self, forCellWithReuseIdentifier: PromoCVCell.reuseID)
     }
-    
-    
-
 }
 
 
@@ -85,11 +73,7 @@ extension SettingsVC {
             
         ])
     }
-     
 }
-
-
-
 
 // MARK: - Delegate
 extension SettingsVC: UICollectionViewDelegate, PromoCVCellDelegate {
@@ -102,12 +86,6 @@ extension SettingsVC: UICollectionViewDelegate, PromoCVCellDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-//        if indexPath.row == 0 {
-//            let navVC = UINavigationController(rootViewController: PaywallVC())
-//            navVC.modalPresentationStyle = .overFullScreen
-//            self.present(navVC, animated: true)
-//        }
         viewModel.settingsCells[indexPath.row].handler()
     }
 }
@@ -115,22 +93,10 @@ extension SettingsVC: UICollectionViewDelegate, PromoCVCellDelegate {
 // MARK: - DataSource
 extension SettingsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        
-//        if section == 1 {
-//            return viewModel.settingsCells.count
-//        } else {
-//            return 1
-//        }
-        
         return viewModel.settingsCells.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-
-        
-        
         
         let model = self.viewModel.settingsCells[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppSettingsCVCell.reuseID, for: indexPath) as? AppSettingsCVCell
@@ -145,8 +111,6 @@ extension SettingsVC: UICollectionViewDataSource {
             return cell ?? UICollectionViewCell()
         }
         
-        
-//        return cell ?? UICollectionViewCell()
     }
 }
 

@@ -9,12 +9,22 @@ import UIKit
 
 final class CircleButton: UIButton {
     
+    // Animate
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.tapAnimateBegan()
+        self.hapticImpact(style: .soft)
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        self.tapAnimateEnded()
+    }
+    
     // MARK: - Icon
     let icon: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.isUserInteractionEnabled = false
-
         return iv
     }()
     
@@ -23,6 +33,7 @@ final class CircleButton: UIButton {
     init(frame: CGRect, bgColor: UIColor, iconSystemName: String, iconColor: UIColor) {
         super.init(frame: frame)
 
+        self.isUserInteractionEnabled = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 25
         self.backgroundColor = bgColor

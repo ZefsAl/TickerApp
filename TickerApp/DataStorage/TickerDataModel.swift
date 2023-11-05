@@ -27,8 +27,8 @@ class TickerDataModel: Object {
     @Persisted var fontSize: Double?
     @Persisted var fontName: String?
     @Persisted var textColor: String?
-//    Stroke
-//    Shadow
+    @Persisted var stroke: Double?
+    @Persisted var shadow: Double?
     
     // MARK: - Background
     @Persisted var bgColor: String?
@@ -37,15 +37,12 @@ class TickerDataModel: Object {
     // frame
     
     
-    
-    
-    
-    
-    
+    // Select
     @Persisted var selectedEffectIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 2]]))
     @Persisted var selectedTextIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 1], [2, 2], [1, 1]]))
     @Persisted var selectedBackgroundIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 0]]))
     
+    // Selected Data 
     convenience init(
         selectedEffectIndexData: Data,
         selectedTextIndexData: Data,
@@ -57,13 +54,16 @@ class TickerDataModel: Object {
         self.selectedBackgroundIndexData = selectedBackgroundIndexData
     }
     
+    // Model
     convenience init(
         inputText: String,
         textColor: String,
         textSpeed: Double,
         bgColor: String,
         fontName: String,
-        fontSize: Double
+        fontSize: Double,
+        stroke: Double,
+        shadow: Double
     ) {
         self.init()
         self.inputText = inputText
@@ -72,6 +72,8 @@ class TickerDataModel: Object {
         self.bgColor = bgColor
         self.fontName = fontName
         self.fontSize = fontSize
+        self.stroke = stroke
+        self.shadow = shadow
     }
 }
 

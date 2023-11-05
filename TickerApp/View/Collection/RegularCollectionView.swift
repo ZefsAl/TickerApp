@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class RegularCollectionView: UICollectionView {
     

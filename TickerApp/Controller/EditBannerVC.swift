@@ -19,15 +19,14 @@ final class EditBannerVC: UIViewController {
     
     // MARK: - TickerView
     // Для хранения примененных параметров из Collection
-    static var tickerView: TickerView = TickerView() // 👎
+    static var tickerView: TickerView = TickerView()
     
     
     // MARK: - tickerDataModel
     var tickerDataModel: TickerDataModel?
     
     
-    
-    // MARK: - save
+    // MARK: - Save ✅
     private let save: MediumButton = {
         let b = MediumButton(
             frame: .zero,
@@ -41,24 +40,20 @@ final class EditBannerVC: UIViewController {
         b.addTarget(Any?.self, action: #selector(saveAct), for: .touchUpInside)
         return b
     }()
-    // MARK: - Save Act
+    // MARK: - Save Act ✅
     @objc private func saveAct(_ sender: MediumButton) {
-        print("saveAct")
         
-        
-        
+        /*
+         При update есть баг если не выбрать скорость текста возвращает дефолт 100 а нужно предыдущий выбор
+         */
         
         // get selected indexPath from CV
         let effectData = encodeIndexPath(indexPathArr: effectSettingsCV.selectedEffectIndexPath)
         let textData = encodeIndexPath(indexPathArr: textSettingsCV.selectedTextIndexPath)
         let backgroundData = encodeIndexPath(indexPathArr: backgroundSettingsCV.selectedBackgroundIndexPath)
         
-        
-//        print("effectData - ",effectData,"textData - ",textData,"backgroundData - ", backgroundData)
-        
         // Add item
         EditBannerVC.tickerView.getTickerConfig { model in
-            
             // Add New
             if self.tickerDataModel == nil {
                 try! self.realm.write {
@@ -69,15 +64,10 @@ final class EditBannerVC: UIViewController {
                     self.realm.refresh()
                 }
             }
-
-            
-            // Update тоже setSelectCV сохранить измененные selected settings
-            // Не должны сохранять пустой [] eckb [] то вернуть предыдущее сохранение
-            //                    (effectData == []) ? effectData : model.selectedEffectIndexData
             
             // Update
             guard let oldModel = self.tickerDataModel else { return }
-            
+            // get new Effect setting or old
             var newEffectData: Data {
                 if self.effectSettingsCV.selectedEffectIndexPath != [] {
                     return encodeIndexPath(indexPathArr: self.effectSettingsCV.selectedEffectIndexPath)
@@ -85,7 +75,7 @@ final class EditBannerVC: UIViewController {
                     return oldModel.selectedEffectIndexData
                 }
             }
-            
+            // get new Text setting or old
             var newTextData: Data {
                 if self.textSettingsCV.selectedTextIndexPath != [] {
                     return encodeIndexPath(indexPathArr: self.textSettingsCV.selectedTextIndexPath)
@@ -93,47 +83,42 @@ final class EditBannerVC: UIViewController {
                     return oldModel.selectedTextIndexData
                 }
             }
-            
+            // get new Background setting or old
             var newBackgroundData: Data {
                 if self.backgroundSettingsCV.selectedBackgroundIndexPath != [] {
                     return encodeIndexPath(indexPathArr: self.backgroundSettingsCV.selectedBackgroundIndexPath)
                 } else {
                     return oldModel.selectedBackgroundIndexData
                 }
-                    
             }
             
-            
-            // find
+            // Find
             let object = self.realm.objects(TickerDataModel.self).where {
                 $0._id == oldModel._id
             }.first!
-            print(model)
-            // Set new
+            print("Save",model)
+            // Update - Set new
             try! self.realm.write {
-
+                //
                 object.inputText = model.inputText
                 object.textColor = model.textColor
                 object.textSpeed = model.textSpeed
                 object.bgColor = model.bgColor
                 object.fontName = model.fontName
                 object.fontSize = model.fontSize
-         
-                
-                
+                object.stroke = model.stroke
+                object.shadow = model.shadow
+                //
                 object.selectedEffectIndexData = newEffectData
                 object.selectedTextIndexData = newTextData
                 object.selectedBackgroundIndexData = newBackgroundData
-                
             }
         }
-        
-        
-        
-        
+        UIView().hapticNotification(type: .success)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
-    // MARK: - close
+    // MARK: - Close ⬅️
     private let close: CircleButton = {
         let b = CircleButton(
             frame: .zero,
@@ -144,11 +129,12 @@ final class EditBannerVC: UIViewController {
         b.addTarget(Any?.self, action: #selector(closeAct), for: .touchUpInside)
         return b
     }()
+    // MARK: - Close Action ⬅️
     @objc private func closeAct(_ sender: MediumButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    // MARK: - delete
+    // MARK: - Delete ❌
     private let delete: CircleButton = {
         let b = CircleButton(
             frame: .zero,
@@ -160,12 +146,12 @@ final class EditBannerVC: UIViewController {
         return b
     }()
     
-    // MARK: - delete Actions
+    // MARK: - Delete Action ❌
     @objc private func deleteAct(_ sender: MediumButton) {
         
         let alert = UIAlertController(title: "Delete?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { act in
-//            find
+            // find
             guard let model = self.tickerDataModel else { print("Empty"); return }
             // compare id
             let object = self.realm.objects(TickerDataModel.self).where {
@@ -175,17 +161,16 @@ final class EditBannerVC: UIViewController {
             try! self.realm.write {
                 self.realm.delete(object)
             }
+            UIView().hapticNotification(type: .warning)
             self.navigationController?.popToRootViewController(animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { act in
             alert.dismiss(animated: true)
         }))
         self.present(alert, animated: true)
-        
     }
     
-    
-    // MARK: - play
+    // MARK: - Play ▶️
     private let play: MediumButton = {
         let b = MediumButton(
             frame: .zero,
@@ -199,9 +184,21 @@ final class EditBannerVC: UIViewController {
         b.addTarget(Any?.self, action: #selector(playAct), for: .touchUpInside)
         return b
     }()
+    // MARK: - play Action ▶️
     @objc private func playAct(_ sender: MediumButton) {
-        self.navigationController?.pushViewController(TickerPlayVC(tickerDataModel: tickerDataModel), animated: true)
         
+        guard tickerDataModel == nil else {
+            // by have EditBannerVC configured data
+            self.navigationController?.pushViewController(TickerPlayVC(tickerDataModel: tickerDataModel), animated: true)
+            UIView().hapticImpact(style: .light)
+            return
+        }
+        // If new banner present + get config and play without save -
+        EditBannerVC.tickerView.getTickerConfig { model in
+            print("✅ TickerPlayVC get model:",model)
+            self.navigationController?.pushViewController(TickerPlayVC(tickerDataModel: model), animated: true)
+        }
+        UIView().hapticImpact(style: .light)
     }
     
     // MARK: - Text Field
@@ -230,7 +227,6 @@ final class EditBannerVC: UIViewController {
     
     private let backgroundSettingsCV = EditSettingsCV(frame: .null, collectionViewLayout: UICollectionViewLayout.init(), editSettingsModel: EditSettingsVM().backgroundSettingsModel)
 
-    
     
     // MARK: - tab Bar View
     private let tabBarView: MDCTabBarView = {
@@ -269,20 +265,31 @@ final class EditBannerVC: UIViewController {
         
         // UI
         setupUI()
-        settingsScrollViewUI()
+//        settingsScrollViewUI()
         
     }
     
-    // MARK: - viewDidAppear
+    // MARK: - view Did Appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        print("viewDidAppear - SV = \(settingsScrollView.frame)") // 👎
         
     }
-    
+    // MARK: - view Will Appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+    }
+    // MARK: - view Will Layout Subviews
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        settingsScrollViewUI()
+    }
+    // MARK: - view Did Layout Subviews
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.settingsScrollView.setNeedsLayout()
+        self.settingsScrollView.layoutIfNeeded()
+        settingsScrollViewUI()
     }
     
     
@@ -310,16 +317,12 @@ final class EditBannerVC: UIViewController {
             setSelectCV(indexData: data, collection: backgroundSettingsCV)
         }
         
-        
-        
-        
         // New Banner
         if tickerDataModel == nil {
             self.tickerDataModel = nil
             EditBannerVC.tickerView = TickerView()
             EditBannerVC.tickerView.configTickerLayout(width: self.view.frame.size.width)
         }
-        
         
         // Update Banner
         if let model = tickerDataModel {
@@ -346,7 +349,7 @@ final class EditBannerVC: UIViewController {
                 collection.selectItem(
                     at: index,
                     animated: true,
-                    scrollPosition: .left
+                    scrollPosition: .centeredVertically
                 )
             }
         }
@@ -367,7 +370,10 @@ final class EditBannerVC: UIViewController {
 extension EditBannerVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        guard let text = textField.text else { return }
+        guard
+            textField.text != "",
+            let text = textField.text
+        else { return }
         EditBannerVC.tickerView.setInputText(text: text)
         
     }
@@ -392,17 +398,16 @@ extension EditBannerVC: MDCTabBarViewDelegate {
 // MARK: - Delegate UIScrollView
 extension EditBannerVC: UIScrollViewDelegate {
     // scrollViewDidScroll + setSelectedItem работает нормально но!
-    var page: Int {
-        let page = Int(floorf(Float(settingsScrollView.contentOffset.x) / Float(settingsScrollView.frame.size.width)))
-        if page < 0 {
-            return 0
-        } else if page > 2 {
-            return 2
-        } else {
-            return page
-        }
-        
-    }
+//    var page: Int {
+//        let page = Int(floorf(Float(settingsScrollView.contentOffset.x) / Float(settingsScrollView.frame.size.width)))
+//        if page < 0 {
+//            return 0
+//        } else if page > 2 {
+//            return 2
+//        } else {
+//            return page
+//        }
+//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -448,6 +453,8 @@ extension EditBannerVC: UIScrollViewDelegate {
         
         
     }
+    
+    
 }
 
 
@@ -491,8 +498,6 @@ extension EditBannerVC {
         contentStack.spacing = 0
         self.view.addSubview(contentStack)
 
-
-        
         // bottomStack
         let bottomStack = UIStackView(arrangedSubviews: [tabBarView,settingsScrollView])
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
@@ -502,7 +507,6 @@ extension EditBannerVC {
         
         self.view.addSubview(bottomStack)
         
-        
 //        // Stack
         let top: CGFloat = 16
         let left: CGFloat = 16
@@ -511,8 +515,6 @@ extension EditBannerVC {
         
         let viewMargin = self.view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            
-//            regularTextField.widthAnchor.less
             
             EditBannerVC.tickerView.heightAnchor.constraint(equalToConstant: 160),
 
@@ -529,48 +531,66 @@ extension EditBannerVC {
         ])
     }
     
-    // MARK: - SettingsScrollViewUI
+    // MARK: - Settings Scroll View UI
     func settingsScrollViewUI() {
-
-        settingsScrollView.contentSize = CGSize(width: view.frame.size.width*3, height: settingsScrollView.frame.size.height)
-        settingsScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        // Баг с ContentOffset при инициализации 
+        
+        
+        
+        
+        print("✅",textSettingsCV.contentOffset)
+        // Так себе конфиг self.view
+        settingsScrollView.contentSize = CGSize(
+            width: view.frame.size.width*3,
+            height: settingsScrollView.frame.size.height
+        )
         settingsScrollView.isPagingEnabled = true
         
         
-//        let viewSizeWidth = self.view.frame.size.width
-        
-        for slide in 0..<3 {
-            
-            if slide == 0 {
+        for page in 0..<3 {
+            // Effect
+            if page == 0 {
                 
                 effectSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * self.view.frame.size.width,
+                    x: CGFloat(page) * self.view.frame.size.width,
                     y: 0,
                     width: self.view.frame.size.width,
-                    height: self.view.frame.size.height
+                    height: settingsScrollView.frame.size.height
                 )
                 
                 settingsScrollView.addSubview(effectSettingsCV)
+//                effectSettingsCV.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             }
-            if slide == 1 {
+            // Text
+            if page == 1 {
                 textSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * self.view.frame.size.width,
+                    x: CGFloat(page) * self.view.frame.size.width,
                     y: 0,
                     width: self.view.frame.size.width,
-                    height: self.view.frame.size.height
+                    height: settingsScrollView.frame.size.height
                 )
+//                self.view.frame.size.height
+                
+//                textSettingsCV.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                textSettingsCV.remembersLastFocusedIndexPath = false
+//                textSettingsCV.scroll
+//                indexPathForPreferredFocusedViewInCollectionView(_:)
+//                textSettingsCV.focuse
+                print("✅ 2",textSettingsCV.contentOffset)
                 
                 settingsScrollView.addSubview(textSettingsCV)
             }
-            if slide == 2 {
+            // background
+            if page == 2 {
                 backgroundSettingsCV.frame = CGRect(
-                    x: CGFloat(slide) * self.view.frame.size.width,
+                    x: CGFloat(page) * self.view.frame.size.width,
                     y: 0,
                     width: self.view.frame.size.width,
-                    height: self.view.frame.size.height
+                    height: settingsScrollView.frame.size.height
                 )
 
                 settingsScrollView.addSubview(backgroundSettingsCV)
+//                backgroundSettingsCV.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             }
             
         }

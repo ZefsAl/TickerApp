@@ -71,7 +71,7 @@ extension EditSettingsVM {
                         
 //                    ]),
                 
-                // Scroll Speed
+                // MARK: - Scroll Speed
                 EditSettingsSection(
                     sectionTitle: "Scroll Speed",
                     sectionCells: [
@@ -125,7 +125,7 @@ extension EditSettingsVM {
         textSettingsModel = EditSettingsModel(
             editSettingsModelType: .text,
             sections: [
-                // Size
+                // MARK: - Size
                 EditSettingsSection(
                     sectionTitle: "Size",
                     sectionCells: [
@@ -155,6 +155,14 @@ extension EditSettingsVM {
                             )),
                         CellSectionType.regularCell(
                             model: RegularCell(
+                                title: "125",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
                                 title: "150",
                                 iconSystemName: nil,
                                 bgColor: nil,
@@ -162,10 +170,18 @@ extension EditSettingsVM {
                                 handler: {}
                             )),
                     ]),
-                // Fonts
+                // MARK: - Fonts
                 EditSettingsSection(
                 sectionTitle: "Fonts",
                 sectionCells: [
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "Oswald-Regular",
+                            handler: {}
+                        )),
                     CellSectionType.regularCell(
                         model: RegularCell(
                             title: "Aa",
@@ -182,8 +198,32 @@ extension EditSettingsVM {
                             fontName: "Bangers-Regular",
                             handler: {}
                         )),
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "RampartOne-Regular",
+                            handler: {}
+                        )),
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "RubikWetPaint-Regular",
+                            handler: {}
+                        )),
+                    CellSectionType.regularCell(
+                        model: RegularCell(
+                            title: "Aa",
+                            iconSystemName: nil,
+                            bgColor: nil,
+                            fontName: "TrainOne-Regular",
+                            handler: {}
+                        )),
                 ]),
-                // Color
+                // MARK: - Color
                 EditSettingsSection(
                     sectionTitle: "Color",
                     sectionCells: [
@@ -237,6 +277,97 @@ extension EditSettingsVM {
                             )),
                         
                     ]),
+                // MARK: - Stroke
+                EditSettingsSection(
+                    sectionTitle: "Stroke",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "2",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "10",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                    ]),
+                // MARK: - Shadow
+                EditSettingsSection(
+                    sectionTitle: "Shadow",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "2",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "10",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "15",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCell(
+                                title: "20",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                handler: {}
+                            )),
+                    ]),
+                
                 
             ])
             
@@ -247,8 +378,8 @@ extension EditSettingsVM {
         backgroundSettingsModel = EditSettingsModel(
             editSettingsModelType: .background,
             sections: [
+                // MARK: - Color
                 EditSettingsSection(
-                    // Color
                     sectionTitle: "Color",
                     sectionCells: [
                         CellSectionType.regularCell(

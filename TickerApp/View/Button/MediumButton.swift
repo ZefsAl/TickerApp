@@ -8,6 +8,16 @@
 import UIKit
 
 final class MediumButton: UIButton {
+
+    // Animate
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.tapAnimateBegan()
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        self.tapAnimateEnded()
+    }
     
     // MARK: - title
     private let title: UILabel = {

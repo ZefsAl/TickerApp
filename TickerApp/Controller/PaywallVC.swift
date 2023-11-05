@@ -14,6 +14,7 @@ final class PaywallVC: UIViewController {
     var observer: NSKeyValueObservation?
     var apphudProduct: ApphudProduct?
     
+    // MARK: - currentPageIndex
     var currentPageIndex = 0 {
         didSet {
             print(currentPageIndex)
@@ -23,7 +24,7 @@ final class PaywallVC: UIViewController {
         }
     }
     
-    
+    // MARK: - docs Stack
     let docsStack = UIStackView(arrangedSubviews: [])
     
     
@@ -52,19 +53,14 @@ final class PaywallVC: UIViewController {
             return
         }
         
-        
         // ✅
         currentPageIndex += 1
-        
         if currentPageIndex == 2 {
-            Task {
-                DispatchQueue.main.async {
-                    guard let window = AppDelegate.window?.windowScene else { return }
-                    SKStoreReviewController.requestReview(in: window)
-                }
+            DispatchQueue.main.async {
+                guard let window = AppDelegate.window?.windowScene else { return }
+                SKStoreReviewController.requestReview(in: window)
             }
         }
-            
         
         guard currentPageIndex >= 3 else { configureOnboarding(isCompleted: false); return }
         // UI Config
@@ -73,9 +69,7 @@ final class PaywallVC: UIViewController {
         UserDefaults.standard.setValue(true, forKey: "OnboardingCompletedKey")
         UserDefaults.standard.synchronize()
         // Only - Purchase
-        guard
-            currentPageIndex == 4
-        else { return }
+        guard currentPageIndex == 4 else { return }
         makePurchase(product: product)
         
     }
@@ -86,7 +80,6 @@ final class PaywallVC: UIViewController {
        let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleToFill
-//        iv.image = UIImage(named: "")
         return iv
     }()
     
@@ -95,14 +88,6 @@ final class PaywallVC: UIViewController {
         let l = UILabel()
         l.textColor = .white
         l.numberOfLines = 1
-        
-//        let text = "Get all the features you need"
-//        l.text = text
-        
-        //        var paragraphStyle = NSMutableParagraphStyle()
-        //        paragraphStyle.lineHeightMultiple = 1.04
-//        l.attributedText = NSMutableAttributedString(string: text,attributes: [NSAttributedString.Key.kern: -0.8, NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        
         l.font = SFProRounded.set(fontSize: 26, weight: .semibold)
         l.adjustsFontSizeToFitWidth = true
         l.textAlignment = .center
@@ -193,61 +178,32 @@ final class PaywallVC: UIViewController {
     
     // MARK: - closeButton
     private let closeButton: UIButton = {
-        
         let b = UIButton() // customView: type
         b.translatesAutoresizingMaskIntoConstraints = false
-        
         let configImage = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold)) // 25~30x30-frame
-        
         let iv = UIImageView(image: configImage)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.tintColor = AppColors.gray2
         iv.isUserInteractionEnabled = false
-//            iv.contentMode = .scaleAspectFit //
-        
         b.addSubview(iv)
         b.heightAnchor.constraint(equalToConstant: 30).isActive = true
         b.widthAnchor.constraint(equalToConstant: 30).isActive = true
         b.addTarget(Any?.self, action: #selector(closeAct), for: .touchUpInside)
-        
+        // State
+        b.isHidden = true
         return b
     }()
     
     // MARK: - closeAct
     @objc private func closeAct() {
-        print("closeAct")
-//        if UIApplication.shared.windows.first?.rootViewController is HomeVC {
-//            self.dismiss(animated: true)
-//        } else {
-//            self.navigationController?.pushViewController(HomeVC(), animated: true)
-//        }
-        
-//        let viewController = UIApplication.shared.windows.first?.rootViewController as? HomeVC
-//        let viewController = UIApplication.shared.keyWindow?.rootViewController
-//        UIApplication.shared.windows.last?.rootViewController
-        
-          //✅
-
-            
-        
-//            .transitionCurlDown  .transitionFlipFromBottom
+          // ✅
         guard let window = AppDelegate.window else { return }
         UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromBottom, animations: {
             window.rootViewController = CustomNav(rootViewController: HomeVC())
         }, completion:
         { completed in
-            // maybe do something on completion here
         })
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     // MARK: - view Did Load
@@ -258,10 +214,7 @@ final class PaywallVC: UIViewController {
         setNavStyle()
         setupUI()
         
-        setupPaywall()
-        
-
-        
+        setupPaywall { _ in }
         setOnboardingObserver()
     }
     
@@ -276,7 +229,7 @@ final class PaywallVC: UIViewController {
     private func setOnboardingObserver() {
         observer = UserDefaults.standard.observe(\.onboardingIsCompleted, options: [.initial, .new], changeHandler: { (defaults, change) in
 
-            print("Defaults onboardingIsCompleted : \(defaults.onboardingIsCompleted)")
+            print("Defaults onboardingIsCompleted: \(defaults.onboardingIsCompleted)")
             if defaults.onboardingIsCompleted == true {
                 self.configureOnboarding(isCompleted: true)
             } else {
@@ -289,6 +242,7 @@ final class PaywallVC: UIViewController {
      func configureOnboarding(isCompleted: Bool) {
         
         let dataArr = PaywallViewModel().paywallDataArr
+         
         
         self.promoImage.fadeTransition(0.3)
         self.promoTitle.fadeTransition(0.3)
@@ -296,6 +250,7 @@ final class PaywallVC: UIViewController {
         
         if isCompleted {
             self.showPaywallUI(canShow: true)
+            
             // Paywall
             self.promoImage.image = UIImage(named: dataArr[3].imageName)
             self.promoTitle.text = dataArr[3].title
@@ -315,7 +270,12 @@ final class PaywallVC: UIViewController {
         
         if canShow {
             //Show
-            closeButton.isHidden = false
+            // closeButton
+            setupPaywall { paywall in
+                let val = paywall.json?["isCloseHiden"] as? Bool
+                guard let val = val else { return }
+                self.closeButton.isHidden = val
+            }
             // termsButton
             termsButton.setTitleColor(AppColors.gray2, for: .normal)
             termsButton.isEnabled = true
@@ -339,11 +299,6 @@ final class PaywallVC: UIViewController {
             restoreButton.isEnabled = false
         }
     }
-
-    
-    
-    
-    
 }
 
 
@@ -363,12 +318,9 @@ extension PaywallVC {
     
     // MARK: - Setup UI
     private func setupUI() {
-        
-        
+           
         // Docs Stack
 //        let docsStack = UIStackView(arrangedSubviews: [termsButton,restoreButton,privacyButton])
-        
-        
         docsStack.addArrangedSubview(termsButton)
         docsStack.addArrangedSubview(restoreButton)
         docsStack.addArrangedSubview(privacyButton)
@@ -400,8 +352,6 @@ extension PaywallVC {
         contentStack.axis = .vertical
         contentStack.alignment = .fill
         contentStack.distribution = .equalSpacing
-//        contentStack.spacing = 0
-        
         
         // Subview
         self.view.addSubview(contentStack)
@@ -435,29 +385,28 @@ extension PaywallVC {
 
 // MARK: - Apphud
 extension PaywallVC {
-    // MARK: - Paywall
-    private func setupPaywall() {
-        
-
-//            UserDefaults.standard.setValue(Apphud.hasPremiumAccess(), forKey: "UserAccessObserverKey")
-//            UserDefaults.standard.synchronize()
-        
+    // MARK: - setup Paywall
+    private func setupPaywall(handler: @escaping (ApphudPaywall) -> Void ) {
         
         Apphud.paywallsDidLoadCallback { paywalls in
             
             if let paywall = paywalls.first(where: { $0.identifier == "Paywall_1" }) {
-                print(paywall.json)
 
+                // get product
                 let products = paywall.products
-                
-//                print(products[0].name)
-//                print(products[0].skProduct)
-                
                 let product = products[0]
                 self.apphudProduct = product
+                handler(paywall)
                 
-                print(product.productId)
-                print(product.name)
+                
+                // close Button
+//                let val = paywall.json?["isCloseHiden"] as? Bool
+//                guard let val = val else { return }
+//                self.closeButton.isHidden = val ? true : false
+//                print("✅ Button State - ", val)
+                
+                
+                
                 
 //                self.skProduct = product
 //                print("skProduct -- ",products[0].skProduct)
@@ -465,12 +414,13 @@ extension PaywallVC {
 //                print("skProduct - price -- ",product?.price)
 //                print("skProduct - localizedTitle -- ",product?.localizedTitle)
                 
-                
                 Apphud.paywallShown(paywall)
             }
         }
         
     }
+    
+    
     // MARK: - Purchase
     private func makePurchase(product: ApphudProduct) {
         
@@ -491,5 +441,22 @@ extension PaywallVC {
             }
         }
     }
+    
+    // MARK: - make Price not need
+//    private func makePrice(product: ApphudProduct) -> String {
+//        // Number Formatter
+//        guard
+//            let price = product.skProduct?.price,
+//            let locale = product.skProduct?.priceLocale
+//        else { return "" }
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.formatterBehavior = .behavior10_4
+//        numberFormatter.numberStyle = .currency
+//        numberFormatter.locale = locale
+//        let formattedPrice = numberFormatter.string(from: price)
+//
+//        return formattedPrice ?? ""
+////        print("✅ formattedPrice - ", formattedPrice as Any)
+//    }
     
 }
