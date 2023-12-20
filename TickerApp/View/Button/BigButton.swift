@@ -21,7 +21,7 @@ final class BigButton: UIButton {
     }
 
     // MARK: - title
-    private let title: UILabel = {
+    let title: UILabel = {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.isUserInteractionEnabled = false
@@ -52,13 +52,11 @@ final class BigButton: UIButton {
     // MARK: - Init
     init(frame: CGRect, bgColor: UIColor, title: String?, titleColor: UIColor?, iconSystemName: String?, iconColor: UIColor?) {
         super.init(frame: frame)
-        
+        ///
         self.isUserInteractionEnabled = true
-
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 30
         self.backgroundColor = bgColor
-
         // title
         self.title.text = title
         self.title.textColor = titleColor
@@ -69,7 +67,9 @@ final class BigButton: UIButton {
 
         setupUI()
     }
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     
@@ -93,9 +93,13 @@ final class BigButton: UIButton {
         ])
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    
+    // Set
+    func setButtonTitle(text: String) {
+        self.title.text = text
     }
+    
     
 }
 

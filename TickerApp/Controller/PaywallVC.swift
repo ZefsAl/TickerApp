@@ -8,10 +8,11 @@
 import UIKit
 import ApphudSDK
 import StoreKit
+import SafariServices
 
 final class PaywallVC: UIViewController {
     
-    var observer: NSKeyValueObservation?
+    var onboardingObserver: NSKeyValueObservation?
     var apphudProduct: ApphudProduct?
     
     // MARK: - currentPageIndex
@@ -27,8 +28,7 @@ final class PaywallVC: UIViewController {
     // MARK: - docs Stack
     let docsStack = UIStackView(arrangedSubviews: [])
     
-    
-    // MARK: - continueBtn
+    // MARK: - continue Btn ➡️
     private let continueBtn: BigButton = {
         let b = BigButton(
             frame: .zero,
@@ -42,24 +42,22 @@ final class PaywallVC: UIViewController {
         b.addTarget(Any?.self, action: #selector(nextAct), for: .touchUpInside)
         return b
     }()
-    // MARK: - nextAct
+    // MARK: - nextAct ➡️
     @objc private func nextAct(_ sender: BigButton) {
         
         let onboarding = UserDefaults.standard.object(forKey: "OnboardingCompletedKey") as? Bool
         guard let product = self.apphudProduct else { return }
         
         guard onboarding == false || onboarding == nil else {
+            // MARK: - Purchase 💰
             makePurchase(product: product)
             return
         }
         
-        // ✅
         currentPageIndex += 1
+        // Request Review
         if currentPageIndex == 2 {
-            DispatchQueue.main.async {
-                guard let window = AppDelegate.window?.windowScene else { return }
-                SKStoreReviewController.requestReview(in: window)
-            }
+            self.requestReview()
         }
         
         guard currentPageIndex >= 3 else { configureOnboarding(isCompleted: false); return }
@@ -68,20 +66,17 @@ final class PaywallVC: UIViewController {
         // End onboarding
         UserDefaults.standard.setValue(true, forKey: "OnboardingCompletedKey")
         UserDefaults.standard.synchronize()
-        // Only - Purchase
-        guard currentPageIndex == 4 else { return }
-        makePurchase(product: product)
-        
+        //
+        continueBtn.setButtonTitle(text: "Try free & subscribe")
     }
     
     
     // MARK: - Promo Image
-    private let promoImage: UIImageView = {
-       let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleToFill
-        return iv
+    private let promoImage: PromoImagePlaceView = {
+       let v = PromoImagePlaceView()
+        return v
     }()
+
     
     // MARK: Promo Title
     private let promoTitle: UILabel = {
@@ -105,7 +100,7 @@ final class PaywallVC: UIViewController {
         return l
     }()
     
-    // MARK: - Terms Button
+    // MARK: - Terms Button 📄
     private let termsButton: UIButton = {
         let b = UIButton(type: .system)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -118,17 +113,17 @@ final class PaywallVC: UIViewController {
     @objc private func termsOfUseAct() {
         print("termsOfUseAct")
         
-//        guard let url = URL(string: "https://numerology-terms.web.app/") else { return }
+        guard let url = URL(string: "https://ledbanner-terms.web.app/") else { return }
         
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else { return }
-//            let safariVC = SFSafariViewController(url: url)
-//            safariVC.modalPresentationStyle = .pageSheet
-//            self.present(safariVC, animated: true)
-//        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .pageSheet
+            self.present(safariVC, animated: true)
+        }
     }
     
-    // MARK: - Privacy Button
+    // MARK: - Privacy Button 📄
     private let privacyButton: UIButton = {
         let b = UIButton(type: .system)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -140,14 +135,14 @@ final class PaywallVC: UIViewController {
         return b
     }()
     @objc private func privacyPolicyAct() {
-//        guard let url = URL(string: "https://numerology-privacy.web.app/") else { return }
+        guard let url = URL(string: "https://ledbanner-privacy.web.app/") else { return }
         
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else { return }
-//            let safariVC = SFSafariViewController(url: url)
-//            safariVC.modalPresentationStyle = .pageSheet
-//            self.present(safariVC, animated: true)
-//        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let safariVC = SFSafariViewController(url: url)
+            safariVC.modalPresentationStyle = .pageSheet
+            self.present(safariVC, animated: true)
+        }
     }
     
     // MARK: - Restore Button
@@ -164,19 +159,15 @@ final class PaywallVC: UIViewController {
     }()
     @objc private func restoreAct() {
         print("Restore purchases")
+        Apphud.restorePurchases{ subscriptions, purchases, error in
+            let isActiveSubscription = Apphud.hasActiveSubscription()
+            UserDefaults.standard.setValue(isActiveSubscription, forKey: "UserIsPremiumObserverKey")
+            UserDefaults.standard.synchronize()
+        }
         
-//        Purchases.shared.restorePurchases { (customerInfo, error) in
-//            // проверить есть ли подписка -> Предоставить доступ
-//            if customerInfo?.entitlements.all["Access"]?.isActive == true {
-//                print("User restored!")
-//                //                self.dismiss(animated: true)
-//            } else {
-//                print("User not restored")
-//            }
-//        }
     }
     
-    // MARK: - closeButton
+    // MARK: - closeButton ❌
     private let closeButton: UIButton = {
         let b = UIButton() // customView: type
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -196,12 +187,9 @@ final class PaywallVC: UIViewController {
     
     // MARK: - closeAct
     @objc private func closeAct() {
-          // ✅
         guard let window = AppDelegate.window else { return }
         UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromBottom, animations: {
             window.rootViewController = CustomNav(rootViewController: HomeVC())
-        }, completion:
-        { completed in
         })
     }
     
@@ -213,12 +201,12 @@ final class PaywallVC: UIViewController {
         setupVCStyle()
         setNavStyle()
         setupUI()
-        
+        //
         setupPaywall { _ in }
         setOnboardingObserver()
     }
     
-    
+    // MARK: - view Did Layout Subviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.navigationController?.isNavigationBarHidden = true
@@ -227,9 +215,9 @@ final class PaywallVC: UIViewController {
     
     // MARK: - setOnboardingObserver
     private func setOnboardingObserver() {
-        observer = UserDefaults.standard.observe(\.onboardingIsCompleted, options: [.initial, .new], changeHandler: { (defaults, change) in
+        onboardingObserver = UserDefaults.standard.observe(\.onboardingIsCompleted, options: [.initial, .new], changeHandler: { (defaults, change) in
 
-            print("Defaults onboardingIsCompleted: \(defaults.onboardingIsCompleted)")
+            print("🔵 Defaults onboardingIsCompleted: \(defaults.onboardingIsCompleted)")
             if defaults.onboardingIsCompleted == true {
                 self.configureOnboarding(isCompleted: true)
             } else {
@@ -238,28 +226,60 @@ final class PaywallVC: UIViewController {
         })
     }
     
-    // MARK: - configure Onboarding
+    // MARK: - configure Onboarding 📗
      func configureOnboarding(isCompleted: Bool) {
         
         let dataArr = PaywallViewModel().paywallDataArr
-         
-        
+        // Text animation
         self.promoImage.fadeTransition(0.3)
         self.promoTitle.fadeTransition(0.3)
         self.subtitle.fadeTransition(0.3)
         
         if isCompleted {
             self.showPaywallUI(canShow: true)
-            
             // Paywall
-            self.promoImage.image = UIImage(named: dataArr[3].imageName)
-            self.promoTitle.text = dataArr[3].title
-            self.subtitle.text = dataArr[3].subtitle
+            self.promoImage.setImage(named: dataArr[3].imageName)
+            // удаленный конфиг из AppHud хотел сделать
+            
+            //
+//            print("🔴 isCompleted - 1", isCompleted)
+            // v1
+//            self.promoTitle.text = dataArr[3].title
+//            self.subtitle.text = dataArr[3].subtitle
+            //
+//            DispatchQueue.main.async {
+//                self.setupPaywall { paywall in
+//                    let paywallTitle = paywall.json?["title"] as? String
+//                    let paywallSubtitle = paywall.json?["subtitle"] as? String
+//                    //
+//                    self.promoTitle.text = paywallTitle
+//                    self.subtitle.text = paywallSubtitle
+//                    self.subtitle.textColor = .white
+//                }
+//            }
+            self.promoTitle.text = "Unlock full access"
+//            self.subtitle.text = """
+//            • 3 days free trial\n• 4.99 $ / 7 days\n• Or proceed with limited version
+//            """
+//            • 4.99 $ per week\n• 3-day free trial included\n• Or proceed with limited version
+            
+            let mainString = "4.99 $ per week\n3-day free trial included\nOr use limited version"
+            let stringToColor = "4.99 $ per week"
+            
+            let range = (mainString as NSString).range(of: stringToColor)
+            let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
+            mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range)
+            mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: SFProRounded.set(fontSize: 20, weight: .semibold), range: range)
+            self.subtitle.attributedText = mutableAttributedString
+
         } else {
+            
             self.showPaywallUI(canShow: false)
             // Onboarding
             guard self.currentPageIndex <= 3 else { return }
-            self.promoImage.image = UIImage(named: dataArr[self.currentPageIndex].imageName)
+            
+            self.promoImage.setImage(named: dataArr[self.currentPageIndex].imageName)
+            //
             self.promoTitle.text = dataArr[self.currentPageIndex].title
             self.subtitle.text = dataArr[self.currentPageIndex].subtitle
         }    
@@ -267,6 +287,11 @@ final class PaywallVC: UIViewController {
     
     // MARK: - show Paywall UI
     private func showPaywallUI(canShow: Bool) {
+        
+        let onboarding = UserDefaults.standard.object(forKey: "OnboardingCompletedKey") as? Bool
+        if onboarding == true {
+            continueBtn.setButtonTitle(text: "Try free & subscribe")
+        }
         
         if canShow {
             //Show
@@ -276,6 +301,7 @@ final class PaywallVC: UIViewController {
                 guard let val = val else { return }
                 self.closeButton.isHidden = val
             }
+            
             // termsButton
             termsButton.setTitleColor(AppColors.gray2, for: .normal)
             termsButton.isEnabled = true
@@ -314,16 +340,17 @@ extension PaywallVC {
     // MARK: - Style
     private func setupVCStyle() {
         self.view.backgroundColor = .black
+        
     }
     
     // MARK: - Setup UI
     private func setupUI() {
            
         // Docs Stack
-//        let docsStack = UIStackView(arrangedSubviews: [termsButton,restoreButton,privacyButton])
         docsStack.addArrangedSubview(termsButton)
         docsStack.addArrangedSubview(restoreButton)
         docsStack.addArrangedSubview(privacyButton)
+        //
         docsStack.axis = .horizontal
         docsStack.spacing = 0
         docsStack.distribution = .fillEqually
@@ -342,16 +369,17 @@ extension PaywallVC {
         textStack.translatesAutoresizingMaskIntoConstraints = false
         textStack.axis = .vertical
         textStack.alignment = .fill
+        textStack.distribution = .fill
         textStack.spacing = 8
-        textStack.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        textStack.layoutMargins = UIEdgeInsets(top: 16, left: 12, bottom: 32, right: 12)
         textStack.isLayoutMarginsRelativeArrangement = true
         
         // Content Stack
         let contentStack = UIStackView(arrangedSubviews: [promoImage,textStack,buttonStack])
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.axis = .vertical
-        contentStack.alignment = .fill
-        contentStack.distribution = .equalSpacing
+        contentStack.alignment = .center
+        contentStack.distribution = .fill
         
         // Subview
         self.view.addSubview(contentStack)
@@ -359,27 +387,27 @@ extension PaywallVC {
         
         // Margin
         let viewMargin = self.view.layoutMarginsGuide
-        // Stack values
-//        let left: CGFloat = 16
-//        let right: CGFloat = -16
-//        let width: CGFloat = right - left
-        
+//        let statusBar = UIApplication.shared.statusBarFrame.height
         
         NSLayoutConstraint.activate([
+            
+            promoImage.topAnchor.constraint(equalTo: contentStack.topAnchor),
+            promoImage.bottomAnchor.constraint(equalTo: textStack.topAnchor),
+            promoImage.widthAnchor.constraint(equalTo: contentStack.widthAnchor),
+            
+            textStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor),
+            textStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor),
             
             closeButton.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: 16),
             closeButton.trailingAnchor.constraint(equalTo: viewMargin.trailingAnchor),
             
-            promoImage.heightAnchor.constraint(lessThanOrEqualToConstant: 487),
-            
-            contentStack.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 47),
+            contentStack.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: 0),
             contentStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             contentStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             contentStack.bottomAnchor.constraint(equalTo: viewMargin.bottomAnchor, constant: -0),
             
         ])
     }
-        
 }
 
 
@@ -389,14 +417,31 @@ extension PaywallVC {
     private func setupPaywall(handler: @escaping (ApphudPaywall) -> Void ) {
         
         Apphud.paywallsDidLoadCallback { paywalls in
-            
+            // желательно переделать одним вызовом
             if let paywall = paywalls.first(where: { $0.identifier == "Paywall_1" }) {
-
                 // get product
-                let products = paywall.products
-                let product = products[0]
-                self.apphudProduct = product
-                handler(paywall)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    let products = paywall.products
+                    let product = products[0]
+                    self.apphudProduct = product
+                    // Paywall
+                    handler(paywall)
+                }
+                
+                
+                // paywall title
+                
+//                let paywallTitle = paywall.json?["title"] as? String
+//                let paywallSubtitle = paywall.json?["subtitle"] as? String
+//                self.paywallTitle = paywallTitle
+//                self.paywallSubtitle = paywallSubtitle
+//
+//                print("✅ paywallTitle -", paywallTitle)
+//                print("✅ paywallSubtitle -", paywallSubtitle)
+//
+//                paywallTitle
+//                paywallSubtitle
+                
                 
                 
                 // close Button
@@ -404,7 +449,13 @@ extension PaywallVC {
 //                guard let val = val else { return }
 //                self.closeButton.isHidden = val ? true : false
 //                print("✅ Button State - ", val)
+                //
                 
+                
+//                print("🟣",self.apphudProduct?.skProduct?.price)
+//                print("🟣",self.apphudProduct?.skProduct?.priceLocale)
+//                print("🟣",self.apphudProduct?.skProduct?.apphudLocalizedPrice())
+//                print("🟣",self.apphudProduct?.price)
                 
                 
                 
@@ -423,18 +474,17 @@ extension PaywallVC {
     
     // MARK: - Purchase
     private func makePurchase(product: ApphudProduct) {
-        
-//        UserDefaults.standard.setValue(true, forKey: "OnboardingCompletedKey")
-//        UserDefaults.standard.synchronize()
-        
-        
-        
+
         continueBtn.activityIndicatorView.startAnimating()
         Apphud.purchase(product) { [weak self] result in
-            guard let self = self else{ return }
+            guard let self = self else { return }
             if let subscription = result.subscription, subscription.isActive() {
+                // Save Status
+                UserDefaults.standard.setValue(true, forKey: "UserIsPremiumObserverKey")
+                UserDefaults.standard.synchronize()
+                //
                 self.continueBtn.activityIndicatorView.stopAnimating()
-                
+                self.closeAct()
             } else {
                 self.continueBtn.activityIndicatorView.stopAnimating()
                 print("Error")
@@ -442,7 +492,7 @@ extension PaywallVC {
         }
     }
     
-    // MARK: - make Price not need
+    // MARK: - make Price not need // Возможно позже понадобится!
 //    private func makePrice(product: ApphudProduct) -> String {
 //        // Number Formatter
 //        guard
@@ -460,3 +510,5 @@ extension PaywallVC {
 //    }
     
 }
+
+

@@ -42,10 +42,15 @@ struct PaywallViewModel {
                 subtitle: "Dive into a Spectrum of Colors, Elevate with Stunning Backgrounds, and Express Your Unique Style"
             ),
             // 3 Paywall
+//            PaywallDataModel(
+//                imageName: "Paywall_IMG.png",
+//                title: "Get all the features you need",
+//                subtitle: "Unlock all features with a subscription at just 4.99 $ per week, and enjoy a complimentary 3-day free trial!"
+//            ),
             PaywallDataModel(
                 imageName: "Paywall_IMG.png",
-                title: "Get all the features you need",
-                subtitle: "Unlock all features with a subscription at just 4.99 $ per week, and enjoy a complimentary 3-day free trial!"
+                title: "",
+                subtitle: ""
             ),
         ]
     }

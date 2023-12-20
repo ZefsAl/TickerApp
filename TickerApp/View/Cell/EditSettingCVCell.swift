@@ -20,15 +20,19 @@ final class EditSettingCVCell: UICollectionViewCell {
                 self.icon.tintColor = .white
                 self.title.textColor = .white
                 self.backgroundColor = .black
-                self.layer.borderColor = AppColors.primary.cgColor
-//                v.backgroundColor = .clear
+                bgContent.layer.borderColor = AppColors.primary.cgColor
             } else {
-                
                 disableState()
-                
             }
         }
     }
+    
+    // MARK: - PremiumBageView
+    private let premiumBadgeView: PremiumBadgeView = {
+       let v = PremiumBadgeView()
+        v.isHidden = true
+        return v
+    }()
     
     // MARK: - title
     private let title: UILabel = {
@@ -36,8 +40,6 @@ final class EditSettingCVCell: UICollectionViewCell {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.font = SFProRounded.set(fontSize: 17, weight: .heavy)
         l.textAlignment = .left
-//        l.textColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
-        
         return l
     }()
     
@@ -45,66 +47,90 @@ final class EditSettingCVCell: UICollectionViewCell {
     private let icon: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-//        iv.tintColor = #colorLiteral(red: 0.1882352941, green: 0.8588235294, blue: 0.3568627451, alpha: 1)
         iv.isUserInteractionEnabled = false
         return iv
     }()
     
-    let onlyBGColor: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-//        v.backgroundColor = .clear
-        return v
+    // MARK: - BG Color
+    private let bgContent: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        // Перенес border сюда
+        iv.layer.borderWidth = 3
+        iv.layer.cornerRadius = 14
+        iv.clipsToBounds = true
+        return iv
     }()
     
-    // MARK: - init
+    // MARK: - init ⚙️
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Default state
-        self.backgroundColor = AppColors.gray6
         disableState()
         // Style
-        self.layer.borderWidth = 3
         self.layer.cornerRadius = 14
-        self.clipsToBounds = true
+        self.clipsToBounds = false
         // Setup
         setupStack()
+        
     }
+    
     // MARK: - disable State
     private func disableState() {
         self.backgroundColor = AppColors.gray6
         self.icon.tintColor = AppColors.gray2
         self.title.textColor = AppColors.gray2
-        self.layer.borderColor = UIColor.clear.cgColor
+        bgContent.layer.borderColor = UIColor.clear.cgColor
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Configure
-    func configure(title: String?, iconSystemName: String?, onlyBGColor: UIColor?, fontName: String?) {
+    // MARK: - Configure ⚙️
+    func configure(model: RegularCellModel) {
         // title
-        if title != nil {
-            self.title.text = title
+        self.title.text = model.title ?? nil // <--- переделать все в таком виде 
+        
+        // font Name
+        if let fontName = model.fontName {
+            self.title.font = UIFont(name: fontName, size: 25)
+        } else {
+            self.title.font = SFProRounded.set(fontSize: 17, weight: .heavy)
         }
-        // MARK: - fontName
-        if fontName != nil {
-            self.title.font = UIFont(name: fontName ?? "", size: 25)
-            
-        }
-        // image
-        if iconSystemName != nil {
-            let configImage = UIImage(systemName: iconSystemName ?? "", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))
+        // icon
+        if let iconSystemName = model.iconSystemName {
+            let configImage = UIImage(systemName: iconSystemName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))
             self.icon.image = configImage
+        } else {
+            self.icon.image = nil
         }
         // BG
-        if onlyBGColor != nil {
-            
-            self.onlyBGColor.backgroundColor = onlyBGColor
+        if let bgColor = model.bgColor {
+            self.bgContent.backgroundColor = bgColor
+        } else {
+            self.bgContent.backgroundColor = .clear
         }
-        
-        
+        // bg Image
+        if let bgImageName = model.bgImageName {
+            self.bgContent.image = UIImage(named: bgImageName)
+        } else {
+            self.bgContent.image = nil
+        }
+        showPremiumBadge(isPremium: model.isPremium)
+    }
+    
+    private func showPremiumBadge(isPremium: Bool) {
+        if isPremium {
+            self.premiumBadgeView.isHidden = false
+        } else {
+            self.premiumBadgeView.isHidden = true
+        }
+    }
+    
+    //
+    func hideTitle() {
+        self.title.isHidden = true
     }
     
     
@@ -117,21 +143,28 @@ final class EditSettingCVCell: UICollectionViewCell {
         contentStack.alignment = .center
         contentStack.spacing = 0
         
-        self.addSubview(contentStack)
         
-        self.addSubview(onlyBGColor)
+        self.addSubview(contentStack)
+        self.addSubview(bgContent)
+        self.addSubview(premiumBadgeView)
         
         NSLayoutConstraint.activate([
+            
+            premiumBadgeView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 4),
+            premiumBadgeView.topAnchor.constraint(equalTo: self.topAnchor, constant: -6),
+            
             contentStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             contentStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            
-            onlyBGColor.topAnchor.constraint(equalTo: self.topAnchor),
-            onlyBGColor.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            onlyBGColor.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            onlyBGColor.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            bgContent.topAnchor.constraint(equalTo: self.topAnchor),
+            bgContent.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            bgContent.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            bgContent.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
         ])
     }
 }
+
+
+
 

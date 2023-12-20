@@ -14,7 +14,7 @@ import UIKit
 class TickerDataModel: Object {
     
     @Persisted(primaryKey: true) var _id: ObjectId
-
+    @Persisted var dateAdded: Date?
     
     @Persisted var inputText: String?
     // MARK: - Effect
@@ -56,20 +56,24 @@ class TickerDataModel: Object {
     
     // Model
     convenience init(
+        dateAdded: Date,
         inputText: String,
         textColor: String,
         textSpeed: Double,
         bgColor: String,
+        bgImage: String,
         fontName: String,
         fontSize: Double,
         stroke: Double,
         shadow: Double
     ) {
         self.init()
+        self.dateAdded = dateAdded
         self.inputText = inputText
         self.textColor = textColor
         self.textSpeed = textSpeed
         self.bgColor = bgColor
+        self.bgImage = bgImage
         self.fontName = fontName
         self.fontSize = fontSize
         self.stroke = stroke

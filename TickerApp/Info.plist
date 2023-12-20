@@ -12,6 +12,12 @@
 		<string>RubikWetPaint-Regular.ttf</string>
 		<string>TrainOne-Regular.ttf</string>
 		<string>Oswald-Regular.ttf</string>
+		<string>Advanced LED Board-7.ttf</string>
+		<string>Blackcraft.ttf</string>
+		<string>PixelifySans-Regular.ttf</string>
+		<string>LED Dot-Matrix.ttf</string>
+		<string>Bazaronite.ttf</string>
+		<string>Handjet-VariableFont_ELGR,ELSH,wght.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

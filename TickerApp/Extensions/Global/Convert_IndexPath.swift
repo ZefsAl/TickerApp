@@ -15,8 +15,9 @@ public func encodeIndexPath(indexPathArr: [IndexPath] ) -> Data {
     return data ?? Data()
 }
 
-public func decodeIndexPath(indexPathData: Data) -> [IndexPath]? {
-    guard let data = Data(base64Encoded: indexPathData) else { return nil }
+public func decodeIndexPath(indexPathData: Data) -> [IndexPath] {
+    guard let data = Data(base64Encoded: indexPathData) else { return [] }
     let indexPathArr = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [IndexPath]
+    guard let indexPathArr else { return [] }
     return indexPathArr
 }

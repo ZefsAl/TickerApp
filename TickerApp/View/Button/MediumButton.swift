@@ -34,7 +34,7 @@ final class MediumButton: UIButton {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.isUserInteractionEnabled = false
-        
+        ///
         iv.contentMode = .scaleAspectFit
         iv.widthAnchor.constraint(equalToConstant: 24).isActive = true
         iv.heightAnchor.constraint(equalToConstant: 24).isActive = true
@@ -50,29 +50,29 @@ final class MediumButton: UIButton {
         titleColor: UIColor?,
         iconSystemName: String?,
         iconColor: UIColor?,
-        hideTitle: Bool) {
-            super.init(frame: frame)
-            
-            self.translatesAutoresizingMaskIntoConstraints = false
-            self.layer.cornerRadius = 25
-            self.backgroundColor = bgColor
-            
-            // title
-            
-            self.title.text = title
-            self.title.textColor = titleColor
-            
-            if hideTitle {
-                self.title.isHidden = true
-            }
-            
-            
-            // icon
-            let configImage = UIImage(systemName: iconSystemName ?? "", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))
-            icon.image = configImage
-            icon.tintColor = iconColor
-            
-            setupUI()
+        hideTitle: Bool
+    ) {
+        super.init(frame: frame)
+        //
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 25
+        self.backgroundColor = bgColor
+        // title
+        self.title.text = title
+        self.title.textColor = titleColor
+        //
+        if hideTitle {
+            self.title.isHidden = true
+        }
+        // icon
+        let configImage = UIImage(systemName: iconSystemName ?? "", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))
+        icon.image = configImage
+        icon.tintColor = iconColor
+        
+        setupUI()
+        
+        // В идиале в добавить
+//        UIImpactFeedbackGenerator.FeedbackStyle
         }
     
     

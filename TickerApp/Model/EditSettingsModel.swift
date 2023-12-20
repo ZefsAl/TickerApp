@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-// Cell Model
+// MARK: - Cell Model
 
 // Type
 enum EditSettingsModelType {
@@ -29,13 +29,16 @@ struct EditSettingsSection {
 }
 // Cell Type
 enum CellSectionType {
-    case regularCell(model: RegularCell)
+    case regularCell(model: RegularCellModel)
 }
 // Cell
-struct RegularCell {
+struct RegularCellModel {
     let title: String? 
     let iconSystemName: String?
     let bgColor: UIColor?
     let fontName: String?
-    let handler: (() -> Void)
+    let bgImageName: String?
+    let isPremium: Bool
+    let handler: (() -> Void)?
+    let infoMessage: String?
 }

@@ -10,16 +10,22 @@ import MarqueeLabel
 
 final class TickerView: UIView {
     
-    // Default value
+    //
     var isLandscape: Bool = false
+    
+    // MARK: - Default value
+    // Do not change
     private var currentFontSize: CGFloat = 50.0
     private var currentTextSpeed: CGFloat = 100.0
     private var currentFontName: String = "Oswald-Regular"
     private var currentStrokeWidth: Double = 0.0
     private var currentShadowRadius: Double = 0.0
+    private var currentBGImageName: String = "Empty" // или background0
     
+    private var currentLayoutWidth: CGFloat = 400
     
-    
+    //
+    private let imageView: UIImageView = UIImageView()
     
     // MARK: - ticker Lable
     private var tickerLable: MarqueeLabel = {
@@ -76,9 +82,10 @@ final class TickerView: UIView {
         }
     }
     
-    // MARK: - isLabelize
+    // MARK: - is Labelize
     // Buffer нужно указывать в зависимости view width
-    // Желательно поправить на configTickerLayout
+    // Желательно поправить на configTickerLayout как нибудь
+    
     func isLabelize(bool: Bool) {
         if bool {
             tickerLable.leadingBuffer = 0
@@ -86,8 +93,8 @@ final class TickerView: UIView {
             tickerLable.labelize = true
             tickerLable.textAlignment = .center
         } else {
-            tickerLable.leadingBuffer = 400
-            tickerLable.trailingBuffer = 200
+            tickerLable.leadingBuffer = currentLayoutWidth
+            tickerLable.trailingBuffer = currentLayoutWidth/2
             tickerLable.labelize = false
             tickerLable.textAlignment = .left
         }
@@ -99,19 +106,21 @@ final class TickerView: UIView {
             let stringSize = stringFontSize,
             let double = Double(stringSize)
         else { return currentFontSize}
-        
         return CGFloat(double)
     }
-    
-    
     
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         viewStyle()
-        setupUI()
+        setupTickerLableUI()
         defaultConfig()
+    }
+    
+    deinit {
+        // Если есть данные то ticker view не освобождается
+//        print("✅ deinit ticker view")
     }
     
     required init?(coder: NSCoder) {
@@ -128,12 +137,14 @@ final class TickerView: UIView {
     }
     
     // MARK: - Get Ticker Config
-    func getTickerConfig(handler: @escaping (TickerDataModel) -> Void ) {
+    func getTickerConfigure(handler: @escaping (TickerDataModel) -> Void ) {
         let model = TickerDataModel(
+            dateAdded: Date(),
             inputText: tickerLable.text ?? "text",
             textColor: encodeUIColor(color: tickerLable.textColor),
             textSpeed: currentTextSpeed,
             bgColor: encodeUIColor(color: self.backgroundColor ?? .black),
+            bgImage: currentBGImageName,
             fontName: currentFontName,
             fontSize: Double(currentFontSize),
             stroke: currentStrokeWidth,
@@ -142,70 +153,67 @@ final class TickerView: UIView {
         handler(model)
     }
     
-    // MARK: - Configure Ticker
-    // Так себе конфиг 👎
-    func configureTicker(tickerDataModel: TickerDataModel, frameWidth: CGFloat) {
+    // MARK: - Configure Ticker ⚙️
+    func configureTicker(tickerDataModel: TickerDataModel, frameBuffer: CGFloat) {
+        print("🔵 Start configureTicker")
+        configTickerLayout(width: frameBuffer)
         
-        configTickerLayout(width: frameWidth)
-        
+        // Баговый конфиг ~~~>
+        tickerLable.text = tickerDataModel.inputText
+        tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
+        tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
+        ///
+        self.backgroundColor = decodeUIColor(colorString: tickerDataModel.bgColor)
+        setBackgroundImage(named: tickerDataModel.bgImage)
+        ///
+        setStroke(widthStr: String(format: "%.1f", tickerDataModel.stroke ?? currentStrokeWidth))
+        setShadow(radiusStr: String(format: "%.1f", tickerDataModel.shadow ?? currentShadowRadius))
+        ///
         if tickerDataModel.textSpeed == 0 {
-            // Layout stop
             isLabelize(bool: true)
-            
-            tickerLable.text = tickerDataModel.inputText
-            tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
-            tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
             tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize))
-            self.backgroundColor = decodeUIColor(colorString: tickerDataModel.bgColor)
-            //
-            setStroke(widthStr: String(format: "%.1f", tickerDataModel.stroke ?? currentStrokeWidth))
-            setShadow(radiusStr: String(format: "%.1f", tickerDataModel.shadow ?? currentShadowRadius))
-            //
-            
-            reloadTicker()
         } else {
-            // Layout move
-            tickerLable.labelize = false
-            tickerLable.text = tickerDataModel.inputText
-            tickerLable.textColor = decodeUIColor(colorString: tickerDataModel.textColor)
-            tickerLable.speed = .rate(CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed))
-            
-            if isLandscape {
-                tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize) * 2)
-            } else {
-                tickerLable.font = UIFont(name: tickerDataModel.fontName ?? currentFontName, size: CGFloat(tickerDataModel.fontSize ?? currentFontSize))
-            }
-            self.backgroundColor = decodeUIColor(colorString: tickerDataModel.bgColor)
-            
-            setStroke(widthStr: String(format: "%.1f", tickerDataModel.stroke ?? currentStrokeWidth))
-            setShadow(radiusStr: String(format: "%.1f", tickerDataModel.shadow ?? currentShadowRadius))
-            
-            reloadTicker()
-            
+            isLabelize(bool: false)
+            tickerLable.font = UIFont(
+                name: tickerDataModel.fontName ?? currentFontName,
+                size: isLandscape ? CGFloat(tickerDataModel.fontSize ?? currentFontSize) * 2 : CGFloat(tickerDataModel.fontSize ?? currentFontSize)
+            )
         }
+        
+        updateInstancesValue(tickerDataModel: tickerDataModel)
+        reloadTicker()
     }
     
-    // MARK: - config Ticker Layout
+    // При getTickerConfig получаем эти значения
+    // MARK: - update Instances Value
+    func updateInstancesValue(tickerDataModel: TickerDataModel) {
+        self.currentFontSize = CGFloat(tickerDataModel.fontSize ?? currentFontSize);
+        self.currentTextSpeed = CGFloat(tickerDataModel.textSpeed ?? currentTextSpeed);
+        self.currentFontName = tickerDataModel.fontName ?? currentFontName;
+        self.currentStrokeWidth = tickerDataModel.stroke ?? currentStrokeWidth
+        self.currentShadowRadius = tickerDataModel.shadow ?? currentShadowRadius
+    }
+    
+    // MARK: - Config Ticker Layout
     func configTickerLayout(width: CGFloat) {
+        self.currentLayoutWidth = width
+        //
         tickerLable.leadingBuffer = width
         tickerLable.trailingBuffer = width/2
     }
     
-    // MARK: - Set Ticker
+    // MARK: - Set
+    // Input
     func setInputText(text: String) {
         tickerLable.text = text
         tickerLable.restartLabel()
     }
-    //
+    // MARK: - Effect
     func setTextSpeed(speedStr: String?) {
         currentTextSpeed = convertTextSpeed(speedStr: speedStr)
         tickerLable.speed = .rate(currentTextSpeed)
     }
-    //
-    func setBGColor(bgColor: UIColor?) {
-        self.backgroundColor = bgColor
-    }
-    // Text
+    // MARK: - Text
     func setFontSize(stringSize: String?) {
         tickerLable.font = tickerLable.font.withSize(convertFontSize(stringFontSize: stringSize))
         currentFontSize = convertFontSize(stringFontSize: stringSize)
@@ -213,10 +221,20 @@ final class TickerView: UIView {
     func setFont(fontName: String) {
         currentFontName = fontName
         tickerLable.font = UIFont(name: fontName, size: currentFontSize)
+        
+        Task {
+//            print("setFont -🟠",currentFontName)
+//            print("setFont -🔴",tickerLable.font.fontName)
+        }
     }
     func setTextColor(color: UIColor?) {
         tickerLable.textColor = color
         tickerLable.restartLabel()
+        
+        Task {
+//            print("setTextColor -🟠",currentFontName)
+//            print("setTextColor -🔴",tickerLable.font.fontName)
+        }
     }
     func setStroke(widthStr: String?) {
         guard
@@ -237,7 +255,7 @@ final class TickerView: UIView {
           NSAttributedString.Key.strokeWidth : -doubleWidth,
           NSAttributedString.Key.font : font
         ] as [NSAttributedString.Key : Any]
-
+        //
         tickerLable.attributedText = NSMutableAttributedString(string: text, attributes: strokeTextAttributes)
     }
     func setShadow(radiusStr: String?) {
@@ -252,16 +270,58 @@ final class TickerView: UIView {
             }
             return false
         }
+        //
         currentShadowRadius = doubleRadius
+        //
         tickerLable.layer.shadowOpacity = isZero ? 0 : 1
         tickerLable.layer.shadowRadius = isZero ? 0 : CGFloat(doubleRadius)
         tickerLable.layer.shadowOffset = isZero ? CGSize(width: 0, height: 0) : CGSize(width: 2, height: 4)
         tickerLable.layer.shadowColor = isZero ? UIColor.clear.cgColor : tickerLable.textColor.cgColor
     }
+    func setHandjetFont(variableFont: UIFont) {
+        currentFontName = variableFont.fontName
+        tickerLable.font = variableFont
+        
+//        Task {
+//            print("setHandjetFont 🔴",tickerLable.font.fontName)
+//            print("setHandjetFont -🟠",currentFontName)
+//        }
+    }
+    // MARK: - Background
+    func setBGColor(bgColor: UIColor?) {
+        self.backgroundColor = bgColor
+    }
+    func setBackgroundImage(named: String?) {
+        guard
+            let named = named,
+            named != "Empty"
+        else {
+            self.imageView.image = nil
+            currentBGImageName = "Empty"
+            return
+        }
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        //
+        self.imageView.image = UIImage(named: named)
+        self.currentBGImageName = self.getImageName(imageView: self.imageView)
+        //
+        imageView.center = self.center
+        self.addSubview(imageView)
+        self.sendSubviewToBack(imageView)
+        // Пришлось Constraint
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
+    }
     
     
     
-    
+
     
     
     // MARK: - Support
@@ -270,6 +330,17 @@ final class TickerView: UIView {
         tickerLable.restartLabel()
         tickerLable.layoutIfNeeded()
         tickerLable.forceScrolling = true
+    }
+    
+    // Get
+    private func getImageName(imageView: UIImageView) -> String {
+        guard
+            imageView.image?.imageAsset?.value(forKey: "assetName") as? String != "Empty",
+            let name = imageView.image?.imageAsset?.value(forKey: "assetName") as? String
+        else {
+            return currentBGImageName
+        }
+        return name
     }
     
     
@@ -281,11 +352,9 @@ final class TickerView: UIView {
 
 // MARK: - Setup UI
 extension TickerView {
-
-    private func setupUI() {
+    private func setupTickerLableUI() {
         // Adding
         self.addSubview(tickerLable)
-        
         // Constraints
         NSLayoutConstraint.activate([
             tickerLable.topAnchor.constraint(equalTo: self.topAnchor),

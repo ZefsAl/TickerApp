@@ -9,7 +9,6 @@ import UIKit
 
 final class CustomNav: UINavigationController {
     
-    let paywallVC = PaywallVC()
     // MARK: title
 //    private let appNameTitle: UILabel = {
 //        let l = UILabel()

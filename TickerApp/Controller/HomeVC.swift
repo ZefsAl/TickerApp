@@ -12,14 +12,15 @@ import ApphudSDK
 final class HomeVC: UIViewController {
     
     // MARK: - Realm
-    let realm = try! Realm()
-    var notificationToken: NotificationToken?
+    private let realm = try! Realm()
+    private var notificationToken: NotificationToken?
+    private var premiumStatus: NSKeyValueObservation?
     
     
     // MARK: - CollectionView
     private let homeCollectionView = RegularCollectionView()
-    
-    
+    //
+    //
     // MARK: - CTA Button 💠
     private let ctaButton: BigButton = {
         let b = BigButton(
@@ -40,7 +41,6 @@ final class HomeVC: UIViewController {
         self.present(navVC, animated: true)
     }
     
-    
     // MARK: - Scroll View
     private let contentScrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -53,7 +53,7 @@ final class HomeVC: UIViewController {
     // MARK: - view Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Style
         self.title = "LED Ultra"
         // Setup
         setSettingNavButtonItem(selectorStr: #selector(self.settingsAct))
@@ -61,20 +61,11 @@ final class HomeVC: UIViewController {
         setupUI()
         // Delegate
         setupRegister()
-        
+        // Onserver
         setTickerObserver()
-        
-        // test
-        let object = UserDefaults.standard.object(forKey: "OnboardingIsCompleted") as? Bool
-        if let object = object {
-            print("OnboardingIsCompleted ----- ",object)
-        }
+        setPremiumStatusKVO()
     }
     
-    
-//    override func viewDidLayoutSubviews() {
-//         super.viewDidLayoutSubviews()
-//    }
     
     // MARK: - view Will Appear
     override func viewWillAppear(_ animated: Bool) {
@@ -82,21 +73,16 @@ final class HomeVC: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    
     // MARK: - settingsAct
     @objc func settingsAct() {
-//        print("ettingsAct")
         self.navigationController?.pushViewController(SettingsVC(), animated: true)
     }
     
-    
     // MARK: - Observer CRUD
     private func setTickerObserver() {
-
+        // Realm
         let objects = realm.objects(TickerDataModel.self)
-        
         notificationToken = objects.observe() { [weak self] (changes: RealmCollectionChange) in
-            
             switch changes {
             case .initial(initial: let initial):
                 print("initial", initial.count)
@@ -106,14 +92,18 @@ final class HomeVC: UIViewController {
                 print("Inserted indices: ", insertions)
                 print("Modified modifications: ", modifications)
                 self?.homeCollectionView.reloadData()
-
             case .error(_):
                 print("error realm observing")
             }
-            
         }
     }
-    
+    // MARK: - Premium Status KVO
+    private func setPremiumStatusKVO() {
+        premiumStatus = UserDefaults.standard.observe(\.userIsPremium, options: [.initial, .new], changeHandler: { (defaults, change) in
+            print("🔵 Observe - onboardingIsCompleted: \(defaults.userIsPremium)")
+            self.ctaButton.isHidden = defaults.userIsPremium
+        })
+    }
     // MARK: - Register
     private func setupRegister() {
         homeCollectionView.delegate = self
@@ -180,11 +170,11 @@ extension HomeVC {
 // MARK: - Data Source
 extension HomeVC: UICollectionViewDataSource {
     
+    // number Of Sections
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
-    
-    // ItemsInSection
+    // Items In Section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 1
@@ -192,7 +182,6 @@ extension HomeVC: UICollectionViewDataSource {
             return realm.objects(TickerDataModel.self).count
         }
     }
-    
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -200,21 +189,20 @@ extension HomeVC: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewBannerCVCell.reuseID, for: indexPath) as? NewBannerCVCell
             cell?.configure(title: "New Banner", iconSystemName: "plus.circle.fill")
             return cell ?? UICollectionViewCell()
-            
         }
-        
-        
-        let tickerDataModel = realm.objects(TickerDataModel.self)
+        // Sort
+        let tickerDataModel = realm.objects(TickerDataModel.self).sorted(byKeyPath: "dateAdded", ascending: false)
+//        print(tickerDataModel)
         let model = tickerDataModel[indexPath.row]
+        //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TickerCVCell.reuseID, for: indexPath) as? TickerCVCell
         cell?.configure(tickerDataModel: model)
         return cell ?? UICollectionViewCell()
-        
     }
     
     // Supplementary Element
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
+        //
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.reuseID, for: indexPath) as? SectionHeaderView
         sectionHeader?.label.text = "Recent"
         return sectionHeader ?? UICollectionReusableView()
@@ -222,7 +210,7 @@ extension HomeVC: UICollectionViewDataSource {
     
     // Header In Section
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
+        //
         if section == 1 {
             return CGSize(width: collectionView.frame.width, height: 44)
         }
@@ -233,9 +221,10 @@ extension HomeVC: UICollectionViewDataSource {
 
 // MARK: -  Delegate
 extension HomeVC: UICollectionViewDelegate {
+    
     /*
      Если только Long Press Gesture и select для удаления
-     */
+    */
     
 //    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 //        let cell = collectionView.cellForItem(at: indexPath)
@@ -249,19 +238,18 @@ extension HomeVC: UICollectionViewDelegate {
 //    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.hapticImpact(style: .soft)
+        UIView().hapticImpact(style: .soft)
         // 0
         if indexPath.section == 0 && indexPath.row == 0 {
             self.navigationController?.pushViewController(EditBannerVC(tickerDataModel: nil), animated: true)
         }
         // 1
         guard indexPath.section == 1 else { return }
-        let object = realm.objects(TickerDataModel.self)
+        let object = realm.objects(TickerDataModel.self).sorted(byKeyPath: "dateAdded", ascending: false)
         let model = object[indexPath.row]
         self.navigationController?.pushViewController(EditBannerVC(tickerDataModel: model), animated: true)
-        
     }
+    
 }
 
 // MARK: - Flow Layout

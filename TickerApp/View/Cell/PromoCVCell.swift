@@ -50,7 +50,7 @@ final class PromoCVCell: UICollectionViewCell {
     let pageControl: UIPageControl = {
        let pc = UIPageControl()
         pc.numberOfPages = 4
-//        pc.addTarget(Any.self, action: #selector(pageControlDidchange(_:)), for: .valueChanged)
+        pc.isUserInteractionEnabled = false
         return pc
     }()
     
@@ -72,9 +72,6 @@ final class PromoCVCell: UICollectionViewCell {
         return sv
     }()
     
-    
-    
-    
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,21 +81,13 @@ final class PromoCVCell: UICollectionViewCell {
         self.layer.cornerRadius = 40
         // Setup
         setupStack()
+        
+        self.contentScrollView.delegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Configure
-//    func configure(title: String, leftIcon: String) {
-//        // title
-//        self.title.text = title
-//        // image
-//        let leftIcon = UIImage(systemName: leftIcon, withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold))
-//
-////        self.leftIcon.image = leftIcon
-//    }
     
     
     // MARK: - Set up Stack
@@ -110,7 +99,7 @@ final class PromoCVCell: UICollectionViewCell {
         contentScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         contentScrollView.isPagingEnabled = true
         
-//         MARK: Screens slide
+        // MARK: Screens slide
         for slide in 0..<4 {
             
             if slide == 0 {
@@ -145,9 +134,7 @@ final class PromoCVCell: UICollectionViewCell {
                 )
                 contentScrollView.addSubview(page)
             }
-
         }
-        
         
         // MARK: - content Stack
         let contentStack = UIStackView(arrangedSubviews: [contentScrollView,pageControl,ctaButton])
@@ -193,7 +180,7 @@ class CellSideView: UIView {
         return l
     }()
     
-    
+    // MARK: - Init
     init(frame: CGRect, title: String, iconName: String) {
         super.init(frame: frame)
         
@@ -229,4 +216,13 @@ class CellSideView: UIView {
         ])
     }
     
+}
+
+
+// MARK: UIScrollViewDelegate
+extension PromoCVCell: UIScrollViewDelegate {
+    // для pagecontrol перключения через свайп
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(floorf(Float(contentScrollView.contentOffset.x) / Float(contentScrollView.frame.size.width)))
+    }
 }

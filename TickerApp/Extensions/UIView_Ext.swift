@@ -11,6 +11,18 @@ import UIKit
 
 extension UIView {
     
+    // MARK: - colorAnimateTap
+    func colorAnimateTap() {
+        let bgColor = self.backgroundColor
+        UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut) {
+            self.backgroundColor = AppColors.gray3
+        } completion: { _ in
+            UIView.animate(withDuration: 0.15, delay: 0) {
+                self.backgroundColor = bgColor
+            }
+        }
+    }
+    
     // MARK: - Fade text
     func fadeTransition(_ duration:CFTimeInterval) {
         let animation = CATransition()

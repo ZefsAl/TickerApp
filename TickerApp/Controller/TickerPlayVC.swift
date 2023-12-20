@@ -8,30 +8,32 @@
 import UIKit
 
 
-class TickerPlayVC: UIViewController {
+final class TickerPlayVC: UIViewController {
     
-//    private var isHiddenUI: Bool = true
+    private var previousSpeed: Double?
     
-    let headerStack: UIStackView = {
+    private let headerStack: UIStackView = {
         let s = UIStackView()
         s.isHidden = false
         s.layer.opacity = 1
         return s
     }()
     
-    // MARK: - close
+    // MARK: - close ❌
     private let close: CircleButton = {
         let b = CircleButton(
             frame: .zero,
             bgColor: AppColors.gray5,
-            iconSystemName: "xmark",
+            iconSystemName: "chevron.left",
             iconColor: AppColors.gray2
         )
         b.addTarget(Any?.self, action: #selector(closeAct), for: .touchUpInside)
         return b
     }()
     @objc private func closeAct(_ sender: MediumButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+//        self.navigationController?.popToRootViewController(animated: true)
+        self.requestReview()
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - playPause
@@ -45,8 +47,25 @@ class TickerPlayVC: UIViewController {
             iconColor: AppColors.primary,
             hideTitle: true
         )
+        b.addTarget(Any?.self, action: #selector(playPauseAct), for: .touchUpInside)
         return b
     }()
+    // MARK: - playPauseAct
+    @objc private func playPauseAct() {
+        UIView().hapticImpact(style: .light)
+        // Speed
+        self.tickerView.getTickerConfigure { model in
+            guard model.textSpeed == 0 else {
+                self.tickerView.setTextSpeed(speedStr: "0")
+                return
+            }
+            
+            if let speed = self.previousSpeed {
+                self.tickerView.setTextSpeed(speedStr: String(speed))
+            }
+        }
+    }
+    
     // MARK: - edit
     private let edit: MediumButton = {
         let b = MediumButton(
@@ -58,9 +77,13 @@ class TickerPlayVC: UIViewController {
             iconColor: AppColors.secondary,
             hideTitle: false
         )
+        b.addTarget(Any?.self, action: #selector(editAct), for: .touchUpInside)
         return b
     }()
-    
+    // MARK: - editAct
+    @objc private func editAct(_ sender: MediumButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: - TickerView
     private var tickerView: TickerView = {
         let t = TickerView()
@@ -68,60 +91,52 @@ class TickerPlayVC: UIViewController {
         return t
     }()
     
-    
-
-//     MARK: - View Did Load
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         setupUI()
         showHideUI()
-        
     }
     
     // MARK: - Init
     init(tickerDataModel: TickerDataModel?) {
         super.init(nibName: nil, bundle: nil)
-        
-        if let model = tickerDataModel {
-            self.tickerView.isLandscape = true
-            self.tickerView.configureTicker(tickerDataModel: model, frameWidth: self.view.frame.size.height) // 🔄 на оборот
-        }
+        setTickerLandscape(tickerDataModel: tickerDataModel)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     // MARK: - view Did Appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        OrientationManager.orientation = .landscapeLeft
+        
     }
     // MARK: - view Did Layout Subviews
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.rotateToLandsScapeDevice()
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//    }
+    
     // MARK: - view Will Disappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.rotateToPotraitScapeDevice()
+        UIApplication.shared.isIdleTimerDisabled = false
+        OrientationManager.orientation = .portrait
+    }
+
+    
+    // MARK: - set Ticker Landscape
+    private func setTickerLandscape(tickerDataModel: TickerDataModel?) {
+        if let model = tickerDataModel {
+            //set
+            self.previousSpeed = model.textSpeed
+            self.tickerView.isLandscape = true
+            self.tickerView.configureTicker(tickerDataModel: model, frameBuffer: self.view.frame.size.height) // 🔄 на оборот
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
     }
     
-    // MARK: - Orientation - BUG
-    func rotateToLandsScapeDevice(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.defaultOrientation = .landscapeLeft
-        UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-        UIView.setAnimationsEnabled(true)
-    }
-
-    func rotateToPotraitScapeDevice(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.defaultOrientation = .portrait
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        UIView.setAnimationsEnabled(true)
-    }
-
 }
 
 // MARK: - Setup UI
@@ -134,7 +149,7 @@ extension TickerPlayVC {
         headerStack.addArrangedSubview(close)
         headerStack.addArrangedSubview(UIView())
         headerStack.addArrangedSubview(playPause)
-        headerStack.addArrangedSubview(edit)
+//        headerStack.addArrangedSubview(edit)
         headerStack.translatesAutoresizingMaskIntoConstraints = false
         headerStack.axis = .horizontal
         headerStack.alignment = .fill

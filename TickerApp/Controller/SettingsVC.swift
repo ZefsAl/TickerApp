@@ -10,10 +10,10 @@ import UIKit
 final class SettingsVC: UIViewController, SettingsVCDelegate {
     
     var settingsVC: SettingsVC?
-    let viewModel = AppSettingsVM()
+    private let viewModel = AppSettingsVM()
     
     // MARK: - Settings CV
-    let settingsCV: RegularCollectionView = {
+    private let settingsCV: RegularCollectionView = {
         let cv = RegularCollectionView()
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isScrollEnabled = true
@@ -26,7 +26,7 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
     // MARK: - view Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // For remote open
+        // Delegate
         viewModel.delegateVC = self
         self.settingsVC = self
         // setup
@@ -54,6 +54,15 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
         settingsCV.register(AppSettingsCVCell.self, forCellWithReuseIdentifier: AppSettingsCVCell.reuseID)
         settingsCV.register(PromoCVCell.self, forCellWithReuseIdentifier: PromoCVCell.reuseID)
     }
+///    // MARK: - Premium Status KVO
+//    private func setPremiumStatusKVO() {
+//        premiumStatus = UserDefaults.standard.observe(\.userIsPremium, options: [.initial, .new], changeHandler: { (defaults, change) in
+//            print("🔵 Observe - onboardingIsCompleted: \(defaults.userIsPremium)")
+////            completion(defaults.userIsPremium)
+//            let cell = self.settingsCV.cellForItem(at: IndexPath(row: 0, section: 0)) as? PromoCVCell
+//            cell?.isHidden = true
+//        })
+//    }
 }
 
 
@@ -62,15 +71,14 @@ extension SettingsVC {
     private func setupUI() {
         
         self.view.addSubview(settingsCV)
+        settingsCV.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         let viewMargin = self.view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            
-            settingsCV.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: 24),
+            settingsCV.topAnchor.constraint(equalTo: viewMargin.topAnchor, constant: 0),
             settingsCV.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             settingsCV.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             settingsCV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            
         ])
     }
 }
@@ -86,6 +94,13 @@ extension SettingsVC: UICollectionViewDelegate, PromoCVCellDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        UIView().hapticImpact(style: .soft)
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.isUserInteractionEnabled = true
+        cell?.colorAnimateTap()
+        
         viewModel.settingsCells[indexPath.row].handler()
     }
 }
@@ -104,6 +119,8 @@ extension SettingsVC: UICollectionViewDataSource {
         let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: PromoCVCell.reuseID, for: indexPath) as? PromoCVCell
         
         if indexPath.row == 0 {
+            let bool = UserDefaults.standard.object(forKey: "UserIsPremiumObserverKey") as! Bool
+            bigCell?.isHidden = bool
             bigCell?.promoCVCellDelegate = self
             return bigCell ?? UICollectionViewCell()
         } else {
@@ -119,9 +136,13 @@ extension SettingsVC: UICollectionViewDelegateFlowLayout {
     // Cell Size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let spacing: CGFloat = 32 // |16 16|
+        let spacing: CGFloat = 32 // |16  16|
+        let bool = UserDefaults.standard.object(forKey: "UserIsPremiumObserverKey") as! Bool
+        
         if indexPath.row == 0 {
-            return CGSize(width: (collectionView.frame.size.width)-spacing, height: 248)
+            return CGSize(width: (collectionView.frame.size.width)-spacing,
+                          height: bool ? 0 : 248
+            )
         }
         return CGSize(width: (collectionView.frame.size.width)-spacing, height: 64)
     }
@@ -132,3 +153,6 @@ extension SettingsVC: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
+

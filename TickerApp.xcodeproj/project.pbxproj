@@ -25,11 +25,23 @@
 		846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD842ADEF98A00E960DB /* SettingsVC.swift */; };
 		846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */; };
 		846CBD8A2ADFCC3200E960DB /* Convert_IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */; };
+		846F147B2AFA8BE70025C232 /* RampartOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F147D2AFA8BE70025C232 /* RampartOne-Regular.ttf */; };
+		846F14802AFA8C4B0025C232 /* Advanced LED Board-7.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */; };
+		846F14832AFA96540025C232 /* Blackcraft.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14822AFA96540025C232 /* Blackcraft.ttf */; };
+		846F14872AFA9C690025C232 /* PixelifySans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14862AFA9C690025C232 /* PixelifySans-Regular.ttf */; };
+		846F14952AFAB1250025C232 /* LED Dot-Matrix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14942AFAB1250025C232 /* LED Dot-Matrix.ttf */; };
+		846F14972AFAB3220025C232 /* Bazaronite.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14962AFAB3220025C232 /* Bazaronite.ttf */; };
+		846F14992AFAB68C0025C232 /* calculator-matrix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14982AFAB68B0025C232 /* calculator-matrix.ttf */; };
+		846F14A52AFBBBAF0025C232 /* PremiumBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846F14A42AFBBBAF0025C232 /* PremiumBadgeView.swift */; };
 		84979B9F2AD9685E003DC1F5 /* TickerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */; };
 		84979BA12AD9A560003DC1F5 /* UIColor_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */; };
 		849C17212ADA9991007AEDE1 /* Convert_UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C17202ADA9991007AEDE1 /* Convert_UIColor.swift */; };
 		84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */; };
 		84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */; };
+		84AABAA92B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */; };
+		84AABAAB2B26106D005C5C39 /* UIFont_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */; };
+		84B549342B26340300DE1964 /* TESTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B549332B26340300DE1964 /* TESTVC.swift */; };
+		84B549362B263A3A00DE1964 /* TESTVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B549352B263A3A00DE1964 /* TESTVC2.swift */; };
 		84BCF6542AF159EA009DF51C /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */; };
 		84D342722AD01B3A00E9DD6E /* EditSettingsCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */; };
 		84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */; };
@@ -44,7 +56,6 @@
 		84DBB9AE2AE5306F00A0784F /* AppSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9AD2AE5306E00A0784F /* AppSettingsVM.swift */; };
 		84DBB9B02AE530B800A0784F /* AppSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */; };
 		84DBB9B22AE53F9300A0784F /* PromoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBB9B12AE53F9300A0784F /* PromoCVCell.swift */; };
-		84DBB9BC2AE82EC600A0784F /* RampartOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DBB9BB2AE82EC600A0784F /* RampartOne-Regular.ttf */; };
 		84DBB9C42AE8311200A0784F /* RubikWetPaint-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DBB9C32AE8311200A0784F /* RubikWetPaint-Regular.ttf */; };
 		84DBB9C82AE939C300A0784F /* TrainOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DBB9C72AE939C300A0784F /* TrainOne-Regular.ttf */; };
 		84F9002E2ACE678700611B54 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9002D2ACE678700611B54 /* SectionHeaderView.swift */; };
@@ -55,6 +66,7 @@
 		84F9003A2ACEC70600611B54 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F900392ACEC70600611B54 /* CircleButton.swift */; };
 		84F9003C2ACF302B00611B54 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9003B2ACF302B00611B54 /* BigButton.swift */; };
 		84F9003E2ACF37B300611B54 /* RegularTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9003D2ACF37B300611B54 /* RegularTextField.swift */; };
+		84FF5A392B0CF03800F2A642 /* PromoImagePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF5A382B0CF03800F2A642 /* PromoImagePlaceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,11 +91,23 @@
 		846CBD842ADEF98A00E960DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsCVCell.swift; sourceTree = "<group>"; };
 		846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert_IndexPath.swift; sourceTree = "<group>"; };
+		846F147C2AFA8BE70025C232 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/RampartOne-Regular.ttf"; sourceTree = "<group>"; };
+		846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Advanced LED Board-7.ttf"; sourceTree = "<group>"; };
+		846F14822AFA96540025C232 /* Blackcraft.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Blackcraft.ttf; sourceTree = "<group>"; };
+		846F14862AFA9C690025C232 /* PixelifySans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-Regular.ttf"; sourceTree = "<group>"; };
+		846F14942AFAB1250025C232 /* LED Dot-Matrix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LED Dot-Matrix.ttf"; sourceTree = "<group>"; };
+		846F14962AFAB3220025C232 /* Bazaronite.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bazaronite.ttf; sourceTree = "<group>"; };
+		846F14982AFAB68B0025C232 /* calculator-matrix.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "calculator-matrix.ttf"; sourceTree = "<group>"; };
+		846F14A42AFBBBAF0025C232 /* PremiumBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumBadgeView.swift; sourceTree = "<group>"; };
 		84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDataModel.swift; sourceTree = "<group>"; };
 		84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor_Ext.swift; sourceTree = "<group>"; };
 		849C17202ADA9991007AEDE1 /* Convert_UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert_UIColor.swift; sourceTree = "<group>"; };
 		84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
 		84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangers-Regular.ttf"; sourceTree = "<group>"; };
+		84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handjet-VariableFont_ELGR,ELSH,wght.ttf"; sourceTree = "<group>"; };
+		84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont_Ext.swift; sourceTree = "<group>"; };
+		84B549332B26340300DE1964 /* TESTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TESTVC.swift; sourceTree = "<group>"; };
+		84B549352B263A3A00DE1964 /* TESTVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TESTVC2.swift; sourceTree = "<group>"; };
 		84BCF6452AEFF394009DF51C /* LEDgeneratorApp.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = LEDgeneratorApp.storekit; sourceTree = "<group>"; };
 		84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsCV.swift; sourceTree = "<group>"; };
@@ -100,7 +124,6 @@
 		84DBB9AD2AE5306E00A0784F /* AppSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsVM.swift; sourceTree = "<group>"; };
 		84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsModel.swift; sourceTree = "<group>"; };
 		84DBB9B12AE53F9300A0784F /* PromoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCVCell.swift; sourceTree = "<group>"; };
-		84DBB9BB2AE82EC600A0784F /* RampartOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RampartOne-Regular.ttf"; sourceTree = "<group>"; };
 		84DBB9C32AE8311200A0784F /* RubikWetPaint-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RubikWetPaint-Regular.ttf"; sourceTree = "<group>"; };
 		84DBB9C72AE939C300A0784F /* TrainOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TrainOne-Regular.ttf"; sourceTree = "<group>"; };
 		84F9002D2ACE678700611B54 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
@@ -111,6 +134,7 @@
 		84F900392ACEC70600611B54 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		84F9003B2ACF302B00611B54 /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		84F9003D2ACF37B300611B54 /* RegularTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTextField.swift; sourceTree = "<group>"; };
+		84FF5A382B0CF03800F2A642 /* PromoImagePlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoImagePlaceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,10 +181,9 @@
 		84279FE02ACC1702003B13CC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				846F146F2AFA6CAC0025C232 /* Global */,
 				84279FE12ACC2F03003B13CC /* ViewController_Ext.swift */,
 				84979BA02AD9A560003DC1F5 /* UIColor_Ext.swift */,
-				849C17202ADA9991007AEDE1 /* Convert_UIColor.swift */,
-				846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */,
 				84DBB99F2AE2ADEC00A0784F /* UIView_Ext.swift */,
 				84DBB9A52AE38AB000A0784F /* UserDefaults_Ext.swift */,
 			);
@@ -184,6 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				845F71912AC8576B00B9F32E /* TickerView.swift */,
+				846F14A42AFBBBAF0025C232 /* PremiumBadgeView.swift */,
+				84FF5A382B0CF03800F2A642 /* PromoImagePlaceView.swift */,
 				84F900312ACE8C1500611B54 /* Cell */,
 				84F900322ACE8C2900611B54 /* Collection */,
 				84D342702AD019F800E9DD6E /* Button */,
@@ -212,6 +237,8 @@
 		845F718C2AC8576B00B9F32E /* TickerApp */ = {
 			isa = PBXGroup;
 			children = (
+				84B549332B26340300DE1964 /* TESTVC.swift */,
+				84B549352B263A3A00DE1964 /* TESTVC2.swift */,
 				845F718D2AC8576B00B9F32E /* AppDelegate.swift */,
 				845F718F2AC8576B00B9F32E /* SceneDelegate.swift */,
 				84DBB99C2AE2850D00A0784F /* TickerApp.entitlements */,
@@ -227,6 +254,16 @@
 				84D695D42AD702F3001E797B /* Fonts */,
 			);
 			path = TickerApp;
+			sourceTree = "<group>";
+		};
+		846F146F2AFA6CAC0025C232 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */,
+				849C17202ADA9991007AEDE1 /* Convert_UIColor.swift */,
+				84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		84979B9D2AD967B0003DC1F5 /* DataStorage */ = {
@@ -275,9 +312,16 @@
 				84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */,
 				84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */,
 				84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */,
-				84DBB9BB2AE82EC600A0784F /* RampartOne-Regular.ttf */,
+				846F147D2AFA8BE70025C232 /* RampartOne-Regular.ttf */,
 				84DBB9C32AE8311200A0784F /* RubikWetPaint-Regular.ttf */,
 				84DBB9C72AE939C300A0784F /* TrainOne-Regular.ttf */,
+				846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */,
+				846F14822AFA96540025C232 /* Blackcraft.ttf */,
+				846F14862AFA9C690025C232 /* PixelifySans-Regular.ttf */,
+				846F14942AFAB1250025C232 /* LED Dot-Matrix.ttf */,
+				846F14962AFAB3220025C232 /* Bazaronite.ttf */,
+				846F14982AFAB68B0025C232 /* calculator-matrix.ttf */,
+				84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -380,12 +424,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846F14802AFA8C4B0025C232 /* Advanced LED Board-7.ttf in Resources */,
 				845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */,
 				84BCF6542AF159EA009DF51C /* Oswald-Regular.ttf in Resources */,
-				84DBB9BC2AE82EC600A0784F /* RampartOne-Regular.ttf in Resources */,
+				84AABAA92B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf in Resources */,
+				846F147B2AFA8BE70025C232 /* RampartOne-Regular.ttf in Resources */,
 				845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */,
+				846F14952AFAB1250025C232 /* LED Dot-Matrix.ttf in Resources */,
+				846F14972AFAB3220025C232 /* Bazaronite.ttf in Resources */,
+				846F14832AFA96540025C232 /* Blackcraft.ttf in Resources */,
 				84DBB9C42AE8311200A0784F /* RubikWetPaint-Regular.ttf in Resources */,
+				846F14992AFAB68C0025C232 /* calculator-matrix.ttf in Resources */,
 				84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */,
+				846F14872AFA9C690025C232 /* PixelifySans-Regular.ttf in Resources */,
 				84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */,
 				84DBB9C82AE939C300A0784F /* TrainOne-Regular.ttf in Resources */,
 			);
@@ -459,20 +510,25 @@
 				849C17212ADA9991007AEDE1 /* Convert_UIColor.swift in Sources */,
 				846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */,
 				84F9003C2ACF302B00611B54 /* BigButton.swift in Sources */,
+				84B549342B26340300DE1964 /* TESTVC.swift in Sources */,
 				84DBB9972AE17FB100A0784F /* NAVCloseButtonView.swift in Sources */,
 				84F9003E2ACF37B300611B54 /* RegularTextField.swift in Sources */,
 				84DBB9B02AE530B800A0784F /* AppSettingsModel.swift in Sources */,
 				84DBB9A02AE2ADED00A0784F /* UIView_Ext.swift in Sources */,
+				84FF5A392B0CF03800F2A642 /* PromoImagePlaceView.swift in Sources */,
 				846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */,
 				84279FDC2ACC12AD003B13CC /* CustomNav.swift in Sources */,
 				845F71922AC8576B00B9F32E /* TickerView.swift in Sources */,
+				84AABAAB2B26106D005C5C39 /* UIFont_Ext.swift in Sources */,
 				84D342782AD1345A00E9DD6E /* EditSettingsVM.swift in Sources */,
+				846F14A52AFBBBAF0025C232 /* PremiumBadgeView.swift in Sources */,
 				84279FDF2ACC16FB003B13CC /* Fonts.swift in Sources */,
 				84F900382ACEB65D00611B54 /* MediumButton.swift in Sources */,
 				84279FE82ACC50EB003B13CC /* NewBannerCVCell.swift in Sources */,
 				8456F3452AD2D16300170B29 /* PaywallVC.swift in Sources */,
 				8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */,
 				845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */,
+				84B549362B263A3A00DE1964 /* TESTVC2.swift in Sources */,
 				846CBD8A2ADFCC3200E960DB /* Convert_IndexPath.swift in Sources */,
 				84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */,
 				845F71902AC8576B00B9F32E /* SceneDelegate.swift in Sources */,
@@ -489,6 +545,14 @@
 				845F71992AC8577E00B9F32E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		846F147D2AFA8BE70025C232 /* RampartOne-Regular.ttf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				846F147C2AFA8BE70025C232 /* Base */,
+			);
+			name = "RampartOne-Regular.ttf";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -617,14 +681,14 @@
 				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.8;
 				DEVELOPMENT_TEAM = GZX949B9RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TickerApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "LED Generator";
+				INFOPLIST_KEY_CFBundleDisplayName = "LED Banner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
@@ -633,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waheedev.LEDgenerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -655,14 +719,14 @@
 				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.8;
 				DEVELOPMENT_TEAM = GZX949B9RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TickerApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "LED Generator";
+				INFOPLIST_KEY_CFBundleDisplayName = "LED Banner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
@@ -671,7 +735,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waheedev.LEDgenerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -19,7 +19,6 @@ final class TickerCVCell: UICollectionViewCell {
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.backgroundColor = .clear
         setupUI()
     }
@@ -32,10 +31,8 @@ final class TickerCVCell: UICollectionViewCell {
     
     // MARK: - Configure
     func configure(tickerDataModel: TickerDataModel) {        
-        tickerView.configureTicker(tickerDataModel: tickerDataModel, frameWidth: self.frame.size.width)
-//        print(self.frame)
+        tickerView.configureTicker(tickerDataModel: tickerDataModel, frameBuffer: self.frame.size.width)
     }
-    
     
     // MARK: - Set up Stack
     private func setupUI() {

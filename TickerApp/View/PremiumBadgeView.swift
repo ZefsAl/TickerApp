@@ -1,5 +1,5 @@
 //
-//  PremiumBageView.swift
+//  PremiumBadgeView.swift
 //  TickerApp
 //
 //  Created by Serj on 08.11.2023.
@@ -60,7 +60,6 @@ final class PremiumBadgeView: UIView {
         bezierPath.addCurve(to: CGPoint(x: 10.15, y: 20), controlPoint1: CGPoint(x: 0, y: 16.62), controlPoint2: CGPoint(x: 3.38, y: 20))
         bezierPath.addCurve(to: CGPoint(x: 20, y: 9.85), controlPoint1: CGPoint(x: 16.72, y: 20), controlPoint2: CGPoint(x: 20, y: 16.62))
         bezierPath.close()
-        bezierPath.fill()
         return bezierPath
     }
     

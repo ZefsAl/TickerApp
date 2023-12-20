@@ -7,34 +7,42 @@
 
 import UIKit
 
+protocol CustomCollectionViewDelegate: AnyObject {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+//    func numberOfSections(in collectionView: UICollectionView) -> Int
+}
+
 final class EditSettingsCV: UICollectionView {
 
-    let editSettingsModel: EditSettingsModel
-
+    weak var customDelegate: CustomCollectionViewDelegate?
     
+    var editSettingsModel: EditSettingsModel 
+    
+    private var axisValue: [Int:Float] = [
+        2003265652 : 330, // wght
+        1162629960 : 2, // ELSH
+        1162626898 : 1 // ELGR
+    ]
+    
+    private var lockingOverlayView: LockingOverlayView = LockingOverlayView()
+    
+
+    // MARK: - Selected
     var selectedEffectIndexPath: [IndexPath] = [] {
         didSet {
-            print("Effect Settings == \(selectedEffectIndexPath)")
+            print("🔵 Effect Settings == \(selectedEffectIndexPath)")
         }
     }
-    
     var selectedTextIndexPath: [IndexPath] = [] {
         didSet {
-            print("Text Settings == \(selectedTextIndexPath)")
-            
+            print("🔵 Text Settings == \(selectedTextIndexPath)")
         }
     }
     var selectedBackgroundIndexPath: [IndexPath] = [] {
         didSet {
-            print("Backgroun Settings == \(selectedBackgroundIndexPath)")
+            print("🔵 Backgroun Settings == \(selectedBackgroundIndexPath)")
         }
     }
-    
-    
-    
-    
-    
-    
     
     
     
@@ -43,21 +51,20 @@ final class EditSettingsCV: UICollectionView {
         
         self.editSettingsModel = editSettingsModel
         super.init(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        setupCell()
+        registerCell()
         
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
         self.showsVerticalScrollIndicator = false
         
         setCompositionalLayoutCV()
-        
+        removePixelSetting()
     }
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     
     // MARK: - Layout
@@ -65,16 +72,14 @@ final class EditSettingsCV: UICollectionView {
         // Compositional Layout
         let collectionViewLayout = UICollectionViewCompositionalLayout { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
-            
             let section = self.editSettingsModel.sections[sectionIndex]
-            
             // Должны вернуть NSCollectionLayoutSection для конкретной секции
             return self.setSectionLayout(sectionItems: section.sectionCells, environment: environment)
         }
         // Collection View
         self.collectionViewLayout = collectionViewLayout
     }
-    
+    //
     private func setSectionLayout(sectionItems: [CellSectionType], environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         // layout Item + Size
         let itemSize = NSCollectionLayoutSize(
@@ -84,7 +89,6 @@ final class EditSettingsCV: UICollectionView {
         let items: [NSCollectionLayoutItem] = sectionItems.map({ _ in
                 .init(layoutSize: itemSize)
         })
-        
         // ~ Group ~ size
         let groupEstimateSize = CGSize(width: 250, height: 50)
         let groupSize = NSCollectionLayoutSize(
@@ -102,13 +106,12 @@ final class EditSettingsCV: UICollectionView {
         
         return section
     }
-    // headerItem + used Delegate
+    // headerItem + used data source
     private var headerItem: NSCollectionLayoutBoundarySupplementaryItem {
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(50)
         )
-        
         return NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
@@ -118,18 +121,16 @@ final class EditSettingsCV: UICollectionView {
     
     
     // MARK: - Setup Cell
-    private func setupCell() {
+    private func registerCell() {
         self.delegate = self
         self.dataSource = self
         // Header
         self.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.reuseID)
         // Cell
         self.register(EditSettingCVCell.self, forCellWithReuseIdentifier: EditSettingCVCell.reuseID)
-        //
+        // Selection
         self.allowsMultipleSelection = true
     }
-    
-    
 }
 
 
@@ -138,6 +139,7 @@ final class EditSettingsCV: UICollectionView {
 extension EditSettingsCV: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        print("numberOfSections🟠",self.editSettingsModel.sections.count)
         return self.editSettingsModel.sections.count
     }
     
@@ -149,22 +151,16 @@ extension EditSettingsCV: UICollectionViewDataSource {
     // - cell For Item At
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cellData = self.editSettingsModel.sections[indexPath.section].sectionCells[indexPath.row]
+        let section = self.editSettingsModel.sections[indexPath.section]
+        let cellItem = section.sectionCells[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EditSettingCVCell.reuseID, for: indexPath) as? EditSettingCVCell
         
-        switch cellData.self {
+        switch cellItem.self {
         case .regularCell(let model):
-            cell?.configure(
-                title: model.title,
-                iconSystemName: model.iconSystemName,
-                onlyBGColor: model.bgColor,
-                fontName: model.fontName
-            )
+            cell?.configure(model: model)
             return cell ?? UICollectionViewCell()
         }
-        
-        
     }
     
     //  Supplementary Element
@@ -184,34 +180,58 @@ extension EditSettingsCV: UICollectionViewDataSource {
 // MARK: - Delegate
 extension EditSettingsCV: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
-      guard let indexPaths = collectionView.indexPathsForSelectedItems else { return true }
-      return indexPaths.isEmpty
+    private func reselectCells() {
+//        self.selectedTextIndexPath
     }
     
+    // Did Select Item At
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         // Select only one row in section
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
-            // Суть в том что бы на выходе не иметь одинаковых одинаковых строк в секции
             for selectedIndex in selectedIndexPaths {
                 if (indexPath.section == selectedIndex.section) && (indexPath.row != selectedIndex.row) {
-                    collectionView.deselectItem(at: selectedIndex, animated: true) // только при переключении
+                    // только при переключении в контексте конкретной секции и колекции
+                    collectionView.deselectItem(at: selectedIndex, animated: true)
                 }
             }
         }
         
-        // set Settings
         
+        
+        // MARK: - Set Settings
         //  Effect
         if editSettingsModel.editSettingsModelType == .effect {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
             selectedEffectIndexPath = selectedIndexPaths
+            
+            // LED
+            getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "LED") { model in
+                // Shape
+                if let number = model.infoMessage {
+                    self.axisValue[1162629960] = Float(number)
+                    EditBannerVC.tickerView.setHandjetFont(
+                        variableFont: .fontHandjet(150, axis: self.axisValue)
+                    )
+                }
+            }
+            
+            // Pixel
+            getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "Pixel") { model in
+                // Grid
+                if let grid = model.title {
+                    self.axisValue[1162626898] = Float(grid)
+                    EditBannerVC.tickerView.setHandjetFont(
+                        variableFont: .fontHandjet(150, axis: self.axisValue)
+                    )
+                }
+            }
+            
             // Speed
             getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "Scroll Speed") { model in
                 EditBannerVC.tickerView.setTextSpeed(speedStr: model.title)
             }
         }
-        
         
         // Text
         // Добавляем выбранные indexPathsForSelectedItems в отдельный массив
@@ -259,27 +279,41 @@ extension EditSettingsCV: UICollectionViewDelegate {
             getSelectedSettings_v2(selectedSettings: selectedBackgroundIndexPath, compareWith: "Color") { model in
                 EditBannerVC.tickerView.setBGColor(bgColor: model.bgColor)
             }
-            
-        }
-        
-    }
-    
-    // MARK: - get Selected Settings v1
-    func getSelectedSettingss(selectedSettings: [IndexPath], handler: @escaping (RegularCell) -> Void ) {
-        for selectedIndex in selectedSettings {
-            // Сопоставляем выбранные selectedIndex с editSettingsModel
-            let cellData = editSettingsModel.sections[selectedIndex.section].sectionCells[selectedIndex.row]
-            // Используем как RegularCell - model
-            switch cellData.self {
-            case .regularCell(let model):
-                // Получаем данные и присваиваем - model.bgColor
-                handler(model)
+            // Image
+            getSelectedSettings_v2(selectedSettings: selectedBackgroundIndexPath, compareWith: "Image") { model in
+                EditBannerVC.tickerView.setBackgroundImage(named: model.bgImageName)
             }
         }
+        
+        
+        
+        // Custom Delegate - after all actions
+        self.customDelegate?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
-    // MARK: - get Selected Settings v2
-    func getSelectedSettings_v2(selectedSettings: [IndexPath], compareWith: String, handler: @escaping (RegularCell) -> Void ) {
+//    private func deselectLEDorFont() {
+        
+//        for selectedIndex in selectedSettings {
+//            let section = editSettingsModel.sections[selectedIndex.section]
+//            let cells = section.sectionCells[selectedIndex.row]
+//
+//
+//            if section.sectionTitle == "LED"
+//
+//
+////            if section.sectionTitle == compareWith {
+////                switch cells.self {
+////                case .regularCell(let model):
+////                    handler(model)
+////                }
+////            }
+//        }
+        
+        
+//    }
+    
+    // MARK: - get Selected Settings 
+    private func getSelectedSettings_v2(selectedSettings: [IndexPath], compareWith: String, handler: @escaping (RegularCellModel) -> Void ) {
         
         for selectedIndex in selectedSettings {
             let section = editSettingsModel.sections[selectedIndex.section]
@@ -298,3 +332,101 @@ extension EditSettingsCV: UICollectionViewDelegate {
 }
 
 
+
+// Data manage
+extension EditSettingsCV {
+    
+    // По хорошему Manager нужен 
+    func removeSizeSection() {
+        guard editSettingsModel.editSettingsModelType == .text else { return }
+        // берем из VM образец данных исключаем "Fonts"
+        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
+            editSettingsSection.sectionTitle != "Size"
+        }
+        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: newTextSections)
+        self.editSettingsModel = newTextSettingsModel
+        self.reloadData()
+    }
+    
+    // +- работает
+    func removeFontsSection() {
+        guard editSettingsModel.editSettingsModelType == .text else { return }
+        // берем из VM образец данных исключаем "Fonts"
+        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
+            editSettingsSection.sectionTitle != "Fonts"
+        }
+        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: newTextSections)
+        self.editSettingsModel = newTextSettingsModel
+        self.reloadData()
+    }
+    
+    func removePixelSetting() {
+        guard editSettingsModel.editSettingsModelType == .effect else { return }
+        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
+            editSettingsSection.sectionTitle != "Pixel"
+        }
+        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .effect, sections: newTextSections)
+        self.editSettingsModel = newTextSettingsModel
+        self.reloadData()
+    }
+    
+    func addPixelSetting(editSettingsModel: EditSettingsModel) {
+        guard editSettingsModel.editSettingsModelType == .effect else { return }
+        self.editSettingsModel = editSettingsModel
+        self.reloadData()
+    }
+    
+    func returnTextSettingsModel(editSettingsModel: EditSettingsModel) {
+        guard editSettingsModel.editSettingsModelType == .text else { return }
+        self.editSettingsModel = editSettingsModel
+        self.reloadData()
+    }
+    
+    
+    
+    func lockCollectionUI() {
+        print("🟣",self.contentSize.height)
+        lockingOverlayView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: self.contentSize.height + 44)
+        self.insertSubview(lockingOverlayView, aboveSubview: self)
+        self.bringSubviewToFront(lockingOverlayView)
+    }
+    
+    func unlockCollectionUI() {
+        print("🟣",self.frame)
+        lockingOverlayView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: self.frame.height)
+        lockingOverlayView.removeFromSuperview()
+    }
+    
+    
+}
+
+
+
+class LockingOverlayView: UIView {
+    
+    private let icon: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.isUserInteractionEnabled = false
+        let configImage = UIImage(systemName: "lock.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 44, weight: .regular))
+        iv.image = configImage
+        iv.tintColor = AppColors.gray1
+        return iv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        // Style
+        self.backgroundColor = AppColors.gray6.withAlphaComponent(0.8)
+        //
+        self.addSubview(icon)
+        NSLayoutConstraint.activate([
+            icon.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            icon.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

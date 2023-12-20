@@ -10,8 +10,6 @@ import UIKit
 
 final class NAVCloseButtonView: UIView {
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -42,9 +40,7 @@ final class NAVCloseButtonView: UIView {
         let dismissButtonItem = UIBarButtonItem(customView: self)
         rootVC.navigationItem.rightBarButtonItem = dismissButtonItem
     }
-        
-        
-    
+
 }
     
     
