@@ -18,6 +18,10 @@
 		<string>LED Dot-Matrix.ttf</string>
 		<string>Bazaronite.ttf</string>
 		<string>Handjet-VariableFont_ELGR,ELSH,wght.ttf</string>
+		<string>Marske.ttf</string>
+		<string>pixhobo.ttf</string>
+		<string>LEPKA.otf</string>
+		<string>Baymax.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

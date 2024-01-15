@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-//struct AppSettingsModel {
-//    let sections: [AppSettingsSection]
-//}
-
-// Data Model
 struct AppSettingsSection {
     let sectionTitle: String?
     let sectionCells: [CellSectionType]

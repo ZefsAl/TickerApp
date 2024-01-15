@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct AppColors {
-    
     static let primary: UIColor = UIColor(red: 0.188, green: 0.859, blue: 0.357, alpha: 1)
     static let secondary: UIColor = UIColor(red: 0.035, green: 0.153, blue: 0.063, alpha: 1)
     static let gray1: UIColor = UIColor(red: 0.682, green: 0.682, blue: 0.698, alpha: 1)
@@ -22,6 +21,5 @@ struct AppColors {
 
 
 struct DesignSystem {
-    
     static let borderWidth = 3
 }

@@ -57,18 +57,18 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: freeSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "1"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
                                 title: nil,
-                                iconSystemName: "arrow.up.arrow.down",
+                                iconSystemName: "arrow.left.arrow.right",
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
                                 isPremium: freeSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "2"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -79,7 +79,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: freeSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "3"
                             )),
                     ]),
                 
@@ -105,7 +105,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: "7"
                             )),
@@ -116,7 +116,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: "11"
                             )),
@@ -127,7 +127,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: "13"
                             )),
@@ -138,7 +138,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: "15"
                             )),
@@ -149,7 +149,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: "16"
                             )),
@@ -165,7 +165,7 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: nil
                             )),
@@ -176,9 +176,70 @@ extension EditSettingsVM {
                                 bgColor: nil,
                                 fontName: nil,
                                 bgImageName: nil,
-                                isPremium: freeSetting,
+                                isPremium: premiumSetting,
                                 handler: nil,
                                 infoMessage: nil
+                            )),
+                    ]),
+                
+                // MARK: - Sparkle
+                EditSettingsSection(
+                    sectionTitle: "Sparkle",
+                    sectionCells: [
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: freeSetting,
+                                handler: nil,
+                                infoMessage: "0"
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "0.5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: premiumSetting,
+                                handler: nil,
+                                infoMessage: "1.2"
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "1.0",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: premiumSetting,
+                                handler: nil,
+                                infoMessage: "0.8"
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "1.5",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: premiumSetting,
+                                handler: nil,
+                                infoMessage: "0.5"
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "2",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: premiumSetting,
+                                handler: nil,
+                                infoMessage: "0.2"
                             )),
                     ]),
                 
@@ -330,7 +391,7 @@ extension EditSettingsVM {
                                 title: "Aa",
                                 iconSystemName: nil,
                                 bgColor: nil,
-                                fontName: "Handjet",
+                                fontName: "pixhobo",
                                 bgImageName: nil,
                                 isPremium: freeSetting,
                                 handler: nil,
@@ -341,7 +402,7 @@ extension EditSettingsVM {
                                 title: "Aa",
                                 iconSystemName: nil,
                                 bgColor: nil,
-                                fontName: "Advanced LED Board-7",
+                                fontName: "Marske",
                                 bgImageName: nil,
                                 isPremium: freeSetting,
                                 handler: nil,
@@ -352,7 +413,18 @@ extension EditSettingsVM {
                                 title: "Aa",
                                 iconSystemName: nil,
                                 bgColor: nil,
-                                fontName: "LED Dot-Matrix",
+                                fontName: "LEPKA", 
+                                bgImageName: nil,
+                                isPremium: premiumSetting,
+                                handler: nil,
+                                infoMessage: nil
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: "Aa",
+                                iconSystemName: nil,
+                                bgColor: nil,
+                                fontName: "Baymax",
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
@@ -506,6 +578,39 @@ extension EditSettingsVM {
                                 handler: nil,
                                 infoMessage: nil
                             )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .magenta,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: freeSetting,
+                                handler: nil,
+                                infoMessage: nil
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .cyan,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: freeSetting,
+                                handler: nil,
+                                infoMessage: nil
+                            )),
+                        CellSectionType.regularCell(
+                            model: RegularCellModel(
+                                title: nil,
+                                iconSystemName: nil,
+                                bgColor: .systemPink,
+                                fontName: nil,
+                                bgImageName: nil,
+                                isPremium: freeSetting,
+                                handler: nil,
+                                infoMessage: nil
+                            )),
                     ]),
                 // MARK: - Stroke
                 EditSettingsSection(
@@ -531,7 +636,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "2"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -542,7 +647,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "5"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -553,7 +658,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "10"
                             )),
                     ]),
                 // MARK: - Shadow
@@ -580,7 +685,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "2"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -591,7 +696,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "5"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -602,7 +707,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "10"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -613,7 +718,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "15"
                             )),
                         CellSectionType.regularCell(
                             model: RegularCellModel(
@@ -624,7 +729,7 @@ extension EditSettingsVM {
                                 bgImageName: nil,
                                 isPremium: premiumSetting,
                                 handler: nil,
-                                infoMessage: nil
+                                infoMessage: "20"
                             )),
                     ]),
             ])

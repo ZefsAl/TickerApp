@@ -12,7 +12,7 @@ import ApphudSDK
 final class HomeVC: UIViewController {
     
     // MARK: - Realm
-    private let realm = try! Realm()
+    private lazy var realm = try! Realm()
     private var notificationToken: NotificationToken?
     private var premiumStatus: NSKeyValueObservation?
     

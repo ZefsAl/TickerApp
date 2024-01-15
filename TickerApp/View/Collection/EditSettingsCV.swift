@@ -9,24 +9,18 @@ import UIKit
 
 protocol CustomCollectionViewDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-//    func numberOfSections(in collectionView: UICollectionView) -> Int
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath)
 }
 
 final class EditSettingsCV: UICollectionView {
-
+    
     weak var customDelegate: CustomCollectionViewDelegate?
     
-    var editSettingsModel: EditSettingsModel 
+    var editSettingsModel: EditSettingsModel
     
-    private var axisValue: [Int:Float] = [
-        2003265652 : 330, // wght
-        1162629960 : 2, // ELSH
-        1162626898 : 1 // ELGR
-    ]
+    private var axisValueModel = AxisValueModel()
     
-    private var lockingOverlayView: LockingOverlayView = LockingOverlayView()
     
-
     // MARK: - Selected
     var selectedEffectIndexPath: [IndexPath] = [] {
         didSet {
@@ -45,8 +39,7 @@ final class EditSettingsCV: UICollectionView {
     }
     
     
-    
-    // MARK: - init
+    // MARK: - init ⚙️
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, editSettingsModel: EditSettingsModel) {
         
         self.editSettingsModel = editSettingsModel
@@ -58,7 +51,6 @@ final class EditSettingsCV: UICollectionView {
         self.showsVerticalScrollIndicator = false
         
         setCompositionalLayoutCV()
-        removePixelSetting()
     }
     
     required init?(coder: NSCoder) {
@@ -79,7 +71,7 @@ final class EditSettingsCV: UICollectionView {
         // Collection View
         self.collectionViewLayout = collectionViewLayout
     }
-    //
+    // set Section Layout
     private func setSectionLayout(sectionItems: [CellSectionType], environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         // layout Item + Size
         let itemSize = NSCollectionLayoutSize(
@@ -133,13 +125,17 @@ final class EditSettingsCV: UICollectionView {
     }
 }
 
-
+// MARK: - Axis Values
+extension EditSettingsCV {
+    public func resetAxisValues() {
+        self.axisValueModel.axisValue = AxisValueModel().axisValue
+    }
+}
 
 // MARK: - Data Source
 extension EditSettingsCV: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("numberOfSections🟠",self.editSettingsModel.sections.count)
         return self.editSettingsModel.sections.count
     }
     
@@ -180,15 +176,46 @@ extension EditSettingsCV: UICollectionViewDataSource {
 // MARK: - Delegate
 extension EditSettingsCV: UICollectionViewDelegate {
     
-    private func reselectCells() {
-//        self.selectedTextIndexPath
+    // Did Deselect
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if editSettingsModel.editSettingsModelType == .effect {
+            getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "General") { model in
+                switch indexPath {
+                case IndexPath(row: 0, section: 0):
+                    EditBannerVC.tickerView.setStroke(widthStr: "0")
+                case IndexPath(row: 1, section: 0):
+                    EditBannerVC.tickerView.reverseScroll(isReversedScroll: false)
+                case IndexPath(row: 2, section: 0):
+                    EditBannerVC.tickerView.setShadow(radiusStr: "0")
+                default: break
+                }
+            }
+        }
+        
+        // Custom Delegate - after all actions
+        self.customDelegate?.collectionView(collectionView, didDeselectItemAt: indexPath)
     }
     
-    // Did Select Item At
+    // Did Select
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // По хорошему didSelectItemAt переписать на switch
+        let led_v2 = findSelectedIndexPath_v2(editSettingsCV: self, type: .effect, sectionTitle: "LED")
+        // 🔍 Find in Specific self CV
+        // text
+        let size_v2 = findSelectedIndexPath_v2(editSettingsCV: self, type: .text, sectionTitle: "Size")
+        let fonts_v2 = findSelectedIndexPath_v2(editSettingsCV: self, type: .text, sectionTitle: "Fonts")
+        
+        // background
+        let image_v2 = findSelectedIndexPath_v2(editSettingsCV: self, type: .text, sectionTitle: "Image")
+        let color_v2 = findSelectedIndexPath_v2(editSettingsCV: self, type: .text, sectionTitle: "Color")
+        
+        
         
         // Select only one row in section
-        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
+        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems?.filter({ indexPath in
+            let section = editSettingsModel.sections[indexPath.section]
+            return section.sectionTitle != "General"
+        }) {
             for selectedIndex in selectedIndexPaths {
                 if (indexPath.section == selectedIndex.section) && (indexPath.row != selectedIndex.row) {
                     // только при переключении в контексте конкретной секции и колекции
@@ -198,42 +225,73 @@ extension EditSettingsCV: UICollectionViewDelegate {
         }
         
         
-        
-        // MARK: - Set Settings
-        //  Effect
+        // Set Settings
+        // MARK: - Effect
         if editSettingsModel.editSettingsModelType == .effect {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
             selectedEffectIndexPath = selectedIndexPaths
             
+            getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "General") { model in
+                switch indexPath {
+                case IndexPath(row: 0, section: 0):
+                    // Bold
+                    if led_v2 == IndexPath(row: 0, section: 1) {
+                        EditBannerVC.tickerView.setStroke(widthStr: "2")
+                    }
+                case IndexPath(row: 1, section: 0):
+                    // Reverse
+                    EditBannerVC.tickerView.reverseScroll(isReversedScroll: true)
+                case IndexPath(row: 2, section: 0):
+                    // Glow
+                    EditBannerVC.tickerView.setShadow(radiusStr: "5")
+                default: break
+                }
+            }
+            
+            
+            // Sparkle
+            getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "Sparkle") { model in
+                guard
+                    let infoMessage = model.infoMessage,
+                    let duration = Double(infoMessage)
+                else { return }
+                EditBannerVC.tickerView.startSparkleTimer(duration: duration)
+            }
+            
             // LED
             getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "LED") { model in
-                // Shape
-                if let number = model.infoMessage {
-                    self.axisValue[1162629960] = Float(number)
-                    EditBannerVC.tickerView.setHandjetFont(
-                        variableFont: .fontHandjet(150, axis: self.axisValue)
-                    )
+                guard let shape: String = model.infoMessage else {
+                    if indexPath == IndexPath(row: 0, section: 1) {
+                        EditBannerVC.tickerView.setDefaultFont()
+                    }
+                    return
                 }
+                self.axisValueModel.axisValue[1162629960] = Float(shape)
+                EditBannerVC.tickerView.setHandjetFont(
+                    variableFont: .fontHandjet(EditBannerVC.tickerView.currentFontSize, axis: self.axisValueModel.axisValue)
+                )
+                
             }
             
             // Pixel
             getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "Pixel") { model in
-                // Grid
-                if let grid = model.title {
-                    self.axisValue[1162626898] = Float(grid)
-                    EditBannerVC.tickerView.setHandjetFont(
-                        variableFont: .fontHandjet(150, axis: self.axisValue)
-                    )
+                if indexPath != IndexPath(row: 0, section: 1) {
+                    if let grid = model.title {
+                        self.axisValueModel.axisValue[1162626898] = Float(grid)
+                        EditBannerVC.tickerView.setHandjetFont(
+                            variableFont: .fontHandjet(EditBannerVC.tickerView.currentFontSize, axis: self.axisValueModel.axisValue)
+                        )
+                    }
                 }
             }
             
-            // Speed
+            // Scroll Speed
             getSelectedSettings_v2(selectedSettings: selectedEffectIndexPath, compareWith: "Scroll Speed") { model in
                 EditBannerVC.tickerView.setTextSpeed(speedStr: model.title)
             }
         }
         
-        // Text
+        // MARK: - Text
         // Добавляем выбранные indexPathsForSelectedItems в отдельный массив
         if editSettingsModel.editSettingsModelType == .text {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
@@ -242,11 +300,18 @@ extension EditSettingsCV: UICollectionViewDelegate {
             
             // Size
             getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Size") { model in
-                EditBannerVC.tickerView.setFontSize(stringSize: model.title)
+//                if fonts_v2 == nil {
+//                    EditBannerVC.tickerView.setDefaultFont()
+//                }
+                guard let title = model.title else { return }
+                EditBannerVC.tickerView.setFontSize(stringSize: title)
             }
             
             // Font
             getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Fonts") { model in
+                if size_v2 == nil {
+                    EditBannerVC.tickerView.setDefaultFont()
+                }
                 guard let fontName = model.fontName else { return }
                 EditBannerVC.tickerView.setFont(fontName: fontName)
             }
@@ -258,19 +323,16 @@ extension EditSettingsCV: UICollectionViewDelegate {
             
             // Stroke
             getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Stroke") { model in
-                EditBannerVC.tickerView.setStroke(widthStr: model.title)
+                EditBannerVC.tickerView.setStroke(widthStr: model.infoMessage)
             }
             
-            // Stroke
+            // Shadow
             getSelectedSettings_v2(selectedSettings: selectedTextIndexPath, compareWith: "Shadow") { model in
-                EditBannerVC.tickerView.setShadow(radiusStr: model.title)
-                
+                EditBannerVC.tickerView.setShadow(radiusStr: model.infoMessage)
             }
-            
-            
         }
         
-        //  Background
+        // MARK: - Background
         if editSettingsModel.editSettingsModelType == .background {
             guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else { return }
             selectedBackgroundIndexPath = selectedIndexPaths
@@ -286,33 +348,12 @@ extension EditSettingsCV: UICollectionViewDelegate {
         }
         
         
-        
         // Custom Delegate - after all actions
         self.customDelegate?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
-//    private func deselectLEDorFont() {
-        
-//        for selectedIndex in selectedSettings {
-//            let section = editSettingsModel.sections[selectedIndex.section]
-//            let cells = section.sectionCells[selectedIndex.row]
-//
-//
-//            if section.sectionTitle == "LED"
-//
-//
-////            if section.sectionTitle == compareWith {
-////                switch cells.self {
-////                case .regularCell(let model):
-////                    handler(model)
-////                }
-////            }
-//        }
-        
-        
-//    }
     
-    // MARK: - get Selected Settings 
+    // MARK: - get Selected Settings
     private func getSelectedSettings_v2(selectedSettings: [IndexPath], compareWith: String, handler: @escaping (RegularCellModel) -> Void ) {
         
         for selectedIndex in selectedSettings {
@@ -326,107 +367,5 @@ extension EditSettingsCV: UICollectionViewDelegate {
                 }
             }
         }
-    }
-    
-    
-}
-
-
-
-// Data manage
-extension EditSettingsCV {
-    
-    // По хорошему Manager нужен 
-    func removeSizeSection() {
-        guard editSettingsModel.editSettingsModelType == .text else { return }
-        // берем из VM образец данных исключаем "Fonts"
-        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
-            editSettingsSection.sectionTitle != "Size"
-        }
-        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: newTextSections)
-        self.editSettingsModel = newTextSettingsModel
-        self.reloadData()
-    }
-    
-    // +- работает
-    func removeFontsSection() {
-        guard editSettingsModel.editSettingsModelType == .text else { return }
-        // берем из VM образец данных исключаем "Fonts"
-        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
-            editSettingsSection.sectionTitle != "Fonts"
-        }
-        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .text, sections: newTextSections)
-        self.editSettingsModel = newTextSettingsModel
-        self.reloadData()
-    }
-    
-    func removePixelSetting() {
-        guard editSettingsModel.editSettingsModelType == .effect else { return }
-        let newTextSections = self.editSettingsModel.sections.filter { editSettingsSection in
-            editSettingsSection.sectionTitle != "Pixel"
-        }
-        let newTextSettingsModel = EditSettingsModel(editSettingsModelType: .effect, sections: newTextSections)
-        self.editSettingsModel = newTextSettingsModel
-        self.reloadData()
-    }
-    
-    func addPixelSetting(editSettingsModel: EditSettingsModel) {
-        guard editSettingsModel.editSettingsModelType == .effect else { return }
-        self.editSettingsModel = editSettingsModel
-        self.reloadData()
-    }
-    
-    func returnTextSettingsModel(editSettingsModel: EditSettingsModel) {
-        guard editSettingsModel.editSettingsModelType == .text else { return }
-        self.editSettingsModel = editSettingsModel
-        self.reloadData()
-    }
-    
-    
-    
-    func lockCollectionUI() {
-        print("🟣",self.contentSize.height)
-        lockingOverlayView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: self.contentSize.height + 44)
-        self.insertSubview(lockingOverlayView, aboveSubview: self)
-        self.bringSubviewToFront(lockingOverlayView)
-    }
-    
-    func unlockCollectionUI() {
-        print("🟣",self.frame)
-        lockingOverlayView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: self.frame.height)
-        lockingOverlayView.removeFromSuperview()
-    }
-    
-    
-}
-
-
-
-class LockingOverlayView: UIView {
-    
-    private let icon: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.isUserInteractionEnabled = false
-        let configImage = UIImage(systemName: "lock.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 44, weight: .regular))
-        iv.image = configImage
-        iv.tintColor = AppColors.gray1
-        return iv
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        // Style
-        self.backgroundColor = AppColors.gray6.withAlphaComponent(0.8)
-        //
-        self.addSubview(icon)
-        NSLayoutConstraint.activate([
-            icon.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            icon.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

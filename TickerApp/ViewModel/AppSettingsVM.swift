@@ -83,7 +83,7 @@ extension AppSettingsVM {
         settingsCells.append(
             AppSettingsCell(title: "Delete history", iconSystemName: "trash.fill", handler: {
                 // Delete All
-                let realm = try? Realm()
+                lazy var realm = try? Realm()
                 try? realm?.write {
                     realm?.deleteAll()
                 }

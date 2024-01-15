@@ -24,7 +24,7 @@
 		845F71A32AC86D2700B9F32E /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 845F71A22AC86D2700B9F32E /* MarqueeLabel */; };
 		846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD842ADEF98A00E960DB /* SettingsVC.swift */; };
 		846CBD882ADF04E000E960DB /* AppSettingsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */; };
-		846CBD8A2ADFCC3200E960DB /* Convert_IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */; };
+		846CBD8A2ADFCC3200E960DB /* IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CBD892ADFCC3200E960DB /* IndexPath.swift */; };
 		846F147B2AFA8BE70025C232 /* RampartOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F147D2AFA8BE70025C232 /* RampartOne-Regular.ttf */; };
 		846F14802AFA8C4B0025C232 /* Advanced LED Board-7.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */; };
 		846F14832AFA96540025C232 /* Blackcraft.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846F14822AFA96540025C232 /* Blackcraft.ttf */; };
@@ -40,8 +40,11 @@
 		84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */; };
 		84AABAA92B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */; };
 		84AABAAB2B26106D005C5C39 /* UIFont_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */; };
-		84B549342B26340300DE1964 /* TESTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B549332B26340300DE1964 /* TESTVC.swift */; };
-		84B549362B263A3A00DE1964 /* TESTVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B549352B263A3A00DE1964 /* TESTVC2.swift */; };
+		84AC7E612B4347CB00B8920D /* Marske.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84AC7E602B4347CB00B8920D /* Marske.ttf */; };
+		84AC7E632B434C2A00B8920D /* pixhobo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84AC7E622B434C2A00B8920D /* pixhobo.ttf */; };
+		84AC7E672B434CBA00B8920D /* LEPKA.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84AC7E662B434CBA00B8920D /* LEPKA.otf */; };
+		84AC7E692B434F2400B8920D /* Baymax.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84AC7E682B434F2400B8920D /* Baymax.otf */; };
+		84B531EA2B45C327007A458C /* AxisValueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B531E92B45C327007A458C /* AxisValueModel.swift */; };
 		84BCF6542AF159EA009DF51C /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */; };
 		84D342722AD01B3A00E9DD6E /* EditSettingsCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */; };
 		84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */; };
@@ -90,7 +93,7 @@
 		845F719B2AC8577E00B9F32E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		846CBD842ADEF98A00E960DB /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		846CBD872ADF04E000E960DB /* AppSettingsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsCVCell.swift; sourceTree = "<group>"; };
-		846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert_IndexPath.swift; sourceTree = "<group>"; };
+		846CBD892ADFCC3200E960DB /* IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPath.swift; sourceTree = "<group>"; };
 		846F147C2AFA8BE70025C232 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/RampartOne-Regular.ttf"; sourceTree = "<group>"; };
 		846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Advanced LED Board-7.ttf"; sourceTree = "<group>"; };
 		846F14822AFA96540025C232 /* Blackcraft.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Blackcraft.ttf; sourceTree = "<group>"; };
@@ -106,8 +109,11 @@
 		84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangers-Regular.ttf"; sourceTree = "<group>"; };
 		84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handjet-VariableFont_ELGR,ELSH,wght.ttf"; sourceTree = "<group>"; };
 		84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont_Ext.swift; sourceTree = "<group>"; };
-		84B549332B26340300DE1964 /* TESTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TESTVC.swift; sourceTree = "<group>"; };
-		84B549352B263A3A00DE1964 /* TESTVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TESTVC2.swift; sourceTree = "<group>"; };
+		84AC7E602B4347CB00B8920D /* Marske.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marske.ttf; sourceTree = "<group>"; };
+		84AC7E622B434C2A00B8920D /* pixhobo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pixhobo.ttf; sourceTree = "<group>"; };
+		84AC7E662B434CBA00B8920D /* LEPKA.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LEPKA.otf; sourceTree = "<group>"; };
+		84AC7E682B434F2400B8920D /* Baymax.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Baymax.otf; sourceTree = "<group>"; };
+		84B531E92B45C327007A458C /* AxisValueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisValueModel.swift; sourceTree = "<group>"; };
 		84BCF6452AEFF394009DF51C /* LEDgeneratorApp.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = LEDgeneratorApp.storekit; sourceTree = "<group>"; };
 		84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		84D342712AD01B3A00E9DD6E /* EditSettingsCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsCV.swift; sourceTree = "<group>"; };
@@ -237,8 +243,6 @@
 		845F718C2AC8576B00B9F32E /* TickerApp */ = {
 			isa = PBXGroup;
 			children = (
-				84B549332B26340300DE1964 /* TESTVC.swift */,
-				84B549352B263A3A00DE1964 /* TESTVC2.swift */,
 				845F718D2AC8576B00B9F32E /* AppDelegate.swift */,
 				845F718F2AC8576B00B9F32E /* SceneDelegate.swift */,
 				84DBB99C2AE2850D00A0784F /* TickerApp.entitlements */,
@@ -259,7 +263,7 @@
 		846F146F2AFA6CAC0025C232 /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				846CBD892ADFCC3200E960DB /* Convert_IndexPath.swift */,
+				846CBD892ADFCC3200E960DB /* IndexPath.swift */,
 				849C17202ADA9991007AEDE1 /* Convert_UIColor.swift */,
 				84AABAAA2B26106D005C5C39 /* UIFont_Ext.swift */,
 			);
@@ -272,6 +276,15 @@
 				84979B9E2AD9685E003DC1F5 /* TickerDataModel.swift */,
 			);
 			path = DataStorage;
+			sourceTree = "<group>";
+		};
+		84AC7E5F2B43472800B8920D /* Removed but works */ = {
+			isa = PBXGroup;
+			children = (
+				846F14942AFAB1250025C232 /* LED Dot-Matrix.ttf */,
+				846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */,
+			);
+			path = "Removed but works";
 			sourceTree = "<group>";
 		};
 		84D342702AD019F800E9DD6E /* Button */ = {
@@ -292,6 +305,7 @@
 			children = (
 				84D342752AD1336A00E9DD6E /* EditSettingsModel.swift */,
 				84DBB9AF2AE530B800A0784F /* AppSettingsModel.swift */,
+				84B531E92B45C327007A458C /* AxisValueModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,19 +323,22 @@
 		84D695D42AD702F3001E797B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				84AC7E5F2B43472800B8920D /* Removed but works */,
 				84BCF6532AF159EA009DF51C /* Oswald-Regular.ttf */,
 				84A2624A2AD7D8B400BC0C9C /* PermanentMarker-Regular.ttf */,
 				84A2624C2AD7DAFE00BC0C9C /* Bangers-Regular.ttf */,
 				846F147D2AFA8BE70025C232 /* RampartOne-Regular.ttf */,
 				84DBB9C32AE8311200A0784F /* RubikWetPaint-Regular.ttf */,
 				84DBB9C72AE939C300A0784F /* TrainOne-Regular.ttf */,
-				846F147F2AFA8C4B0025C232 /* Advanced LED Board-7.ttf */,
 				846F14822AFA96540025C232 /* Blackcraft.ttf */,
 				846F14862AFA9C690025C232 /* PixelifySans-Regular.ttf */,
-				846F14942AFAB1250025C232 /* LED Dot-Matrix.ttf */,
 				846F14962AFAB3220025C232 /* Bazaronite.ttf */,
 				846F14982AFAB68B0025C232 /* calculator-matrix.ttf */,
 				84AABAA82B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf */,
+				84AC7E602B4347CB00B8920D /* Marske.ttf */,
+				84AC7E622B434C2A00B8920D /* pixhobo.ttf */,
+				84AC7E662B434CBA00B8920D /* LEPKA.otf */,
+				84AC7E682B434F2400B8920D /* Baymax.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -426,15 +443,19 @@
 			files = (
 				846F14802AFA8C4B0025C232 /* Advanced LED Board-7.ttf in Resources */,
 				845F719A2AC8577E00B9F32E /* LaunchScreen.storyboard in Resources */,
+				84AC7E632B434C2A00B8920D /* pixhobo.ttf in Resources */,
 				84BCF6542AF159EA009DF51C /* Oswald-Regular.ttf in Resources */,
 				84AABAA92B25A8EA005C5C39 /* Handjet-VariableFont_ELGR,ELSH,wght.ttf in Resources */,
 				846F147B2AFA8BE70025C232 /* RampartOne-Regular.ttf in Resources */,
 				845F71972AC8577E00B9F32E /* Assets.xcassets in Resources */,
+				84AC7E672B434CBA00B8920D /* LEPKA.otf in Resources */,
 				846F14952AFAB1250025C232 /* LED Dot-Matrix.ttf in Resources */,
 				846F14972AFAB3220025C232 /* Bazaronite.ttf in Resources */,
 				846F14832AFA96540025C232 /* Blackcraft.ttf in Resources */,
+				84AC7E612B4347CB00B8920D /* Marske.ttf in Resources */,
 				84DBB9C42AE8311200A0784F /* RubikWetPaint-Regular.ttf in Resources */,
 				846F14992AFAB68C0025C232 /* calculator-matrix.ttf in Resources */,
+				84AC7E692B434F2400B8920D /* Baymax.otf in Resources */,
 				84A2624D2AD7DAFE00BC0C9C /* Bangers-Regular.ttf in Resources */,
 				846F14872AFA9C690025C232 /* PixelifySans-Regular.ttf in Resources */,
 				84A2624B2AD7D8B500BC0C9C /* PermanentMarker-Regular.ttf in Resources */,
@@ -510,7 +531,6 @@
 				849C17212ADA9991007AEDE1 /* Convert_UIColor.swift in Sources */,
 				846CBD852ADEF98A00E960DB /* SettingsVC.swift in Sources */,
 				84F9003C2ACF302B00611B54 /* BigButton.swift in Sources */,
-				84B549342B26340300DE1964 /* TESTVC.swift in Sources */,
 				84DBB9972AE17FB100A0784F /* NAVCloseButtonView.swift in Sources */,
 				84F9003E2ACF37B300611B54 /* RegularTextField.swift in Sources */,
 				84DBB9B02AE530B800A0784F /* AppSettingsModel.swift in Sources */,
@@ -528,8 +548,8 @@
 				8456F3452AD2D16300170B29 /* PaywallVC.swift in Sources */,
 				8456F3472AD2D9E900170B29 /* DocumentButton.swift in Sources */,
 				845F718E2AC8576B00B9F32E /* AppDelegate.swift in Sources */,
-				84B549362B263A3A00DE1964 /* TESTVC2.swift in Sources */,
-				846CBD8A2ADFCC3200E960DB /* Convert_IndexPath.swift in Sources */,
+				84B531EA2B45C327007A458C /* AxisValueModel.swift in Sources */,
+				846CBD8A2ADFCC3200E960DB /* IndexPath.swift in Sources */,
 				84D342762AD1336A00E9DD6E /* EditSettingsModel.swift in Sources */,
 				845F71902AC8576B00B9F32E /* SceneDelegate.swift in Sources */,
 				84D3427A2AD141F300E9DD6E /* EditSettingCVCell.swift in Sources */,
@@ -681,7 +701,7 @@
 				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8;
+				CURRENT_PROJECT_VERSION = 1.14;
 				DEVELOPMENT_TEAM = GZX949B9RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TickerApp/Info.plist;
@@ -692,12 +712,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waheedev.LEDgenerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -719,7 +739,7 @@
 				CODE_SIGN_ENTITLEMENTS = TickerApp/TickerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.8;
+				CURRENT_PROJECT_VERSION = 1.14;
 				DEVELOPMENT_TEAM = GZX949B9RT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TickerApp/Info.plist;
@@ -730,12 +750,12 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.waheedev.LEDgenerator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

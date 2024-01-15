@@ -54,15 +54,6 @@ final class SettingsVC: UIViewController, SettingsVCDelegate {
         settingsCV.register(AppSettingsCVCell.self, forCellWithReuseIdentifier: AppSettingsCVCell.reuseID)
         settingsCV.register(PromoCVCell.self, forCellWithReuseIdentifier: PromoCVCell.reuseID)
     }
-///    // MARK: - Premium Status KVO
-//    private func setPremiumStatusKVO() {
-//        premiumStatus = UserDefaults.standard.observe(\.userIsPremium, options: [.initial, .new], changeHandler: { (defaults, change) in
-//            print("🔵 Observe - onboardingIsCompleted: \(defaults.userIsPremium)")
-////            completion(defaults.userIsPremium)
-//            let cell = self.settingsCV.cellForItem(at: IndexPath(row: 0, section: 0)) as? PromoCVCell
-//            cell?.isHidden = true
-//        })
-//    }
 }
 
 

@@ -7,29 +7,33 @@
 
 import UIKit
 import ApphudSDK
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static var window: UIWindow?
+    private var onboardingObserver: NSKeyValueObservation?
     
-    var onboardingObserver: NSKeyValueObservation?
-//    var userIsPremiumObserver: NSKeyValueObservation?
+    private func checkTest() {
+        //        AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
+        //        let homeNavVC = UINavigationController(rootViewController: PaywallVC())
+        //        AppDelegate.window?.rootViewController = homeNavVC
+        //        AppDelegate.window?.makeKeyAndVisible()
+                // MARK: - Check
+        //        UserDefaults.standard.setValue(false, forKey: "OnboardingCompletedKey")
+        //        UserDefaults.standard.synchronize()
+    }
     
     // MARK: - Finish
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // MARK: - Test
-//        AppDelegate.window = UIWindow(frame: UIScreen.main.bounds)
-//        let homeNavVC = UINavigationController(rootViewController: PaywallVC())
-//        AppDelegate.window?.rootViewController = homeNavVC
-//        AppDelegate.window?.makeKeyAndVisible()
-        // MARK: - Test
-//        UserDefaults.standard.setValue(false, forKey: "OnboardingCompletedKey")
-//        UserDefaults.standard.synchronize()
+        // MARK: - Check
+//        checkTest()
         
         
         // Setup
+        migrateRealm()
         updateRootVC()
         setupApphud()
         registerFonts()
@@ -89,9 +93,19 @@ extension AppDelegate {
 
 
 
-// MARK: - check Active Subscription
+
 extension AppDelegate {
-    func checkActiveSubscription() {
+    
+    // MARK: - Realm migration
+    private func migrateRealm() {
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 5)
+    }
+    
+    
+    
+    
+    // MARK: - check Active Subscription
+    private func checkActiveSubscription() {
         // Hide premium badge
         let isActiveSubscription = Apphud.hasActiveSubscription()
         UserDefaults.standard.setValue(isActiveSubscription, forKey: "UserIsPremiumObserverKey")
@@ -105,9 +119,6 @@ extension AppDelegate {
         
         print("UserDefaults 💰", UserDefaults.standard.object(forKey: "UserIsPremiumObserverKey") as? Bool)
         
-//        print("🟠 hasActiveSubscription - ",Apphud.hasActiveSubscription())
-//        print("🟠 hasPremiumAccess - ",Apphud.hasPremiumAccess())
-//        print("🟠 subscription - ",Apphud.subscription()?.status)
         
         
 //        userIsPremiumObserver = UserDefaults.standard.observe(\.userIsPremium, options: [.initial, .new], changeHandler: { (defaults, change) in

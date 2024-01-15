@@ -20,8 +20,11 @@ class TickerDataModel: Object {
     // MARK: - Effect
 //    General
 //    LED
-//    Sparkle
+    
+    @Persisted var sparkleDuration: Double?
+    @Persisted var isReversedScroll: Bool?
     @Persisted var textSpeed: Double?
+    
     
     // MARK: - Text
     @Persisted var fontSize: Double?
@@ -37,10 +40,10 @@ class TickerDataModel: Object {
     // frame
     
     
-    // Select
-    @Persisted var selectedEffectIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 2]]))
-    @Persisted var selectedTextIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 1], [2, 2], [1, 1]]))
-    @Persisted var selectedBackgroundIndexData: Data = (encodeIndexPath(indexPathArr: [[0, 0]]))
+    // Select ???? 
+    @Persisted var selectedEffectIndexData: Data = (encodeIndexPath(indexPathArr: []))
+    @Persisted var selectedTextIndexData: Data = (encodeIndexPath(indexPathArr: []))
+    @Persisted var selectedBackgroundIndexData: Data = (encodeIndexPath(indexPathArr: []))
     
     // Selected Data 
     convenience init(
@@ -65,7 +68,9 @@ class TickerDataModel: Object {
         fontName: String,
         fontSize: Double,
         stroke: Double,
-        shadow: Double
+        shadow: Double,
+        isReversedScroll: Bool,
+        sparkleDuration: Double
     ) {
         self.init()
         self.dateAdded = dateAdded
@@ -78,6 +83,8 @@ class TickerDataModel: Object {
         self.fontSize = fontSize
         self.stroke = stroke
         self.shadow = shadow
+        self.isReversedScroll = isReversedScroll
+        self.sparkleDuration = sparkleDuration
     }
 }
 
