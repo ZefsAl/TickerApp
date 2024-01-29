@@ -776,13 +776,17 @@ extension EditBannerVC: CustomCollectionViewDelegate {
             print("✅ NEW text SELECT", title as Any, indexPath)
         case .background:
             
-//            color_v2
+            // case switch setting Color and image
             
             if title == "Color" {
                 guard let image_v2 = image_v2 else { return }
+                if image_v2 != IndexPath(row: 0, section: 1) {
+                    setSelectCV(indexPathArr: [IndexPath(row: 0, section: 1)], collection: self.backgroundSettingsCV)
+                }
                 self.backgroundSettingsCV.deselectItem(at: image_v2, animated: true)
-                setSelectCV(indexPathArr: [IndexPath(row: 0, section: 1)], collection: self.backgroundSettingsCV)
             }
+            
+            
             
 //            if image_v2 != IndexPath(row: 0, section: 1) {
 //
@@ -794,12 +798,8 @@ extension EditBannerVC: CustomCollectionViewDelegate {
         case .none: break;
         }
         
-//        func activateLED() {
-//
-//        }
         
         func deactivateLED() {
-            
             if fonts_v2 == nil {
                 setSelectCV(indexPathArr: [IndexPath(row: 0, section: 1)], collection: textSettingsCV)
             }

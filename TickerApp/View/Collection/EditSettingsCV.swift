@@ -213,6 +213,7 @@ extension EditSettingsCV: UICollectionViewDelegate {
         
         // Select only one row in section
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems?.filter({ indexPath in
+            // allow Multiple Selection ->
             let section = editSettingsModel.sections[indexPath.section]
             return section.sectionTitle != "General"
         }) {
